@@ -1138,8 +1138,8 @@ to install all updates</p>
 <li>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>openssl<span class="w"> </span>req<span class="w"> </span>-x509<span class="w"> </span>-keyout<span class="w"> </span>/etc/ssl/certs/3x-ui.key<span class="w"> </span>-out<span class="w"> </span>/etc/ssl/certs/3x-ui.pem<span class="w"> </span>-newkey<span class="w"> </span>rsa:4096<span class="w"> </span>-sha256<span class="w"> </span>-days<span class="w"> </span><span class="m">3650</span><span class="w"> </span>-nodes<span class="w"> </span>-new
 </code></pre></div>
-где .pem - публичный ключ, а .key - приватный.<br />
-Просто спамим enter, ничего заполнять не нужно.</p>
+where .pem is the public key, and .key is the private key.
+Just keep pressing Enter, no need to fill anything in.</p>
 </li>
 <li>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>bash<span class="w"> </span>&lt;<span class="o">(</span>curl<span class="w"> </span>-Ls<span class="w"> </span>https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh<span class="o">)</span>
@@ -1151,15 +1151,13 @@ to install the panel itself</p>
 <ol>
 <li>
 <p><code>Would you like to customize the Panel Port settings? (If not, a random port will be applied)</code>
-отвечаем "n".</p>
+we answer "n".</p>
 </li>
 <li>
-<p>Нажимаем на ссылку в строке Access URL, чтобы попасть в нашу панель. Вводим данные, которые нам были сгенерированы после установки.</p>
-</li>
-<li>
-<p>Заходим в Panel Settings и после в раздел Authentication, меняем данные для входа. В разделе General указываем путь к уже созданным Public &amp; Private ключам: /etc/ssl/certs/3x-ui.pem и /etc/ssl/certs/3x-ui.key, листаем вверх и жмём Save и Restart panel.</p>
+<p>Click on the link in the "Access URL" line to access our panel. Enter the credentials generated for us after the installation.</p>
 </li>
 </ol>
+<p>3.Go to Panel Settings, then to the Authentication section, and change the login details. In the General section, specify the path to the already created Public &amp; Private keys: /etc/ssl/certs/3x-ui.pem and /etc/ssl/certs/3x-ui.key. Scroll up, click Save, and restart the panel.</p>
 <h2 id="inbound-creation">Inbound creation</h2>
 <ul>
 <li>Protocol: <code>vless</code></li>
@@ -1168,16 +1166,17 @@ to install the panel itself</p>
 <li>Email = <code>email</code> or <code>username</code></li>
 <li>Security: <code>Reality</code></li>
 <li>uTLS: <code>chrome/firefox</code></li>
-<li>Dest и SNI: подбираем сайт, с минимальным пингом, в стране, где Ваш VPS. Проверить можно вводом в терминал VPS: <code>ping domain.com</code>. Можете уточнить в поддержке VPS или просто спросить ChatGPT.</li>
+<li>Dest и SNI: choose a website with the lowest ping in the country where your VPS is located. You can check it by running the following command in your VPS terminal: ping domain.com. You can ask your VPS support for assistance or simply ask ChatGPT.</li>
 </ul>
-<p>Если у вас занят 443 порт, то:</p>
+<p>If port 443 is occupied, then:</p>
 <ul>
-<li>Port: пользовательский или по умолчанию</li>
-<li>uTLS: chrome/firefox/random<br />
-  You are supposed to test it youself, because it works differently on each VPS, IPS and even OS. </li>
-<li>Dest and SNI: you also need to also check it yourself</li>
+<li>Port: custom or default</li>
+<li>uTLS: chrome/firefox/random
+You are supposed to test it yourself because it works differently on each VPS, ISP, and even OS.</li>
+<li>Dest and SNI: you also need to test these yourself.</li>
 </ul>
-<p>Нажимаем на иконку QR-code возле создавшегося клиента, кликаем по QR-code, чтобы скопировать в буфер обмена и вставляем в Nekoray/Streisand.</p>
+<p>Click on the QR code icon next to the created client, then click the QR code to copy it to the clipboard, and paste it into Nekoray/Streisand.</p>
+<p>Click on the QR code icon next to the created client, then click on the QR code to copy it to the clipboard and paste it into Nekoray/Streisand.</p>
 <h2 id="securing-and-little-tweaks">Securing and little tweaks</h2>
 <h3 id="fail2ban">Fail2ban</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>apt<span class="w"> </span>install<span class="w"> </span>fail2ban<span class="w"> </span>-y<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ufw<span class="w"> </span>-y
@@ -1257,7 +1256,7 @@ ctrl + x, y и enter.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-11-25T13:25:55+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-11-25</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-11-25T13:32:55+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-11-25</span>
   </span>
 
     
