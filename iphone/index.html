@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../images/logo.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.45">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.44">
     
     
       
@@ -852,6 +852,17 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    iPhone
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -861,6 +872,52 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#periodic-phone-wipe-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Periodic Phone Wipe Notes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -957,6 +1014,41 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#periodic-phone-wipe-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Periodic Phone Wipe Notes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -971,6 +1063,105 @@
 
 
 <h1 id="iphone-usage-notes">iPhone usage notes</h1>
+<h2 id="periodic-phone-wipe-notes">Periodic Phone Wipe Notes</h2>
+<p>It is a good manner to wipe your device every N-period. I would recommend wiping iPhone with every major release (iOS 17 -&gt; 18). Why? Because it is iOS.</p>
+<p>This page was written because I merged from iPhone 12 (64GB) to Nothing Phone (2).</p>
+<h2 id="backup">Backup</h2>
+<ul>
+<li>Manually uploading all files to Nextcloud if iCloud storage is full</li>
+<li>Reset your phone and set it up fresh, not by using a backup. However if it only contains your personal files, then you may. But I'd prefer doing everything manually.</li>
+<li>You can't downgrade if your iOS is NOT jail-broke</li>
+</ul>
+<h2 id="configuration">Configuration</h2>
+<ul>
+<li>Settings<ul>
+<li>Wi-FI<ul>
+<li>Ask to Join Networks: Notify</li>
+<li>Auto-Join Hotspot: Never</li>
+<li>Add Adguard DNS to your main Network if you need so</li>
+</ul>
+</li>
+<li>Proxy (Can't use the 3 letter word, so let's say it is Proxy)<ul>
+<li>Self-hosted according to <a href="3x-ui">3x-ui guide</a></li>
+<li>Always-on (manual turn on with every reboot)</li>
+</ul>
+</li>
+<li>General<ul>
+<li>AirDrop: Contancts only</li>
+<li>Autofill &amp; Passwords: Self-hosted Bitwarden</li>
+<li>Background App Refresh: Off</li>
+<li>Keyboard<ul>
+<li>Auto-Capitalisation: Off</li>
+<li>Auto-Correction: Off</li>
+</ul>
+</li>
+<li>Language &amp; Region: English &amp; France (since they can't slowdown devices in France)</li>
+</ul>
+</li>
+<li>Accessibility<ul>
+<li>Dispaly &amp; Text Size<ul>
+<li>Bold text: On</li>
+<li>On/Off Labels: On</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Search<ul>
+<li>Show Recent: Off</li>
+<li>Show Related: Off</li>
+<li>Help Apple: Off</li>
+</ul>
+</li>
+<li>Siri a.k.a worst assistant<ul>
+<li>Suggest Apps: Off</li>
+<li>Allow Notifications: Off</li>
+<li>Show Listening Suggestions: Off</li>
+</ul>
+</li>
+<li>StandBy<ul>
+<li>StandBy: Off (useless)</li>
+</ul>
+</li>
+<li>Screen Time<ul>
+<li>Communication Safety: Off</li>
+<li>Content &amp; Privacy Restrictions: Off</li>
+</ul>
+</li>
+<li>Privacy &amp; Security<ul>
+<li>Location Services -&gt; System Services<ul>
+<li>HomeKit: Off</li>
+<li>iPhone Analytics: Off</li>
+<li>Routing &amp; Traffic: Off</li>
+<li>Improve Maps: Off</li>
+</ul>
+</li>
+<li>Tracking: Off</li>
+<li>Journaling Suggestions: Off</li>
+<li>Sensitive Content Warning: Off</li>
+<li>Analytics &amp; Improvements: All off</li>
+<li>Apple Advertising: Off</li>
+<li>App Privacy Report: Off</li>
+<li>Stolen Device Protection: On</li>
+</ul>
+</li>
+<li>App Store<ul>
+<li>App Downloads: Off</li>
+<li>App Updates: Off</li>
+<li>In-App Content: Off</li>
+<li>Automatic Downloads: Off</li>
+<li>App Downloads: Ask if Over 200 MB</li>
+<li>Video Autoplay: Wi-Fi Only</li>
+<li>In-App Ratings &amp; Reviews: Off</li>
+<li>Offload Unused Apps: Off</li>
+</ul>
+</li>
+<li>Photos<ul>
+<li>Download and Keep Originals: On</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
 
 
@@ -993,7 +1184,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-11-23T14:14:30+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-11-23</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-11-29T16:30:11+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-11-29</span>
   </span>
 
     
