@@ -1,12 +1,27 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import starlightBlog from 'starlight-blog';
 
 // https://astro.build/config
 export default defineConfig({
 	site: "https://wiki.amdcloud.kz",
 	integrations: [
 		starlight({
+			plugins: [
+				starlightBlog({
+					title: 'Changelog',
+					prefix: 'changelog',
+					authors: {
+						prettyleaf: {
+							name: 'Ivan Kolesnikov',
+							picture: 'https://github.com/prettyleaf.png',
+							url: 'httpsL://github.com/prettyleaf',
+							title: 'Founder'
+						}
+					},
+				}),
+			],
 			title: 'TeamDominant',
 			logo: {
 				src: './src/assets/logo.png',
