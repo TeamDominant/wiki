@@ -8,13 +8,27 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'TeamDominant',
+			editLink: {
+				baseUrl: "https://github.com/TeamDominant/wiki/edit/master/",
+			},
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/TeamDominant/wiki' }],
+			defaultLocale: "root",
+			locales: {
+				root: {
+				label: "English",
+				lang: "en",
+				},
+				ru: {
+				label: "Русский",
+				lang: "ru",
+				},
+			},
 			sidebar: [
 				{
-					label: 'Guides',
+					label: 'Introduction',
 					items: [
 						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', slug: 'guides/example' },
+						{ label: 'Overview', slug: 'introduction/overview' },
 					],
 				},
 				{
