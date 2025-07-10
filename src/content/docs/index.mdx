@@ -1,16 +1,16 @@
 ---
-title: Welcome to Starlight
-description: Get started building your docs site with Starlight.
+title: TeamDominant/wiki
+description: Our knowledge base with answers for most frequent questions.
 template: splash
 hero:
-  tagline: Congrats on setting up a new Starlight project!
+  tagline: Our knowledge base with answers for most frequent questions.
   image:
-    file: ../../assets/houston.webp
+    file: ../../assets/logo.png
   actions:
-    - text: Example Guide
+    - text: View Introduction
       link: /introduction/overview
       icon: right-arrow
-    - text: Read the Starlight docs
+    - text: Read the changelog
       link: https://starlight.astro.build
       icon: external
       variant: minimal
@@ -22,15 +22,15 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 
 <CardGrid stagger>
 	<Card title="Update content" icon="pencil">
-		Edit `src/content/docs/index.mdx` to see this page change.
+		Found a mistake or we are wrong? Click **Edit page** in the bottom.
 	</Card>
 	<Card title="Add new content" icon="add-document">
-		Add Markdown or MDX files to `src/content/docs` to create new pages.
+		This repo is PR welcome, if you want to add some new info.
 	</Card>
-	<Card title="Configure your site" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
+	<Card title="Configure your setup" icon="setting">
+		Wiki provides setup instructions for most apps we recommend to use. Use it wisely.
 	</Card>
 	<Card title="Read the docs" icon="open-book">
-		Learn more in [the Starlight Docs](https://starlight.astro.build/).
+		Wiki also provides instructions to different type of software, which maybe helpful in your daily routine.
 	</Card>
 </CardGrid>

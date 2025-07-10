@@ -8,6 +8,9 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'TeamDominant',
+			logo: {
+				src: './src/assets/logo.png',
+			},
 			editLink: {
 				baseUrl: "https://github.com/TeamDominant/wiki/edit/master/",
 			},
