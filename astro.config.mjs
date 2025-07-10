@@ -4,7 +4,7 @@ import starlight from '@astrojs/starlight';
 
 // https://astro.build/config
 export default defineConfig({
-	site: "https://wiki.teamdominant.ru",
+	site: "https://wiki.amdcloud.kz",
 	integrations: [
 		starlight({
 			title: 'TeamDominant',
