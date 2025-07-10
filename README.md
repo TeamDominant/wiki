@@ -3,7 +3,7 @@
      <img src="./src/assets/logo.png" alt="Logo" width="160" height="160">
   </a>
 
-  <h1 align="center">Remnawave</h3>
+  <h1 align="center">TeamDominant/wiki</h3>
 
   <p align="center">
     Our knowledge base with answers for most frequent questions.
@@ -15,9 +15,6 @@
     </p>
     <a href="https://github.com/TeamDominant/wiki/releases">
       <img src="https://img.shields.io/github/v/release/TeamDominant/wiki?label=Latest%20release&style=social" alt="Latest release">
-    </a>
-    <a href="https://github.com/TeamDominant/wiki/stargazers">
-      <img src="https://img.shields.io/github/stars/TeamDominant?style=social" alt="Stars">
     </a>
     <a href="https://github.com/TeamDominant/wiki/actions/workflows/deploy.yml">
       <img src="https://github.com/TeamDominant/wiki/actions/workflows/deploy.yml/badge.svg" alt="Workflow">
@@ -32,7 +29,7 @@
     </a>
 </p>
 
----
+<h1 align="center"></h3>
 
 <details>
 <summary>Starlight README.md</summary>
@@ -94,7 +91,7 @@ Check out [Starlight’s docs](https://starlight.astro.build/), read [the Astro 
 
 </details>
 
----
+<h1 align="center"></h3>
 
 <details>
 <summary>Credits</summary>
