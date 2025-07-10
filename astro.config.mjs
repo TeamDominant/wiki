@@ -49,7 +49,7 @@ export default defineConfig({
 				{
 					label: 'Introduction',
 					items: [
-						{ label: 'Overview', slug: 'introduction/overview' },
+						{ label: 'Overview', slug: 'introduction/overview', badge: { text: 'WIP', variant: 'caution' } },
 					],
 				},
 				{
@@ -71,12 +71,12 @@ export default defineConfig({
 						{ label: 'Canary', slug: 'self-hosting/canary', badge: { text: 'WIP', variant: 'caution' } },
 						{ label: 'Cheat Sheet', slug: 'self-hosting/cheat-sheet', badge: { text: 'WIP', variant: 'caution' } },
 						{ label: 'DNS for Containers', slug: 'self-hosting/dns-for-containers', badge: { text: 'WIP', variant: 'caution' } },
-						{ label: 'FireHOL', slug: 'self-hosting/firehol', badge: { text: 'WIP', variant: 'caution' } },
+						{ label: 'Firehol', slug: 'self-hosting/firehol', badge: { text: 'WIP', variant: 'caution' } },
 						{ label: 'GeoBlock', slug: 'self-hosting/geoblock', badge: { text: 'WIP', variant: 'caution' } },
-						{ label: 'JFScan', slug: 'self-hosting/jfscan', badge: { text: 'WIP', variant: 'caution' } },
+						{ label: 'Jfscan', slug: 'self-hosting/jfscan', badge: { text: 'WIP', variant: 'caution' } },
 						{ label: 'Nextcloud', slug: 'self-hosting/nextcloud', badge: { text: 'WIP', variant: 'caution' } },
 						{ label: 'Scripts', slug: 'self-hosting/scripts', badge: { text: 'WIP', variant: 'caution' } },
-						{ label: 'SimpleLogin', slug: 'self-hosting/simplelogin', badge: { text: 'WIP', variant: 'caution' } },
+						{ label: 'Simplelogin', slug: 'self-hosting/simplelogin', badge: { text: 'WIP', variant: 'caution' } },
 						{ label: 'SWAG', slug: 'self-hosting/swag', badge: { text: 'WIP', variant: 'caution' } },
 					],
 				},
@@ -86,7 +86,7 @@ export default defineConfig({
 						{ label: 'Arch Linux', slug: 'other/archlinux', badge: { text: 'WIP', variant: 'caution' } },
 						{ label: 'iPhone', slug: 'other/iphone', badge: { text: 'WIP', variant: 'caution' } },
 						{ label: 'Nothing Phone', slug: 'other/nothingphone', badge: { text: 'WIP', variant: 'caution' } },
-						{ label: 'WUSH', slug: 'other/wush', badge: { text: 'WIP', variant: 'caution' } },
+						{ label: 'Wush', slug: 'other/wush', badge: { text: 'WIP', variant: 'caution' } },
 					],
 				},
 			],
