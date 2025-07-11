@@ -1,3 +1,36 @@
+<div align="center">
+   <a href="https://wiki.amdcloud.kz">
+     <img src="./src/assets/logo.png" alt="Logo" width="160" height="160">
+  </a>
+
+  <h1 align="center">TeamDominant/wiki</h3>
+
+  <p align="center">
+    Our knowledge base with answers for most frequent questions.
+    <br />
+    <p align="center">
+    <a href="https://wiki.amdcloud.kz">
+        <img src="https://img.shields.io/badge/Get%20Started-%E2%86%92-91f062?style=for-the-badge&labelColor=91f062&color=91f062" alt="Get Started" width="200" height="auto">
+    </a>
+    </p>
+    <a href="https://github.com/TeamDominant/wiki/releases">
+      <img src="https://img.shields.io/github/v/release/TeamDominant/wiki?label=Latest%20release&style=social" alt="Latest release">
+    </a>
+    <a href="https://github.com/TeamDominant/wiki/actions/workflows/deploy.yml">
+      <img src="https://github.com/TeamDominant/wiki/actions/workflows/deploy.yml/badge.svg" alt="Workflow">
+    </a>
+
+  </p>
+</div>
+
+<p align="center">
+    <a href="https://wiki.amdcloud.kz" target="_blank" rel="noopener noreferrer" >
+        <img src="./src/assets/wiki.png" alt="Wiki screenshots" width="600" height="auto">
+    </a>
+</p>
+
+<h1 align="center"></h3>
+
 <details>
 <summary>Starlight README.md</summary>
 
@@ -55,5 +88,14 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Check out [Starlight’s docs](https://starlight.astro.build/), read [the Astro documentation](https://docs.astro.build), or jump into the [Astro Discord server](https://astro.build/chat).
+
+</details>
+
+<details>
+<summary>Credits</summary>
+
+- [remnawave/panel README.md](https://github.com/remnawave/panel/blob/main/README.md)
+- [kutovoys/xray-checker docs](https://github.com/kutovoys/xray-checker/tree/main/docs)
+- [quietsy/advanced-configurations docs](https://github.com/quietsy/advanced-configurations/tree/master/docs)
 
 </details>
