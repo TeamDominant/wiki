@@ -20,6 +20,10 @@ export default defineConfig({
 							title: 'Founder'
 						}
 					},
+					metrics: {
+						readingTime: true,
+						words: 'total',
+					}
 				}),
 			],
 			title: 'TeamDominant',
