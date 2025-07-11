@@ -24,17 +24,17 @@ Right after a successful login, which is required __only once__, user can naviga
 
 - Startpage, which can be used at New tab homepage (e.g. Zen, [click to view instructions](/changelog/long-waited-v20/#betterzen-and-glance-integration)) as there are widgets like searchbar, weather, timezones and etc.
 
-![Glance startpage](../../../assets/changelog/long-waited-v2.0/glance1.png)
+![Glance startpage](../../../assets/changelog/long-awaited-v2.0/glance1.png)
 
 - Gaming, which contains most used features including as Top Categories on Twitch, Streamers, which are streaming at the moment, recent youtube videos, recent reddit game communities posts, steam sales.
 
-![Glance gaming page](../../../assets/changelog/long-waited-v2.0/glance2.png)
+![Glance gaming page](../../../assets/changelog/long-awaited-v2.0/glance2.png)
 
 - Media server, shows all info about Jellyfin, Jellyseer and other Arr containers.
 - Monitoring, will be useful only for maintainers, because it shows recent Github releases, Netbird peers status, server stats, uptime-kuma monitors and speedtest-tracker.
 - Market, contains Euro -> Ruble and Dollar -> Ruble indices, Crypto -> Dollar, Stocks and news about what happens in the world.
 
-![Glance market page](../../../assets/changelog/long-waited-v2.0/glance3.png)
+![Glance market page](../../../assets/changelog/long-awaited-v2.0/glance3.png)
 
 :::tip[Where can I get my credentials?]
 It is 99,9% chance, that you can here from our Telegram chat, so whether ask in chat or in my DMs.
@@ -44,7 +44,7 @@ It is 99,9% chance, that you can here from our Telegram chat, so whether ask in 
 
 After plenty of back-and-forth — especially during unexpected service downtimes — we are finally introducing a monitoring service.
 
-![Status page](../../../assets/changelog/long-waited-v2.0/status1.png)  
+![Status page](../../../assets/changelog/long-awaited-v2.0/status1.png)  
 
 As the title says, we finally can monitor the services status without struggling and waiting for an answer in chat each time.
 
@@ -53,13 +53,13 @@ As the title says, we finally can monitor the services status without struggling
 The old subscription page has been fully replaced with a new one created by [legiz-ru](https://github.com/legiz-ru/material-remnawave-subscription-page).  
 It not only looks better, but also provides new type of device — TV.
 
-![Subcription page](../../../assets/changelog/long-waited-v2.0/sub1.png)
+![Subcription page](../../../assets/changelog/long-awaited-v2.0/sub1.png)
 
 ### Speedtest-tracker
 
 We already [mentioned](/changelog/long-waited-v20/#homepage) speedtest-tracker, but can't to not mention it once again.
 
-![Speedtest-tracker page](../../../assets/changelog/long-waited-v2.0/speedtest-tracker.png)
+![Speedtest-tracker page](../../../assets/changelog/long-awaited-v2.0/speedtest-tracker.png)
 
 The test runs every 6 hours, so we can better understand how it goes on our servers.  
 Also, speedtest-tracker widget is created by Glance community and added to our homepage in order to monitor it without need to visit container page.
@@ -68,7 +68,7 @@ Also, speedtest-tracker widget is created by Glance community and added to our h
 
 Created a telegram bot with mini-app, so users can interact with their subscriptions without need to contact the owner.  
 
-![Telegram bot](../../../assets/changelog/long-waited-v2.0/telegram-shop.png)
+![Telegram bot](../../../assets/changelog/long-awaited-v2.0/telegram-shop.png)
 
 :::tip
 Recommended payment method is **Tribute**.
@@ -80,7 +80,7 @@ Recommended payment method is **Tribute**.
 
 Most of services got re-branding, you could notice it by visiting our services and telegram chats/bots.
 
-![Logo](../../../assets/changelog/long-waited-v2.0/brand.png)
+![Logo](../../../assets/changelog/long-awaited-v2.0/brand.png)
 
 ### Nginx & Xray configurations
 
@@ -91,7 +91,7 @@ Configurations were updated, everyone noticed it because services went down for 
 
 Happ announce on main page was updated for better understanding, providing more useful info and just looks better now.
 
-![Happ mobile](../../../assets/changelog/long-waited-v2.0/happ1.png)
+![Happ mobile](../../../assets/changelog/long-awaited-v2.0/happ1.png)
 
 ### BetterZen and Glance integration
 
@@ -128,7 +128,7 @@ So, now Photos tab's performance got tweaked very well. Remember photos and vide
 
 After a long fighting with Mkdocs Material, we couldn't get used to it. Due to personal preferences and lack of time we are migraing our Wiki to [Starlight developed by Astro](https://starlight.astro.build/)!
 
-![Starlight](../../../assets/changelog/long-waited-v2.0/starlight.png)
+![Starlight](../../../assets/changelog/long-awaited-v2.0/starlight.png)
 
 :::caution
 The contents of Wiki are still under re-write. Please, be patient. PR Welcome.
@@ -175,7 +175,7 @@ This part is mostly related to maintainers team.
 Second layer of auth was added to some of our services.  
 Services with such auth are supposed to be accessed only by maintainers / personal service.
 
-![Auth page](../../../assets/changelog/long-waited-v2.0/auth.png)
+![Auth page](../../../assets/changelog/long-awaited-v2.0/auth.png)
 
 ### Firehol
 
