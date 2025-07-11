@@ -22,7 +22,7 @@ Whatever, as it got replaced with different homepage container — [Glance](http
 
 Right after a successful login, which is required __only once__, user can navigate between tabs of different categories, such as:
 
-- Startpage, which can be used at New tab homepage (e.g. Zen, [click to view instructions](/changelog/long-waited-v20/#betterzen-and-glance-integration)) as there are widgets like searchbar, weather, timezones and etc.
+- Startpage, which can be used at New tab homepage (e.g. Zen, [click to view instructions](/changelog/long-awaited-v20/#betterzen-and-glance-integration)) as there are widgets like searchbar, weather, timezones and etc.
 
 ![Glance startpage](../../../assets/changelog/long-awaited-v2.0/glance1.png)
 
@@ -57,7 +57,7 @@ It not only looks better, but also provides new type of device — TV.
 
 ### Speedtest-tracker
 
-We already [mentioned](/changelog/long-waited-v20/#homepage) speedtest-tracker, but can't to not mention it once again.
+We already [mentioned](/changelog/long-awaited-v20/#homepage) speedtest-tracker, but can't to not mention it once again.
 
 ![Speedtest-tracker page](../../../assets/changelog/long-awaited-v2.0/speedtest-tracker.png)
 
@@ -108,7 +108,7 @@ Now you can experience our new homepage everytime you open new tab or window.
 ### Status page
 
 On the bottom of page you can now see when exactly stats were refreshed and when it will be refresh again.
-See [Status page update](/changelog/long-waited-v20/#status-page) for more info
+See [Status page update](/changelog/long-awaited-v20/#status-page) for more info
 
 ### Nextcloud
 
