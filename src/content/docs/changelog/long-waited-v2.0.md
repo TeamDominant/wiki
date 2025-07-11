@@ -24,7 +24,7 @@ Right after a successful login, which is required __only once__, user can naviga
 
 - Startpage, which can be used at New tab homepage (e.g. Zen, [click to view instructions](/changelog/long-waited-v20/#betterzen-and-glance-integration)) as there are widgets like searchbar, weather, timezones and etc.
 
-![Glance startpage](/src/assets/changelog/long-waited-v2.0/glance1.png)
+![Glance startpage](../../../assets/changelog/long-waited-v2.0/glance1.png)
 
 - Gaming, which contains most used features including as Top Categories on Twitch, Streamers, which are streaming at the moment, recent youtube videos, recent reddit game communities posts, steam sales.
 
