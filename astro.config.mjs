@@ -23,7 +23,7 @@ export default defineConfig({
 					metrics: {
 						readingTime: true,
 						words: 'total',
-					}
+					},
 				}),
 			],
 			title: 'TeamDominant',
