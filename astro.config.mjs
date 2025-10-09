@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import starlightBlog from 'starlight-blog';
+import starlightThemeGalaxy from 'starlight-theme-galaxy';
 
 // https://astro.build/config
 export default defineConfig({
@@ -25,13 +26,13 @@ export default defineConfig({
 						words: 'total',
 					},
 				}),
+				starlightThemeGalaxy(),
 			],
 			title: 'TeamDominant',
 			logo: {
 				src: './src/assets/logo.png',
 			},
 			customCss: [
-				// Relative path to your custom CSS file
 				'./src/styles/custom.css',
 			],
 			editLink: {
@@ -61,11 +62,9 @@ export default defineConfig({
 					items: [
 						{ label: 'Apps', slug: 'software/apps', badge: { text: 'WIP', variant: 'caution' } },
 						{ label: 'Betterfox', slug: 'software/betterfox', badge: { text: 'WIP', variant: 'caution' } },
-						{ label: 'Clash Meta', slug: 'software/clash-meta', badge: { text: 'WIP', variant: 'caution' } },
-						{ label: 'Clash Verge Rev', slug: 'software/clash-verge', badge: { text: 'WIP', variant: 'caution' } },
 						{ label: 'Discord', slug: 'software/discord', badge: { text: 'WIP', variant: 'caution' } },
-						{ label: 'FlClash', slug: 'software/flclash', badge: { text: 'WIP', variant: 'caution' } },
-						{ label: 'sing-box', slug: 'software/sing-box', badge: { text: 'WIP', variant: 'caution' } },
+						{ label: 'FlClashX', slug: 'software/flclashx', badge: { text: 'WIP', variant: 'caution' } },
+						{ label: 'Koala-Clash', slug: 'software/koala-clash', badge: { text: 'WIP', variant: 'caution' } },
 						{ label: 'Telegram', slug: 'software/telegram', badge: { text: 'WIP', variant: 'caution' } },
 					],
 				},
@@ -79,6 +78,7 @@ export default defineConfig({
 						{ label: 'GeoBlock', slug: 'self-hosting/geoblock', badge: { text: 'WIP', variant: 'caution' } },
 						{ label: 'Jfscan', slug: 'self-hosting/jfscan', badge: { text: 'WIP', variant: 'caution' } },
 						{ label: 'Nextcloud', slug: 'self-hosting/nextcloud', badge: { text: 'WIP', variant: 'caution' } },
+						{ label: 'Obsidian-Sync', slug: 'self-hosting/obsidian-sync' },
 						{ label: 'Scripts', slug: 'self-hosting/scripts', badge: { text: 'WIP', variant: 'caution' } },
 						{ label: 'Simplelogin', slug: 'self-hosting/simplelogin', badge: { text: 'WIP', variant: 'caution' } },
 						{ label: 'SWAG', slug: 'self-hosting/swag', badge: { text: 'WIP', variant: 'caution' } },
