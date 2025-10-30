@@ -3,10 +3,13 @@ title: Arch Linux
 description: A step-by-step guide to installing Arch Linux, including network setup, disk partitioning, and GRUB configuration.
 ---
 
+import { Aside } from '@astrojs/starlight/components';
+
 ## Preparation of Installation Image
-!!! note
-    We want to emphasize that Linux systems can be installed almost anywhere: on a desktop, a laptop, a USB drive, or even a phone (if the distribution supports it). The installation process is roughly the same, but there are differences that need to be understood. For example, when installing Arch Linux as a second system, you'll need to manually configure efibootmgr. Additionally, there are differences in setting up dual boot on a machine with BIOS versus UEFI.
-That's why guides will repeat certain steps to avoid creating confusion with too many "If you have BIOS, do this…" and "If you have UEFI, do that…" instructions scattered throughout.
+
+:::note
+We want to emphasize that Linux systems can be installed almost anywhere: on a desktop, a laptop, a USB drive, or even a phone (if the distribution supports it). The installation process is roughly the same, but there are differences that need to be understood. For example, when installing Arch Linux as a second system, you'll need to manually configure efibootmgr. Additionally, there are differences in setting up dual boot on a machine with BIOS versus UEFI. That's why guides will repeat certain steps to avoid creating confusion with too many "If you have BIOS, do this…" and "If you have UEFI, do that…" instructions scattered throughout.
+:::
 
 What You’ll Need to Begin Installation:
 
@@ -36,10 +39,11 @@ After downloading the image, open Rufus.
 - File system: Choose **FAT32**.  
 - Cluster size: Leave it as **default**.  
 
-![rufus_arch](assets/arch/rufus_arch.png)
+![rufus_arch](https://github.com/TeamDominant/wiki/blob/master/src/assets/archlinux/rufus_arch.png?raw=true)
 
-!!! IMPORTANT
-    All files on the USB drive will be erased! 
+:::danger
+All files on the USB drive will be erased! 
+:::
 
 - Click Start. In the pop-up window, select the option that mentions the **ISO**.
 
@@ -47,13 +51,11 @@ After the process is complete, connect the USB flash drive to the machine where 
 Enter the BIOS of the machine and disable Secure Boot (you can enable it again after the installation is complete).  
 Now, we can boot from the USB. When the machine boots from the USB, you'll see a menu. Select the first option **Arch Linux install medium**, and wait for the system to load.
 
-![start_arch](images/arch/Arch_install1.png)
+![start_arch](https://github.com/TeamDominant/wiki/blob/master/src/assets/archlinux/Arch_install1.png?raw=true)
 
 ## Installation
 
-### Network settings
-
-Setting Up a Wireless Network
+### Setting Up a Wireless Network
 
 If you are connected via a wired connection, simply check if it works using the following command:
 
@@ -69,8 +71,7 @@ Execute the command:
 iwctl
 ```
 
-![iwctl](images/arch/iwctl_settings.png)
-
+![iwctl](https://github.com/TeamDominant/wiki/blob/master/src/assets/archlinux/iwctl_settings.png?raw=true)
 
 Then enter the following commands:
 
@@ -125,8 +126,9 @@ We gonna use `fdisk`, which is simpler to use and more user-friendly for inexper
 
 First, let's determine the name of our disk.
 
-!!! IMPORTANT
-    It is recommended to disconnect any unnecessary disks to avoid confusion and the accidental loss of data due to inexperience.
+:::danger
+It is recommended to disconnect any unnecessary disks to avoid confusion and the accidental loss of data due to inexperience.
+:::
 
 Use the following command to determine the name of your disk:
 
@@ -156,8 +158,9 @@ Press ++n++ to create a new partition. Partition numbers should be left as defau
 
 Do same steps for `swap` by allocating 4-8G (if you want) and all remaining space for `root`.
 
-!!! IMPORTANT
-    SWAP is the swap partition; it is recommended to include it if your machine has less than 8 GB of RAM.
+:::danger
+SWAP is the swap partition; it is recommended to include it if your machine has less than 8 GB of RAM.
+:::
 
 After creating all partitions, press ++w++ to apply the changes.
 
@@ -173,7 +176,7 @@ archinstall
 
 We will be greeted with the following menu.
 
-![archinstall](images/arch/archinstall.png)
+![archinstall](https://github.com/TeamDominant/wiki/blob/master/src/assets/archlinux/archinstall.png?raw=true)
 
 Let's go step by step through the process of installing Arch Linux using the installer:
 
@@ -183,8 +186,9 @@ Let's go step by step through the process of installing Arch Linux using the ins
 
 - Select Locale language and search for the desired language. You may choose `ru_RU` if you need so.
 
-!!! Note 
-    To quickly search, you can press ? and type the language you need, such as en or ru.
+:::note
+To quickly search, you can press ? and type the language you need, such as en or ru.
+:::
 
 **Disk configuration**
 
@@ -260,8 +264,9 @@ For now, let’s add:
 
 *Choose your time zone.*
 
-!!! Note
-    For quick search, press ? and type your desired time zone.
+:::note
+For quick search, press ? and type your desired time zone.
+:::
 
 **Audio**
 
