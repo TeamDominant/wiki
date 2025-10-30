@@ -39,17 +39,17 @@ export default defineConfig({
 				baseUrl: "https://github.com/TeamDominant/wiki/edit/master/",
 			},
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/TeamDominant/wiki' }],
-			// defaultLocale: "root",
-			// locales: {
-			// 	root: {
-			// 	label: "English",
-			// 	lang: "en",
-			// 	},
-			// 	ru: {
-			// 	label: "Русский",
-			// 	lang: "ru",
-			// 	},
-			// },
+			defaultLocale: "root",
+			locales: {
+				root: {
+					label: "English",
+					lang: "en",
+				},
+				ru: {
+					label: "Русский",
+					lang: "ru",
+				},
+			},
 			sidebar: [
 				{
 					label: 'Introduction',
@@ -88,7 +88,7 @@ export default defineConfig({
 					label: 'Other',
 					items: [
 						{ label: 'Arch Linux', slug: 'other/archlinux', badge: { text: 'WIP', variant: 'caution' } },
-						{ label: 'iPhone', slug: 'other/iphone', badge: { text: 'WIP', variant: 'caution' } },
+						{ label: 'iPhone', slug: 'other/iphone' },
 						{ label: 'Nothing Phone', slug: 'other/nothingphone', badge: { text: 'WIP', variant: 'caution' } },
 						{ label: 'Wush', slug: 'other/wush', badge: { text: 'WIP', variant: 'caution' } },
 					],
