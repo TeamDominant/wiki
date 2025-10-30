@@ -81,7 +81,7 @@ export default defineConfig({
 						{ label: 'Obsidian-Sync', slug: 'self-hosting/obsidian-sync' },
 						{ label: 'Scripts', slug: 'self-hosting/scripts', badge: { text: 'WIP', variant: 'caution' } },
 						{ label: 'Simplelogin', slug: 'self-hosting/simplelogin', badge: { text: 'WIP', variant: 'caution' } },
-						{ label: 'SWAG', slug: 'self-hosting/swag', badge: { text: 'WIP', variant: 'caution' } },
+						{ label: 'SWAG', slug: 'self-hosting/swag' },
 					],
 				},
 				{
