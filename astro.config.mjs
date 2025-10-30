@@ -87,9 +87,9 @@ export default defineConfig({
 				{
 					label: 'Other',
 					items: [
-						{ label: 'Arch Linux', slug: 'other/archlinux', badge: { text: 'WIP', variant: 'caution' } },
+						{ label: 'Arch Linux', slug: 'other/archlinux' },
 						{ label: 'iPhone', slug: 'other/iphone' },
-						{ label: 'Nothing Phone', slug: 'other/nothingphone', badge: { text: 'WIP', variant: 'caution' } },
+						{ label: 'Nothing Phone', slug: 'other/nothingphone' },
 						{ label: 'Wush', slug: 'other/wush', badge: { text: 'WIP', variant: 'caution' } },
 					],
 				},
