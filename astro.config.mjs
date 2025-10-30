@@ -90,7 +90,7 @@ export default defineConfig({
 						{ label: 'Arch Linux', slug: 'other/archlinux' },
 						{ label: 'iPhone', slug: 'other/iphone' },
 						{ label: 'Nothing Phone', slug: 'other/nothingphone' },
-						{ label: 'Wush', slug: 'other/wush', badge: { text: 'WIP', variant: 'caution' } },
+						{ label: 'Wush', slug: 'other/wush' },
 					],
 				},
 			],
