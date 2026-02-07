@@ -1,0 +1,99 @@
+---
+title: "Obsidian-Sync setup"
+description: "Instruction on setting up sync in Obsidian."
+---
+
+## Server-side setup
+
+1. Create a docker compose and other required files in a directory:
+
+```bash
+mkdir /opt/obsidian-sync && cd /opt/obsidian-sync && mkdir couchdb && mkdir couchdb/data && touch couchdb/local.ini && micro compose.yaml
+```
+
+2. Import the following:
+
+```yaml title="compose.yaml"
+services:
+  couchdb:
+    image: couchdb:latest
+    container_name: obsidiansync
+    environment:
+      - TZ=Europe/Moscow # can be changed
+      - COUCHDB_USER=YOUR_USERNAME # important
+      - COUCHDB_PASSWORD=YOUR_LONG_PASSWORD # important
+    volumes:
+      - ./couchdb/data:/opt/couchdb/data
+      - ./couchdb/local.ini:/opt/couchdb/etc/local.ini
+    ports:
+      - 5984:5984
+    restart: unless-stopped
+```
+
+3. Post-install:
+   1. Navigate to `http://127.0.0.1:5984/_utils`.
+   2. Click `<->` to open the sidebar. Open the `Setup` page.
+   3. Select `Configure as single node` and enter your credentials from the compose file. Leave everything else untouched and click `Configure node`.
+   4. Verify the installation on the `Verify installation` page. You should see `Success!`.
+   5. Move to `Create Database`, enter your preferred database name, and select `Non-partitioned`.
+
+4. Configure the node:
+
+Navigate to `Configuration` and click `+ Add option`.
+
+Add the following options:
+
+| Section | Option | Value |
+|---------|--------|-------|
+| chttpd | require_valid_user | true |
+| chttpd_auth | require_valid_user | true |
+| httpd | WWW-Authenticate | Basic realm="couchdb" |
+| httpd | enable_cors | true |
+| chttpd | enable_cors | true |
+| chttpd | max_http_request_size | 4294967296 |
+| couchdb | max_document_size | 50000000 |
+| cors | credentials | true |
+| cors | origins | app://obsidian.md,capacitor://localhost,http://localhost |
+
+## Client-side setup
+
+1. Open Obsidian, navigate to `Settings` -> `Core Plugins`, and install `Self-hosted LiveSync`.
+
+2. After installation, click `Install` -> `Enable` -> `Open setting dialog` -> `Options`.
+
+3. On the top row of icons, click the 4th icon (`🛰️`):
+
+Remote type -> `CouchDB`  
+URI -> `obsidian.domain.com`  
+Username -> `YOUR_USERNAME`  
+Password -> `YOUR_LONG_PASSWORD`  
+Database -> `YOUR_DB_NAME`
+
+4. Click `Test` under **Test Database connection** and verify you get `Connection successful!`.
+
+5. Click `Check` under **Validate Database** and apply fixes if needed.
+
+6. Click `Apply`.
+
+7. Navigate to the 5th subpage (`🔄`):
+
+Presets -> `Livesync`  
+Sync mode -> `LiveSync`
+
+8. Navigate to the 3rd subpage:
+
+Enable the 2nd checkbox to show status on the status bar.
+
+9. Navigate to the 1st subpage:
+
+Scroll to the bottom and click `I've read everything`.
+
+10. Go back to the 2nd subpage:
+
+Click `Enable` under **Enable LiveSync**.
+
+11. A lot of popups will appear:
+    1. Click fetch.
+    2. Ignore the notification about size limitations if needed.
+
+12. Re-check step 7. Done.

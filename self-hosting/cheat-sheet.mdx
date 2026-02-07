@@ -1,0 +1,225 @@
+---
+title: "Linux questions and answers"
+sidebarTitle: "Cheat sheet"
+description: "Practical Ubuntu self-hosting commands for services, cron, Docker cleanup, diagnostics, and tuning."
+---
+
+Use this page as a quick reference for common Ubuntu self-hosting tasks.
+
+## Run a script as a service
+
+If you run a script like `./myscript.sh` and want it to start automatically after reboot, create a `systemd` unit.
+
+```ini title="/etc/systemd/system/myscript.service"
+[Unit]
+Description=Virtual Distributed Ethernet
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/YOUR_SCRIPT
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Reload `systemd`, enable the service, and start it:
+
+```bash title="Reload and enable service"
+sudo systemctl daemon-reload
+sudo systemctl enable myscript.service
+sudo systemctl start myscript.service
+sudo systemctl status myscript.service
+```
+
+## Schedule a nightly reboot
+
+Open your crontab:
+
+```bash
+crontab -e
+```
+
+Add this line at the bottom:
+
+```bash
+0 4 * * * /sbin/shutdown -r +5
+```
+
+This announces reboot at `04:00` and reboots at `04:05`.
+
+Cron format:
+
+```text
+m h dom mon dow command
+```
+
+<Note>
+Run `sudo crontab -e` if your reboot command needs root-level execution.
+</Note>
+
+## Remove old or unused Docker data
+
+Check Docker disk usage:
+
+```bash
+docker system df
+```
+
+Prune commands:
+
+- `docker container prune`
+- `docker image prune`
+- `docker network prune`
+- `docker volume prune`
+- `docker system prune`
+
+Remove all unused images (not only dangling):
+
+```bash
+docker image prune -a
+```
+
+Remove most unused Docker objects:
+
+```bash
+docker system prune --all
+```
+
+<Warning>
+`-a` and `--all` can remove images you still want to keep for fast redeploys.
+</Warning>
+
+## Clean your server
+
+Check filesystem usage:
+
+```bash
+df -h
+```
+
+Install and run `ncdu` for interactive analysis:
+
+```bash title="Install ncdu"
+sudo apt install -y ncdu
+```
+
+```bash title="Scan root filesystem"
+sudo ncdu /
+```
+
+<Warning>
+Be careful with manual file deletion in system directories.
+</Warning>
+
+Common cleanup targets:
+
+1. Old logs in `/var/log`:
+
+```bash
+sudo journalctl --vacuum-time=2d
+```
+
+2. Unused Docker objects in `/var/lib/docker`:
+
+```bash
+sudo docker image prune
+sudo docker container prune
+sudo docker network prune
+sudo docker volume prune
+sudo docker system prune -a
+```
+
+3. Unused packages:
+
+```bash
+sudo apt autoremove
+```
+
+<Note>
+For Pterodactyl hosts, avoid manual backup deletion in `/var/lib/pterodactyl` because panel state can become inconsistent.
+</Note>
+
+## Scripts
+
+### Geo check
+
+```bash
+wget -qO - "https://raw.githubusercontent.com/vernette/ipregion/refs/heads/master/ipregion.sh" | bash
+```
+
+### Speedtest
+
+```bash
+sudo apt update && sudo apt install -y curl && curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | sudo bash && sudo apt install -y speedtest && speedtest
+```
+
+### IP check for service blocks
+
+```bash
+bash <(curl -Ls IP.Check.Place) -l en
+```
+
+### Environment info and tests with Russian ISPs
+
+```bash
+wget -qO- speedtest.artydev.ru | bash
+```
+
+### Environment info and tests with ISPs
+
+```bash
+wget -qO- bench.sh | bash
+```
+
+<Warning>
+Review remote scripts before running `curl | bash` or `wget | bash` in production.
+</Warning>
+
+## Install Xanmod kernel
+
+1. Check which version your CPU supports:
+
+```bash
+wget https://dl.xanmod.org/check_x86-64_psabi.sh
+chmod +x check_x86-64_psabi.sh
+./check_x86-64_psabi.sh
+```
+
+2. Register the PGP key:
+
+```bash
+wget -qO - https://dl.xanmod.org/archive.key | sudo gpg --dearmor -vo /etc/apt/keyrings/xanmod-archive-keyring.gpg
+```
+
+3. Add the repository:
+
+```bash
+echo 'deb [signed-by=/etc/apt/keyrings/xanmod-archive-keyring.gpg] http://deb.xanmod.org releases main' | sudo tee /etc/apt/sources.list.d/xanmod-release.list
+```
+
+4. Install the recommended kernel version (example):
+
+```bash
+sudo apt update && sudo apt install linux-xanmod-x64v3
+```
+
+5. Apply BBR tuning if your stack needs it.
+6. Reboot.
+
+## Limit ICMP response rate
+
+Add stricter ICMP rate limits in `/etc/sysctl.conf`:
+
+```bash
+cat <<'EOT' | sudo tee -a /etc/sysctl.conf
+net.ipv4.icmp_msgs_burst=1
+net.ipv4.icmp_msgs_per_sec=1
+net.ipv4.icmp_ratelimit=1
+net.ipv6.icmp.ratelimit=1
+EOT
+sudo sysctl -p
+```
+
+Use this only after testing, because aggressive ICMP limits can complicate troubleshooting and network diagnostics.

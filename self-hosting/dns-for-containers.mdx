@@ -1,0 +1,88 @@
+---
+title: "DNS for containers"
+description: "Isolate DNS visibility per container with a dedicated AdGuard Home resolver."
+---
+
+Use this setup when you run many containers and need DNS logs that are easier to attribute to a specific service.
+
+<Warning>
+Some information is adapted from [virtualize.link](https://virtualize.link/).  
+Check the original [source repository](https://github.com/quietsy/advanced-configurations).
+</Warning>
+
+## Problem
+
+In a common setup, one host runs many containers and forwards DNS to a network resolver like Pi-hole or AdGuard Home.
+
+Without per-container DNS routing, queries from all containers are grouped together in one bucket. That makes malicious or abnormal lookups harder to trace to a single service.
+
+## Solution
+
+Run one AdGuard Home container as the DNS endpoint for your other containers.  
+Then point reverse DNS upstream to the Docker DNS on the host, so container names appear instead of raw IPs.
+
+![DNS for containers](/images/dns-for-containers/image.png)
+
+High-level flow:
+
+1. Create a bridge network with a static subnet.
+2. Run AdGuard Home with a static IP in that subnet.
+3. Assign static IPs to the other containers.
+4. Set each container `dns` to the AdGuard Home static IP.
+5. Add `depends_on` so services start after AdGuard Home.
+
+```yaml title="docker-compose.yaml"
+networks:
+  internal:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+services:
+  agh:
+    image: adguard/adguardhome
+    container_name: agh
+    volumes:
+      - /path/to/agh/conf:/opt/adguardhome/conf
+      - /path/to/agh/work:/opt/adguardhome/work
+    networks:
+      internal:
+        ipv4_address: 172.20.20.20
+    ports:
+      - 13080:80
+      - 13000:3000
+
+  someapp:
+    networks:
+      internal:
+        ipv4_address: 172.20.0.2
+    dns: 172.20.20.20
+    depends_on:
+      - agh
+```
+
+## AdGuard Home configuration
+
+Complete initial setup on port `13000`, then use port `13080` for the web UI.
+
+### General settings
+
+Go to **Settings** > **General settings**.
+
+- Block domains using filters and hosts files: disabled
+- Enable log: enabled
+- Query logs rotation: `90` days
+- Ignored domains: `||your-private-domain.tld^`
+- Enable statistics: enabled
+- Statistics retention: `90` days
+- Ignored domains: `||your-private-domain.tld^`
+
+### DNS settings
+
+Go to **Settings** > **DNS settings**.
+
+- Upstream DNS servers: `127.0.0.11`
+- Private reverse DNS servers: `127.0.0.11:53`
+- Use private reverse DNS resolvers: enabled
+- Rate limit: `0`

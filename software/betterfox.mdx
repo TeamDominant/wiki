@@ -1,0 +1,47 @@
+---
+title: "Betterfox"
+description: "Betterfox fork guide, setup steps, and configuration references."
+---
+
+<Warning>
+This page covers a **Betterfox** fork with light tweaks.
+
+Check the original [repository](https://github.com/yokoffing/Betterfox/).
+
+This page and fork are no longer maintained because the project moved to [Helium](https://github.com/imputnet/helium).
+</Warning>
+
+## Required reading
+
+1. Create a [backup profile](https://github.com/yokoffing/Betterfox/wiki/Backup).
+2. Download `user.js` from [here](https://raw.githubusercontent.com/yokoffing/Betterfox/main/user.js) (right click and select `Save Link As…`).
+3. Review [Common Overrides](https://github.com/yokoffing/Betterfox/wiki/Common-Overrides) and [Optional Hardening](https://github.com/yokoffing/Betterfox/wiki/Optional-Hardening), then apply the required changes.
+4. Open Firefox.
+5. In the URL bar, enter `about:profiles` and press **Enter**.
+6. For the profile to use, click **Open Folder** in **Root Directory**.
+7. Move `user.js` into that folder.
+
+After restarting Firefox:
+
+1. Install an ad blocker such as [uBlock Origin](https://addons.mozilla.org/blog/ublock-origin-everything-you-need-to-know-about-the-ad-blocker/) and apply the [recommended filters](https://github.com/yokoffing/filterlists#guidelines).
+2. Enable DNS-level protection with a preferred [provider](https://github.com/yokoffing/Betterfox/wiki/Optional-Hardening#secure-dns) to improve protection against threats, ads, and trackers.
+
+## Simple goals
+
+1. **Minimalism:** remove features that are not needed.
+2. **Efficiency:** improve Firefox speed and performance.
+3. **Privacy:** protect data without breaking websites.
+
+## Simple configs
+
+`Fastfox`, `Securefox`, `Peskyfox`, and `Smoothfox` are guides for Firefox settings.
+
+The `user.js` file is curated from these guides.
+
+| List | Description |
+| --- | --- |
+| [Fastfox](https://github.com/yokoffing/Betterfox/blob/main/Fastfox.js) | Increase Firefox browsing speed. |
+| [Securefox](https://github.com/yokoffing/Betterfox/blob/main/Securefox.js) | Protect data without causing site breakage. |
+| [Peskyfox](https://github.com/yokoffing/Betterfox/blob/main/Peskyfox.js) | Reduce distractions for a cleaner browsing experience. |
+| [Smoothfox](https://github.com/yokoffing/Betterfox/blob/main/Smoothfox.js) | Improve scrolling behavior with customizable options. |
+| [user.js](https://github.com/yokoffing/Betterfox/blob/main/user.js) | Combined baseline config with practical defaults. |

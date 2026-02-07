@@ -1,87 +1,77 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "TeamDominant/wiki",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#C2B5D3",
+    "light": "#CEC4DC",
+    "dark": "#9B91A9"
   },
   "favicon": "/favicon.svg",
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Wiki",
         "groups": [
           {
             "group": "Getting started",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              "index"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Software",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "software/apps",
+              "software/betterfox",
+              "software/discord",
+              "software/telegram"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Self-hosting",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "self-hosting/canary",
+              "self-hosting/cheat-sheet",
+              "self-hosting/dns-for-containers",
+              "self-hosting/firehol",
+              "self-hosting/geoblock",
+              "self-hosting/nextcloud",
+              "self-hosting/obsidian-sync",
+              "self-hosting/simplelogin",
+              "self-hosting/swag"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Other",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "other/arch",
+              "other/iphone",
+              "other/nothingphone",
+              "other/wush"
             ]
           }
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "FAQ",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "FAQ",
             "pages": [
-              "api-reference/introduction"
+              "faq/introduction"
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Software",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "software/flclashx",
+              "software/koala-clash"
             ]
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",
@@ -90,33 +80,19 @@
   "navbar": {
     "links": [
       {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "label": "Github",
+        "href": "https://github.com/TeamDominant"
       }
     ],
     "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
-  },
-  "contextual": {
-    "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+        "type": "button",
+        "label": "Donation",
+        "href": "https://t.me/tribute/app?startapp=dsRK"
+      }
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "github": "https://github.com/TeamDominant"
     }
   }
 }
