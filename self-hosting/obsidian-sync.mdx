@@ -3,15 +3,23 @@ title: "Obsidian-Sync setup"
 description: "Instruction on setting up sync in Obsidian."
 ---
 
+<Warning>
+Use a strong password for `COUCHDB_PASSWORD` and do not expose CouchDB directly to the public internet without proper reverse-proxy and access controls.
+</Warning>
+
 ## Server-side setup
 
-1. Create a docker compose and other required files in a directory:
+<Steps>
+<Step title="Create working directory and base files">
+Create a Docker Compose directory and required files:
 
 ```bash
 mkdir /opt/obsidian-sync && cd /opt/obsidian-sync && mkdir couchdb && mkdir couchdb/data && touch couchdb/local.ini && micro compose.yaml
 ```
+</Step>
 
-2. Import the following:
+<Step title="Create compose.yaml">
+Add the following:
 
 ```yaml title="compose.yaml"
 services:
@@ -29,19 +37,20 @@ services:
       - 5984:5984
     restart: unless-stopped
 ```
+</Step>
 
-3. Post-install:
-   1. Navigate to `http://127.0.0.1:5984/_utils`.
-   2. Click `<->` to open the sidebar. Open the `Setup` page.
-   3. Select `Configure as single node` and enter your credentials from the compose file. Leave everything else untouched and click `Configure node`.
-   4. Verify the installation on the `Verify installation` page. You should see `Success!`.
-   5. Move to `Create Database`, enter your preferred database name, and select `Non-partitioned`.
+<Step title="Run CouchDB setup in the web UI">
+1. Navigate to `http://127.0.0.1:5984/_utils`.
+2. Click `<->` to open the sidebar, then open `Setup`.
+3. Select `Configure as single node` and enter credentials from the compose file.
+4. Open `Verify installation` and confirm you see `Success!`.
+5. Go to `Create Database`, enter your preferred name, and select `Non-partitioned`.
+</Step>
 
-4. Configure the node:
-
+<Step title="Apply required CouchDB options">
 Navigate to `Configuration` and click `+ Add option`.
 
-Add the following options:
+Add:
 
 | Section | Option | Value |
 |---------|--------|-------|
@@ -54,46 +63,44 @@ Add the following options:
 | couchdb | max_document_size | 50000000 |
 | cors | credentials | true |
 | cors | origins | app://obsidian.md,capacitor://localhost,http://localhost |
+</Step>
+</Steps>
 
 ## Client-side setup
 
-1. Open Obsidian, navigate to `Settings` -> `Core Plugins`, and install `Self-hosted LiveSync`.
+<Steps>
+<Step title="Install and open Self-hosted LiveSync">
+Open Obsidian, go to `Settings` -> `Core Plugins`, and install `Self-hosted LiveSync`.
 
-2. After installation, click `Install` -> `Enable` -> `Open setting dialog` -> `Options`.
+Then click `Install` -> `Enable` -> `Open setting dialog` -> `Options`.
+</Step>
 
-3. On the top row of icons, click the 4th icon (`🛰️`):
+<Step title="Configure CouchDB connection">
+On the top icon row, click the 4th icon (`🛰️`) and set:
 
-Remote type -> `CouchDB`  
-URI -> `obsidian.domain.com`  
-Username -> `YOUR_USERNAME`  
-Password -> `YOUR_LONG_PASSWORD`  
-Database -> `YOUR_DB_NAME`
+- Remote type: `CouchDB`
+- URI: `obsidian.domain.com`
+- Username: `YOUR_USERNAME`
+- Password: `YOUR_LONG_PASSWORD`
+- Database: `YOUR_DB_NAME`
 
-4. Click `Test` under **Test Database connection** and verify you get `Connection successful!`.
+Click `Test` under **Test Database connection** and verify `Connection successful!`.
 
-5. Click `Check` under **Validate Database** and apply fixes if needed.
+Click `Check` under **Validate Database** and apply fixes if needed, then click `Apply`.
+</Step>
 
-6. Click `Apply`.
+<Step title="Configure sync mode">
+Go to the 5th subpage (`🔄`) and set:
 
-7. Navigate to the 5th subpage (`🔄`):
+- Presets: `Livesync`
+- Sync mode: `LiveSync`
+</Step>
 
-Presets -> `Livesync`  
-Sync mode -> `LiveSync`
-
-8. Navigate to the 3rd subpage:
-
-Enable the 2nd checkbox to show status on the status bar.
-
-9. Navigate to the 1st subpage:
-
-Scroll to the bottom and click `I've read everything`.
-
-10. Go back to the 2nd subpage:
-
-Click `Enable` under **Enable LiveSync**.
-
-11. A lot of popups will appear:
-    1. Click fetch.
-    2. Ignore the notification about size limitations if needed.
-
-12. Re-check step 7. Done.
+<Step title="Enable status and finalize setup">
+1. Open the 3rd subpage and enable the 2nd checkbox (status bar indicator).
+2. Open the 1st subpage, scroll down, and click `I've read everything`.
+3. Return to the 2nd subpage and click `Enable` under **Enable LiveSync**.
+4. If popups appear, click fetch and ignore size-limit notices if needed.
+5. Re-check sync mode from step 3.
+</Step>
+</Steps>

@@ -7,66 +7,161 @@
     "light": "#CEC4DC",
     "dark": "#9B91A9"
   },
+  "background": {
+    "image": {
+      "light": "/logo/background.jpg",
+      "dark": "/logo/background.jpg"
+    } 
+  },
   "favicon": "/favicon.svg",
   "navigation": {
-    "tabs": [
+    "languages": [
       {
-        "tab": "Wiki",
-        "groups": [
+        "language": "ru",
+        "label": "Русский",
+        "default": false,
+        "tabs": [
           {
-            "group": "Getting started",
-            "pages": [
-              "index"
+            "tab": "Вики",
+            "groups": [
+              {
+                "group": "Начало",
+                "pages": [
+                  "ru/index"
+                ]
+              },
+              {
+                "group": "Программы",
+                "pages": [
+                  "ru/software/apps",
+                  "ru/software/betterfox"
+                ]
+              },
+              {
+                "group": "Селф-хостинг",
+                "pages": [
+                  "ru/self-hosting/canary",
+                  "ru/self-hosting/cheat-sheet",
+                  "ru/self-hosting/dns-for-containers",
+                  "ru/self-hosting/firehol",
+                  "ru/self-hosting/geoblock",
+                  "ru/self-hosting/nextcloud",
+                  "ru/self-hosting/obsidian-sync",
+                  "ru/self-hosting/simplelogin",
+                  "ru/self-hosting/swag"
+                ]
+              },
+              {
+                "group": "Другое",
+                "pages": [
+                  "ru/other/arch",
+                  "ru/other/iphone",
+                  "ru/other/nothingphone",
+                  "ru/other/wush"
+                ]
+              }
             ]
           },
           {
-            "group": "Software",
-            "pages": [
-              "software/apps",
-              "software/betterfox",
-              "software/discord",
-              "software/telegram"
-            ]
-          },
-          {
-            "group": "Self-hosting",
-            "pages": [
-              "self-hosting/canary",
-              "self-hosting/cheat-sheet",
-              "self-hosting/dns-for-containers",
-              "self-hosting/firehol",
-              "self-hosting/geoblock",
-              "self-hosting/nextcloud",
-              "self-hosting/obsidian-sync",
-              "self-hosting/simplelogin",
-              "self-hosting/swag"
-            ]
-          },
-          {
-            "group": "Other",
-            "pages": [
-              "other/arch",
-              "other/iphone",
-              "other/nothingphone",
-              "other/wush"
+            "tab": "Ответы на вопросы",
+            "groups": [
+              {
+                "group": "Ответы на вопросы",
+                "pages": [
+                  "ru/faq/introduction"
+                ]
+              },
+              {
+                "group": "Программы",
+                "pages": [
+                  "ru/apps/flclashx",
+                  "ru/apps/koala-clash"
+                ]
+              },
+              {
+                "group": "Telegram",
+                "pages": [
+                  "ru/telegram/alerts",
+                  "ru/telegram/get",
+                  "ru/telegram/support",
+                  "ru/telegram/tribute"
+                ]
+              }
             ]
           }
         ]
       },
       {
-        "tab": "FAQ",
-        "groups": [
+        "language": "en",
+        "label": "English",
+        "default": true,
+        "tabs": [
           {
-            "group": "FAQ",
-            "pages": [
-              "faq/introduction"
+            "tab": "Wiki",
+            "groups": [
+              {
+                "group": "Getting started",
+                "pages": [
+                  "index"
+                ]
+              },
+              {
+                "group": "Software",
+                "pages": [
+                  "software/apps",
+                  "software/betterfox"
+                ]
+              },
+              {
+                "group": "Self-hosting",
+                "pages": [
+                  "self-hosting/canary",
+                  "self-hosting/cheat-sheet",
+                  "self-hosting/dns-for-containers",
+                  "self-hosting/firehol",
+                  "self-hosting/geoblock",
+                  "self-hosting/nextcloud",
+                  "self-hosting/obsidian-sync",
+                  "self-hosting/simplelogin",
+                  "self-hosting/swag"
+                ]
+              },
+              {
+                "group": "Other",
+                "pages": [
+                  "other/arch",
+                  "other/iphone",
+                  "other/nothingphone",
+                  "other/wush"
+                ]
+              }
             ]
           },
           {
-            "group": "Software",
-            "pages": [
-              "software/flclashx",
-              "software/koala-clash"
+            "tab": "FAQ",
+            "groups": [
+              {
+                "group": "FAQ",
+                "pages": [
+                  "faq/introduction"
+                ]
+              },
+              {
+                "group": "Apps",
+                "pages": [
+                  "apps/flclashx",
+                  "apps/koala-clash"
+                ]
+              },
+              {
+                "group": "Telegram",
+                "pages": [
+                  "telegram/alerts",
+                  "telegram/get",
+                  "telegram/support",
+                  "telegram/tribute"
+                ]
+              }
             ]
           }
         ]
@@ -86,13 +181,20 @@
     ],
     "primary": {
         "type": "button",
-        "label": "Donation",
+        "label": "Donate",
         "href": "https://t.me/tribute/app?startapp=dsRK"
       }
   },
   "footer": {
     "socials": {
       "github": "https://github.com/TeamDominant"
+    }
+  },
+  "errors": {
+    "404": {
+      "redirect": false,
+      "title": "I can't be found ＞﹏＜",
+      "description": "What ever **happened** to this _page_?"
     }
   }
 }

@@ -179,34 +179,41 @@ Review remote scripts before running `curl | bash` or `wget | bash` in productio
 
 ## Install Xanmod kernel
 
-1. Check which version your CPU supports:
+<Steps>
+<Step title="Check supported CPU level">
 
 ```bash
 wget https://dl.xanmod.org/check_x86-64_psabi.sh
 chmod +x check_x86-64_psabi.sh
 ./check_x86-64_psabi.sh
 ```
+</Step>
 
-2. Register the PGP key:
+<Step title="Register Xanmod signing key">
 
 ```bash
 wget -qO - https://dl.xanmod.org/archive.key | sudo gpg --dearmor -vo /etc/apt/keyrings/xanmod-archive-keyring.gpg
 ```
+</Step>
 
-3. Add the repository:
+<Step title="Add Xanmod repository">
 
 ```bash
 echo 'deb [signed-by=/etc/apt/keyrings/xanmod-archive-keyring.gpg] http://deb.xanmod.org releases main' | sudo tee /etc/apt/sources.list.d/xanmod-release.list
 ```
+</Step>
 
-4. Install the recommended kernel version (example):
+<Step title="Install kernel package">
 
 ```bash
 sudo apt update && sudo apt install linux-xanmod-x64v3
 ```
+</Step>
 
-5. Apply BBR tuning if your stack needs it.
-6. Reboot.
+<Step title="Finalize">
+Apply BBR tuning if your stack needs it, then reboot.
+</Step>
+</Steps>
 
 ## Limit ICMP response rate
 

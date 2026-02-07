@@ -25,11 +25,27 @@ Then point reverse DNS upstream to the Docker DNS on the host, so container name
 
 High-level flow:
 
-1. Create a bridge network with a static subnet.
-2. Run AdGuard Home with a static IP in that subnet.
-3. Assign static IPs to the other containers.
-4. Set each container `dns` to the AdGuard Home static IP.
-5. Add `depends_on` so services start after AdGuard Home.
+<Steps>
+<Step title="Create bridge network with static subnet">
+Create a bridge network with a static subnet for your stack.
+</Step>
+
+<Step title="Deploy AdGuard Home with static IP">
+Run AdGuard Home with a fixed IP in that subnet.
+</Step>
+
+<Step title="Assign static IPs to services">
+Assign static IPs to the remaining containers.
+</Step>
+
+<Step title="Point service DNS to AdGuard Home">
+Set each container `dns` to the AdGuard Home static IP.
+</Step>
+
+<Step title="Control startup order">
+Add `depends_on` so services start after AdGuard Home.
+</Step>
+</Steps>
 
 ```yaml title="docker-compose.yaml"
 networks:

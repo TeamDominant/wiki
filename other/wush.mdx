@@ -1,0 +1,140 @@
+---
+title: Wush
+description: A command line tool for peer-to-peer file transfer and remote shell access using WireGuard.
+---
+
+<Info>
+Use Wush when you need direct peer-to-peer transfer or temporary shell access without standing up a full VPN.
+</Info>
+
+## What is Wush?
+
+Wush is a command line tool that lets you transfer files and open shells over a peer-to-peer WireGuard connection. It's similar to magic-wormhole, but:
+
+1. No need to set up or trust a relay server for authentication.
+2. Powered by WireGuard for secure, fast, and reliable connections.
+3. Automatic peer-to-peer connections over UDP.
+4. Endless possibilities with `rsync`, `ssh`, and more.
+
+## Commands
+
+**Usage:**
+
+`wush <subcommand>`
+
+Start the wush server:
+
+```bash
+wush serve
+```
+
+Open a shell to the wush host:
+
+```bash
+wush ssh
+```
+
+Transfer files to the wush host using `rsync`:
+
+```bash
+wush rsync local-file.txt :/path/to/remote/file
+```
+
+Copy a single file to the host:
+
+```bash
+wush cp local-file.txt
+```
+
+**Subcommands:**
+
+| Command | Meaning |
+| --- | --- |
+| `cp` | Transfer files. |
+| `port-forward` | Forward ports. |
+| `rsync` | Transfer files over `rsync`. |
+| `serve` | Run the wush server. |
+| `ssh` | Open a shell. |
+| `version` | Show wush version. |
+
+**Options:**
+
+```bash
+wush --version
+```
+
+Print the version and exit.
+
+## Install
+
+Download from [GitHub Releases](https://github.com/coder/wush/releases/tag/v0.3.0).
+
+We tested the program using machines running *Windows* and *Linux* (with a GUI).
+
+For *Windows*, extract files to a folder and drive of your choice. Transferred files will be sent to/from there.
+
+On *Linux*, install it using your preferred method. Files (for us) were saved/sent to/from the home directory.
+
+## How to use
+
+Now let's transfer a PNG file from one machine to another. In this example, Windows acts as the host and Linux is the client.
+
+<Warning>
+Treat the auth key as a secret. Share it only with the intended recipient and rotate by starting a new session.
+</Warning>
+
+<Steps>
+<Step title="Start the host session">
+Open **CMD** from the folder where **Wush** is located, then run:
+
+```bash
+./wush serve
+```
+
+![wushserve](/images/wush/wushserve.png)
+
+Copy the `Auth key`.
+</Step>
+
+<Step title="Send a file from the client">
+On the client machine, run:
+
+```bash
+wush cp 2.png
+```
+
+![wushcp](/images/wush/wushcp.png)
+
+`2.png` is the file we want to send from Linux to Windows.
+</Step>
+
+<Step title="Paste the auth key and confirm transfer">
+Paste the key from the host machine into the client console.
+</Step>
+</Steps>
+
+How it looks:
+
+![wushgif](/images/wush/wush.gif)
+
+## SSH
+
+You can also use Wush for remote access to a machine's console.
+
+The connection is established with an auth key.
+
+For host:
+
+```bash
+wush serve
+```
+
+For client:
+
+```bash
+wush ssh
+```
+
+## Credits
+
+Source: [GitHub Coder-Wush](https://github.com/coder/wush)

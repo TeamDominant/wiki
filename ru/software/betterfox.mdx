@@ -1,0 +1,68 @@
+---
+title: "Betterfox"
+description: "Гайд по форку Betterfox, шаги настройки и справка по конфигурации."
+---
+
+<Warning>
+Эта страница описывает форк **Betterfox** с небольшими правками.
+
+Проверьте оригинальный [репозиторий](https://github.com/yokoffing/Betterfox/).
+
+Эта страница и форк больше не поддерживаются, потому что проект переехал в [Helium](https://github.com/imputnet/helium).
+</Warning>
+
+## Что обязательно прочитать
+
+<Steps>
+<Step title="Сделайте бэкап текущего профиля Firefox">
+Создайте [резервный профиль](https://github.com/yokoffing/Betterfox/wiki/Backup).
+</Step>
+
+<Step title="Скачайте user.js">
+Скачайте `user.js` [отсюда](https://raw.githubusercontent.com/yokoffing/Betterfox/main/user.js) (клик правой кнопкой и `Save Link As…`).
+</Step>
+
+<Step title="Проверьте опциональные настройки">
+Изучите [Common Overrides](https://github.com/yokoffing/Betterfox/wiki/Common-Overrides) и [Optional Hardening](https://github.com/yokoffing/Betterfox/wiki/Optional-Hardening), затем примените нужные изменения.
+</Step>
+
+<Step title="Откройте папку профиля">
+Откройте Firefox. В адресной строке введите `about:profiles` и нажмите **Enter**. Для нужного профиля нажмите **Open Folder** в разделе **Root Directory**.
+</Step>
+
+<Step title="Поместите user.js и перезапустите браузер">
+Переместите `user.js` в эту папку и перезапустите Firefox.
+</Step>
+</Steps>
+
+После перезапуска Firefox:
+
+<Steps>
+<Step title="Установите блокировщик рекламы">
+Установите блокировщик, например [uBlock Origin](https://addons.mozilla.org/blog/ublock-origin-everything-you-need-to-know-about-the-ad-blocker/), и примените [рекомендуемые фильтры](https://github.com/yokoffing/filterlists#guidelines).
+</Step>
+
+<Step title="Включите защищенный DNS">
+Включите DNS-защиту с предпочитаемым [провайдером](https://github.com/yokoffing/Betterfox/wiki/Optional-Hardening#secure-dns).
+</Step>
+</Steps>
+
+## Простые цели
+
+1. **Минимализм:** убрать ненужные функции.
+2. **Эффективность:** ускорить и стабилизировать Firefox.
+3. **Приватность:** защитить данные без поломки сайтов.
+
+## Простые конфиги
+
+`Fastfox`, `Securefox`, `Peskyfox` и `Smoothfox` — это гайды по настройкам Firefox.
+
+Файл `user.js` собран на основе этих гайдов.
+
+| List | Description |
+| --- | --- |
+| [Fastfox](https://github.com/yokoffing/Betterfox/blob/main/Fastfox.js) | Ускорение работы Firefox. |
+| [Securefox](https://github.com/yokoffing/Betterfox/blob/main/Securefox.js) | Защита данных без заметных поломок сайтов. |
+| [Peskyfox](https://github.com/yokoffing/Betterfox/blob/main/Peskyfox.js) | Снижение отвлекающих факторов для более чистого интерфейса. |
+| [Smoothfox](https://github.com/yokoffing/Betterfox/blob/main/Smoothfox.js) | Улучшение прокрутки с настраиваемым поведением. |
+| [user.js](https://github.com/yokoffing/Betterfox/blob/main/user.js) | Базовая объединенная конфигурация с практичными значениями по умолчанию. |

@@ -1,0 +1,104 @@
+---
+title: "DNS для контейнеров"
+description: "Изолируйте видимость DNS по каждому контейнеру через выделенный резолвер AdGuard Home."
+---
+
+Используйте эту схему, если у вас много контейнеров и нужны DNS-логи, которые проще привязать к конкретному сервису.
+
+<Warning>
+Часть информации адаптирована из [virtualize.link](https://virtualize.link/).  
+Проверьте оригинальный [репозиторий-источник](https://github.com/quietsy/advanced-configurations).
+</Warning>
+
+## Проблема
+
+В типовой схеме один хост запускает много контейнеров и отправляет DNS-запросы в сетевой резолвер вроде Pi-hole или AdGuard Home.
+
+Без маршрутизации DNS по каждому контейнеру запросы смешиваются в одну «корзину». Это затрудняет поиск конкретного сервиса, который делает подозрительные или вредоносные запросы.
+
+## Решение
+
+Запустите отдельный контейнер AdGuard Home как DNS-эндпоинт для остальных контейнеров.  
+Затем направьте reverse DNS upstream на Docker DNS хоста, чтобы видеть имена контейнеров вместо «сырых» IP.
+
+![DNS for containers](/images/dns-for-containers/image.png)
+
+Общий поток:
+
+<Steps>
+<Step title="Создайте bridge-сеть со статической подсетью">
+Создайте bridge-сеть со статической подсетью для вашего стека.
+</Step>
+
+<Step title="Разверните AdGuard Home со статическим IP">
+Запустите AdGuard Home с фиксированным IP в этой подсети.
+</Step>
+
+<Step title="Назначьте статические IP сервисам">
+Назначьте статические IP остальным контейнерам.
+</Step>
+
+<Step title="Укажите AdGuard Home как DNS">
+В каждом контейнере установите `dns` на статический IP AdGuard Home.
+</Step>
+
+<Step title="Настройте порядок запуска">
+Добавьте `depends_on`, чтобы сервисы стартовали после AdGuard Home.
+</Step>
+</Steps>
+
+```yaml title="docker-compose.yaml"
+networks:
+  internal:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+services:
+  agh:
+    image: adguard/adguardhome
+    container_name: agh
+    volumes:
+      - /path/to/agh/conf:/opt/adguardhome/conf
+      - /path/to/agh/work:/opt/adguardhome/work
+    networks:
+      internal:
+        ipv4_address: 172.20.20.20
+    ports:
+      - 13080:80
+      - 13000:3000
+
+  someapp:
+    networks:
+      internal:
+        ipv4_address: 172.20.0.2
+    dns: 172.20.20.20
+    depends_on:
+      - agh
+```
+
+## Конфигурация AdGuard Home
+
+Пройдите первичную настройку на порту `13000`, затем используйте `13080` для web UI.
+
+### Общие настройки
+
+Перейдите в **Settings** > **General settings**.
+
+- Block domains using filters and hosts files: disabled
+- Enable log: enabled
+- Query logs rotation: `90` days
+- Ignored domains: `||your-private-domain.tld^`
+- Enable statistics: enabled
+- Statistics retention: `90` days
+- Ignored domains: `||your-private-domain.tld^`
+
+### DNS settings
+
+Перейдите в **Settings** > **DNS settings**.
+
+- Upstream DNS servers: `127.0.0.11`
+- Private reverse DNS servers: `127.0.0.11:53`
+- Use private reverse DNS resolvers: enabled
+- Rate limit: `0`

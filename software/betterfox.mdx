@@ -13,18 +13,39 @@ This page and fork are no longer maintained because the project moved to [Helium
 
 ## Required reading
 
-1. Create a [backup profile](https://github.com/yokoffing/Betterfox/wiki/Backup).
-2. Download `user.js` from [here](https://raw.githubusercontent.com/yokoffing/Betterfox/main/user.js) (right click and select `Save Link As…`).
-3. Review [Common Overrides](https://github.com/yokoffing/Betterfox/wiki/Common-Overrides) and [Optional Hardening](https://github.com/yokoffing/Betterfox/wiki/Optional-Hardening), then apply the required changes.
-4. Open Firefox.
-5. In the URL bar, enter `about:profiles` and press **Enter**.
-6. For the profile to use, click **Open Folder** in **Root Directory**.
-7. Move `user.js` into that folder.
+<Steps>
+<Step title="Back up your current Firefox profile">
+Create a [backup profile](https://github.com/yokoffing/Betterfox/wiki/Backup).
+</Step>
+
+<Step title="Download user.js">
+Download `user.js` from [here](https://raw.githubusercontent.com/yokoffing/Betterfox/main/user.js) (right click and select `Save Link As…`).
+</Step>
+
+<Step title="Review optional config docs">
+Review [Common Overrides](https://github.com/yokoffing/Betterfox/wiki/Common-Overrides) and [Optional Hardening](https://github.com/yokoffing/Betterfox/wiki/Optional-Hardening), then apply required changes.
+</Step>
+
+<Step title="Open your profile directory">
+Open Firefox. In the URL bar, enter `about:profiles` and press **Enter**. For the profile to use, click **Open Folder** in **Root Directory**.
+</Step>
+
+<Step title="Place user.js and restart">
+Move `user.js` into that folder and restart Firefox.
+</Step>
+</Steps>
 
 After restarting Firefox:
 
-1. Install an ad blocker such as [uBlock Origin](https://addons.mozilla.org/blog/ublock-origin-everything-you-need-to-know-about-the-ad-blocker/) and apply the [recommended filters](https://github.com/yokoffing/filterlists#guidelines).
-2. Enable DNS-level protection with a preferred [provider](https://github.com/yokoffing/Betterfox/wiki/Optional-Hardening#secure-dns) to improve protection against threats, ads, and trackers.
+<Steps>
+<Step title="Install an ad blocker">
+Install an ad blocker such as [uBlock Origin](https://addons.mozilla.org/blog/ublock-origin-everything-you-need-to-know-about-the-ad-blocker/) and apply the [recommended filters](https://github.com/yokoffing/filterlists#guidelines).
+</Step>
+
+<Step title="Enable secure DNS">
+Enable DNS-level protection with a preferred [provider](https://github.com/yokoffing/Betterfox/wiki/Optional-Hardening#secure-dns).
+</Step>
+</Steps>
 
 ## Simple goals
 

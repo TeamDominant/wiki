@@ -1,19 +1,19 @@
 ---
-title: "Optimizing Nextcloud"
-description: "A step by step guide to optimize Nextcloud with SWAG, Redis, Collabora, and more."
+title: "Оптимизация Nextcloud"
+description: "Пошаговый гайд по оптимизации Nextcloud с SWAG, Redis, Collabora и не только."
 ---
 
 <Warning>
-Little disclaimer. Some information was copied from [virtualize.link](https://virtualize.link/), because I find information provided by its author useful. Make sure to check the [source](https://github.com/quietsy/advanced-configurations) or star the repo.
+Небольшой дисклеймер. Часть информации взята с [virtualize.link](https://virtualize.link/), потому что материалы автора полезны. Проверьте [источник](https://github.com/quietsy/advanced-configurations) или поставьте звезду репозиторию.
 </Warning>
 
-The following is a collection of ways to optimize Nextcloud's performance and responsiveness.
+Ниже — набор практик для повышения производительности и отзывчивости Nextcloud.
 
-## Optimization steps
+## Шаги оптимизации
 
-A step by step guide for setting up:
+Пошаговый план настройки:
 
-- [SWAG](https://github.com/linuxserver/docker-swag) reverse proxy via cloudflare
+- reverse proxy [SWAG](https://github.com/linuxserver/docker-swag) через cloudflare
 - [Nextcloud](https://github.com/linuxserver/docker-nextcloud)
 - Redis
 - [Mariadb](https://github.com/linuxserver/docker-mariadb)
@@ -26,15 +26,15 @@ A step by step guide for setting up:
 - Maintenance
 
 <Warning>
-Replace all occurences of `domain.com` with your domain.
+Замените все вхождения `domain.com` на ваш домен.
 </Warning>
 
 ## SWAG
 
-- Create a [Cloudflare](https://dash.cloudflare.com) account and set it as the nameserver for your domain.
-- Create DNS records for `domain.com` and `*.domain.com` with your home's WAN IP, disable the orange cloud.
-- Port forward `443` to your server on your home router.
-- Add SWAG to your docker compose and start it.
+- Создайте аккаунт [Cloudflare](https://dash.cloudflare.com) и укажите его как nameserver для вашего домена.
+- Создайте DNS-записи для `domain.com` и `*.domain.com` с WAN IP вашего дома, отключите orange cloud.
+- Настройте проброс `443` на ваш сервер в домашнем роутере.
+- Добавьте SWAG в docker compose и запустите.
 ```yaml
 swag:
   image: lscr.io/linuxserver/swag:latest
@@ -58,18 +58,18 @@ swag:
     - 80:80
   restart: unless-stopped
 ```
-- Generate a Cloudflare [API token](https://dash.cloudflare.com/profile/api-tokens) with `DNS:Read, DNS:Edit` permissions to `domain.com` and copy the token.
-- Edit `/path/to/swag/dns-conf/cloudflare.ini`, delete everything and paste the following with your token:
+- Создайте [API token](https://dash.cloudflare.com/profile/api-tokens) Cloudflare с правами `DNS:Read, DNS:Edit` для `domain.com` и скопируйте токен.
+- Откройте `/path/to/swag/dns-conf/cloudflare.ini`, удалите содержимое и вставьте:
 ```ini
 dns_cloudflare_api_token = token
 ```
-- Rename `/path/to/swag/nginx/proxy-confs/nextcloud.subdomain.conf.sample` to `nextcloud.subdomain.conf`.
-- Edit `/path/to/swag/nginx/ssl.conf` and uncomment HSTS and all the additional headers on the bottom.
-- Restart SWAG and make sure that `domain.com` shows the welcome page with a valid certificate.
+- Переименуйте `/path/to/swag/nginx/proxy-confs/nextcloud.subdomain.conf.sample` в `nextcloud.subdomain.conf`.
+- Отредактируйте `/path/to/swag/nginx/ssl.conf` и раскомментируйте HSTS и все дополнительные заголовки внизу.
+- Перезапустите SWAG и убедитесь, что `domain.com` открывает welcome page с валидным сертификатом.
 
 ## Nextcloud
 
-- Add [Nextcloud](https://github.com/linuxserver/docker-nextcloud), [Mariadb](https://github.com/linuxserver/docker-mariadb), and Redis to your docker compose and start them.
+- Добавьте [Nextcloud](https://github.com/linuxserver/docker-nextcloud), [Mariadb](https://github.com/linuxserver/docker-mariadb) и Redis в docker compose и запустите.
 ```yaml
 nextcloud:
   image: lscr.io/linuxserver/nextcloud:latest
@@ -103,10 +103,10 @@ redis:
   container_name: redis
   restart: unless-stopped
 ```
-- Navigate to `https://nextcloud.domain.com` and fill out the details for Nextcloud and Mariadb.
+- Перейдите на `https://nextcloud.domain.com` и заполните данные для Nextcloud и Mariadb.
 ![Nextcloud setup](/images/nextcloud/nextcloud.png)
-- Select recommended apps to install.
-- Run the following commands.
+- Выберите рекомендуемые приложения для установки.
+- Выполните команды.
 ```bash
 docker exec nextcloud occ app:disable richdocumentscode
 docker exec nextcloud occ maintenance:repair --include-expensive
@@ -128,7 +128,7 @@ docker exec nextcloud occ config:system:set maintenance_window_start --value=1 -
 docker exec nextcloud occ config:system:set filesystem_check_changes --value=1 --type=integer
 docker exec nextcloud occ config:system:set filelocking.enabled --value=true --type=boolean
 ```
-- Add the following to `/path/to/nextcloud/config/php/www2.conf`.
+- Добавьте в `/path/to/nextcloud/config/php/www2.conf`:
 ```ini
 pm = dynamic
 pm.max_children = 120
@@ -136,11 +136,11 @@ pm.start_servers = 12
 pm.min_spare_servers = 6
 pm.max_spare_servers = 18
 ```
-- Restart Nextcloud to apply the changes.
+- Перезапустите Nextcloud, чтобы применить изменения.
 
 ## Collabora
 
-- Add Collabora to your docker compose and start it.
+- Добавьте Collabora в docker compose и запустите.
 ```yaml
 collabora:
   image: collabora/code
@@ -156,7 +156,7 @@ collabora:
     - SYS_CHROOT
     - MKNOD
 ```
-- Add the following locations to `/path/to/swag/nginx/proxy-confs/nextcloud.subdomain.conf` inside the `server` section.
+- Добавьте следующие location-блоки в `/path/to/swag/nginx/proxy-confs/nextcloud.subdomain.conf` внутри `server`.
 ```nginx
 location ^~ /browser/ {
     include /config/nginx/proxy.conf;
@@ -183,18 +183,18 @@ location ^~ /cool/ {
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 }
 ```
-- Run the following commands.
+- Выполните команды.
 ```bash
 docker exec nextcloud occ app:enable richdocuments
 docker exec nextcloud occ config:app:set richdocuments wopi_url --value https://nextcloud.domain.com
 docker exec nextcloud occ config:app:set richdocuments wopi_allowlist --value=0.0.0.0/0
 docker exec nextcloud occ config:app:set richdocuments doc_format --value=ooxml
 ```
-- Disable Collabora's dark mode under **View** > **Dark Mode**.
+- Отключите dark mode Collabora в **View** > **Dark Mode**.
 
 ## Notify Push
 
-- Add the following environment variable to Nextcloud's docker compose and recreate it.
+- Добавьте переменную окружения в Nextcloud compose и пересоздайте контейнер.
 ```yaml
 environment:
   - DOCKER_MODS=linuxserver/mods:nextcloud-notify-push
@@ -202,11 +202,11 @@ environment:
 
 ## Talk high performance backend
 
-- Generate 3 secrets using the following command and paste them to the compose below.
+- Сгенерируйте 3 секрета командой ниже и вставьте их в compose.
 ```bash
 openssl rand -hex 32
 ```
-- Add the high performance backend to your docker compose and start it.
+- Добавьте high performance backend в docker compose и запустите.
 ```yaml
 talk:
   image: nextcloud/aio-talk:latest
@@ -225,7 +225,7 @@ talk:
     - INTERNAL_SECRET=secret
   restart: unless-stopped
 ```
-- Paste the following to the bottom of `/path/to/swag/nginx/proxy-confs/nextcloud.subdomain.conf`.
+- Добавьте в конец `/path/to/swag/nginx/proxy-confs/nextcloud.subdomain.conf`:
 ```nginx
 server {
     listen 443 ssl;
@@ -245,21 +245,21 @@ server {
 }
 ```
 
-- Run the following commands using the secrets generated earlier.
+- Выполните команды с секретами, сгенерированными ранее.
 ```bash
 docker exec nextcloud occ talk:signaling:add --verify https://talk.domain.com SIGNALING_SECRET
 docker exec nextcloud occ talk:stun:add talk.domain.com:3478
 docker exec nextcloud occ talk:turn:add --secret TURN_SECRET turn talk.domain.com:3478 udp,tcp
 ```
-- Optionally port forward `3478` on your router to expose it.
+- По желанию пробросьте `3478` на роутере.
 
 ## Whiteboard
 
-- Generate a secret using the following command and paste it below.
+- Сгенерируйте секрет командой и вставьте ниже.
 ```bash
 openssl rand -hex 32
 ```
-- Add Whiteboard to your docker compose and start it.
+- Добавьте Whiteboard в docker compose и запустите.
 ```yaml
 whiteboard:
   image: ghcr.io/nextcloud-releases/whiteboard:release
@@ -271,7 +271,7 @@ whiteboard:
     - JWT_SECRET_KEY=secret
   restart: unless-stopped
 ```
-- Paste the following to the bottom of `/path/to/swag/nginx/proxy-confs/nextcloud.subdomain.conf`.
+- Добавьте в конец `/path/to/swag/nginx/proxy-confs/nextcloud.subdomain.conf`:
 ```nginx
 server {
     listen 443 ssl;
@@ -290,7 +290,7 @@ server {
     }
 }
 ```
-- Run the following commands.
+- Выполните команды.
 ```bash
 docker exec nextcloud occ app:enable whiteboard
 docker exec nextcloud occ config:app:set whiteboard collabBackendUrl --value="https://whiteboard.domain.com"
@@ -299,14 +299,14 @@ docker exec nextcloud occ config:app:set whiteboard jwt_secret_key --value="secr
 
 ## Imaginary
 
-- Add Imaginary to your docker compose and start it.
+- Добавьте Imaginary в docker compose и запустите.
 ```yaml
 imaginary:
   image: nextcloud/aio-imaginary:latest
   container_name: imaginary
   restart: unless-stopped
 ```
-- Run the following commands.
+- Выполните команды.
 ```bash
 docker exec nextcloud occ config:system:set enable_previews --value=true --type=boolean
 docker exec nextcloud occ config:system:set enabledPreviewProviders 0 --value='OC\\Preview\\Imaginary'
@@ -317,14 +317,14 @@ docker exec nextcloud occ config:system:set preview_imaginary_url --value='http:
 
 ## Diagrams
 
-- Add draw.io to your docker compose and start it.
+- Добавьте draw.io в docker compose и запустите.
 ```yaml
 drawio:
   image: jgraph/drawio:alpine
   container_name: drawio
   restart: unless-stopped
 ```
-- Add the following locations to `/path/to/swag/nginx/proxy-confs/nextcloud.subdomain.conf` inside the `server` section.
+- Добавьте location-блок в `/path/to/swag/nginx/proxy-confs/nextcloud.subdomain.conf` внутри `server`.
 ```nginx
 location ^~ /draw/ {
     include /config/nginx/proxy.conf;
@@ -335,7 +335,7 @@ location ^~ /draw/ {
     proxy_pass $upstream_proto://$upstream_app:$upstream_port;
 }
 ```
-- Run the following commands.
+- Выполните команды.
 ```bash
 docker exec nextcloud occ app:enable drawio
 docker exec nextcloud occ config:app:set drawio DrawioUrl --value="https://nextcloud.domain.com/draw"
@@ -343,9 +343,9 @@ docker exec nextcloud occ config:app:set drawio DrawioUrl --value="https://nextc
 
 ## Maintenance
 
-- Manually pull new images and recreate the containers every few weeks.
-- Check `docker logs mariadb` for upgrade instructions.
-- Run the following commands.
+- Раз в несколько недель вручную обновляйте образы и пересоздавайте контейнеры.
+- Проверяйте `docker logs mariadb` на инструкции по апгрейду.
+- Выполняйте команды ниже.
 ```bash
 docker exec nextcloud occ maintenance:repair --include-expensive
 docker exec nextcloud occ db:add-missing-indices

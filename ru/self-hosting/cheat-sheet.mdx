@@ -1,0 +1,232 @@
+---
+title: "Linux вопросы и ответы"
+sidebarTitle: "Cheat sheet"
+description: "Практичные Ubuntu-команды для self-hosting: сервисы, cron, очистка Docker, диагностика и тюнинг."
+---
+
+Используйте эту страницу как быстрый справочник по частым задачам self-hosting на Ubuntu.
+
+## Запуск скрипта как сервиса
+
+Если вы запускаете скрипт вроде `./myscript.sh` и хотите автозапуск после перезагрузки, создайте `systemd` unit.
+
+```ini title="/etc/systemd/system/myscript.service"
+[Unit]
+Description=Virtual Distributed Ethernet
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/YOUR_SCRIPT
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Перезагрузите `systemd`, включите сервис и запустите его:
+
+```bash title="Reload and enable service"
+sudo systemctl daemon-reload
+sudo systemctl enable myscript.service
+sudo systemctl start myscript.service
+sudo systemctl status myscript.service
+```
+
+## Ночной ребут по расписанию
+
+Откройте crontab:
+
+```bash
+crontab -e
+```
+
+Добавьте строку в конец:
+
+```bash
+0 4 * * * /sbin/shutdown -r +5
+```
+
+Это объявит ребут в `04:00` и перезагрузит систему в `04:05`.
+
+Формат cron:
+
+```text
+m h dom mon dow command
+```
+
+<Note>
+Если команда ребута требует root-прав, используйте `sudo crontab -e`.
+</Note>
+
+## Удаление старых/неиспользуемых данных Docker
+
+Проверьте использование места Docker:
+
+```bash
+docker system df
+```
+
+Команды очистки:
+
+- `docker container prune`
+- `docker image prune`
+- `docker network prune`
+- `docker volume prune`
+- `docker system prune`
+
+Удалить все неиспользуемые образы (не только dangling):
+
+```bash
+docker image prune -a
+```
+
+Удалить большую часть неиспользуемых объектов Docker:
+
+```bash
+docker system prune --all
+```
+
+<Warning>
+`-a` и `--all` могут удалить образы, которые вы хотели оставить для быстрого redeploy.
+</Warning>
+
+## Очистка сервера
+
+Проверьте использование файловой системы:
+
+```bash
+df -h
+```
+
+Установите и запустите `ncdu` для интерактивного анализа:
+
+```bash title="Install ncdu"
+sudo apt install -y ncdu
+```
+
+```bash title="Scan root filesystem"
+sudo ncdu /
+```
+
+<Warning>
+Будьте осторожны с ручным удалением файлов в системных директориях.
+</Warning>
+
+Частые цели для очистки:
+
+1. Старые логи в `/var/log`:
+
+```bash
+sudo journalctl --vacuum-time=2d
+```
+
+2. Неиспользуемые Docker-объекты в `/var/lib/docker`:
+
+```bash
+sudo docker image prune
+sudo docker container prune
+sudo docker network prune
+sudo docker volume prune
+sudo docker system prune -a
+```
+
+3. Неиспользуемые пакеты:
+
+```bash
+sudo apt autoremove
+```
+
+<Note>
+Для хостов Pterodactyl избегайте ручного удаления бэкапов в `/var/lib/pterodactyl`, чтобы не нарушить состояние панели.
+</Note>
+
+## Скрипты
+
+### Проверка геолокации
+
+```bash
+wget -qO - "https://raw.githubusercontent.com/vernette/ipregion/refs/heads/master/ipregion.sh" | bash
+```
+
+### Speedtest
+
+```bash
+sudo apt update && sudo apt install -y curl && curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | sudo bash && sudo apt install -y speedtest && speedtest
+```
+
+### Проверка IP на блокировки сервисов
+
+```bash
+bash <(curl -Ls IP.Check.Place) -l en
+```
+
+### Информация о среде и тесты с российскими ISP
+
+```bash
+wget -qO- speedtest.artydev.ru | bash
+```
+
+### Информация о среде и тесты с ISP
+
+```bash
+wget -qO- bench.sh | bash
+```
+
+<Warning>
+Перед запуском `curl | bash` или `wget | bash` в production обязательно проверяйте удаленные скрипты.
+</Warning>
+
+## Установка ядра Xanmod
+
+<Steps>
+<Step title="Проверьте поддерживаемый уровень CPU">
+
+```bash
+wget https://dl.xanmod.org/check_x86-64_psabi.sh
+chmod +x check_x86-64_psabi.sh
+./check_x86-64_psabi.sh
+```
+</Step>
+
+<Step title="Зарегистрируйте ключ подписи Xanmod">
+
+```bash
+wget -qO - https://dl.xanmod.org/archive.key | sudo gpg --dearmor -vo /etc/apt/keyrings/xanmod-archive-keyring.gpg
+```
+</Step>
+
+<Step title="Добавьте репозиторий Xanmod">
+
+```bash
+echo 'deb [signed-by=/etc/apt/keyrings/xanmod-archive-keyring.gpg] http://deb.xanmod.org releases main' | sudo tee /etc/apt/sources.list.d/xanmod-release.list
+```
+</Step>
+
+<Step title="Установите пакет ядра">
+
+```bash
+sudo apt update && sudo apt install linux-xanmod-x64v3
+```
+</Step>
+
+<Step title="Завершение">
+Если вашему стеку нужен BBR-тюнинг, примените его и перезагрузитесь.
+</Step>
+</Steps>
+
+## Ограничение частоты ICMP-ответов
+
+Добавьте более строгие лимиты ICMP в `/etc/sysctl.conf`:
+
+```bash
+cat <<'EOT' | sudo tee -a /etc/sysctl.conf
+net.ipv4.icmp_msgs_burst=1
+net.ipv4.icmp_msgs_per_sec=1
+net.ipv4.icmp_ratelimit=1
+net.ipv6.icmp.ratelimit=1
+EOT
+sudo sysctl -p
+```
+
+Используйте это только после тестов, потому что агрессивные ICMP-лимиты могут усложнить диагностику сети.

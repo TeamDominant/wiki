@@ -1,23 +1,23 @@
 ---
 title: "Simplelogin"
-description: "A guide in my new Starlight docs site."
+description: "Гайд в моем новом Starlight-док-сайте."
 ---
 
 <Warning>
-Little disclaimer. Some information was copied from [virtualize.link](https://virtualize.link/), because I find information provided by its author useful. Make sure to check the [source](https://github.com/quietsy/advanced-configurations) or star the repo.
+Небольшой дисклеймер. Часть информации взята с [virtualize.link](https://virtualize.link/), потому что материалы автора полезны. Проверьте [источник](https://github.com/quietsy/advanced-configurations) или поставьте звезду репозиторию.
 </Warning>
 
-## Strategy
+## Стратегия
 
 ![simplelogin](/images/simplelogin/simplelogin.png)
 
-## Notes
+## Заметки
 
-- [Check the reputation](https://www.uceprotect.net/en/rblcheck.php) of your VPS IP before proceeding.
-- Follow the [official documentation](https://github.com/simple-login/app) to set up the domain.
-- Read about each environment variable of [simplelogin](https://github.com/simple-login/app/blob/master/example.env) and [postfix](https://github.com/simple-login/simplelogin-postfix-docker).
-- Using SWAG to generate certs and then mounting the certs to postfix.
-- SWAG has the following post-renewal hook under `./swag/etc/letsencrypt/renewal-hooks/post/postfix.sh`:
+- Перед началом [проверьте репутацию](https://www.uceprotect.net/en/rblcheck.php) IP вашего VPS.
+- Для настройки домена используйте [официальную документацию](https://github.com/simple-login/app).
+- Изучите каждую переменную окружения для [simplelogin](https://github.com/simple-login/app/blob/master/example.env) и [postfix](https://github.com/simple-login/simplelogin-postfix-docker).
+- SWAG используется для генерации сертификатов, после чего сертификаты монтируются в postfix.
+- В SWAG используется post-renewal hook `./swag/etc/letsencrypt/renewal-hooks/post/postfix.sh`:
 
 ```bash
 #!/usr/bin/with-contenv bash
@@ -25,7 +25,7 @@ Little disclaimer. Some information was copied from [virtualize.link](https://vi
 touch /config/etc/letsencrypt/postfix_renew
 ```
 
-- Postfix has the following script mounted to `/etc/periodic/hourly/renew-postfix-tls` for reloading on cert updates:
+- В postfix монтируется скрипт `/etc/periodic/hourly/renew-postfix-tls` для перезагрузки после обновления сертификатов:
 
 ```bash
 #!/usr/bin/env bash
@@ -39,11 +39,11 @@ if [ -f ${RENEW_PATH} ]; then
 fi
 ```
 
-- Setting up [Crowdsec](https://www.linuxserver.io/blog/blocking-malicious-connections-with-crowdsec-and-swag), [Geoblock](/self-hosting/geoblock), and [Firehol](/self-hosting/firehol) is highly recommended.
-- [Check the dmarc](https://www.learndmarc.com/) once you finish setting everything up.
-- [Check the spammyness](https://www.mail-tester.com/) once you finish setting everything up.
+- Настоятельно рекомендуется настроить [Crowdsec](https://www.linuxserver.io/blog/blocking-malicious-connections-with-crowdsec-and-swag), [Geoblock](/self-hosting/geoblock) и [Firehol](/self-hosting/firehol).
+- После завершения настройки [проверьте dmarc](https://www.learndmarc.com/).
+- После завершения настройки [проверьте spam score](https://www.mail-tester.com/).
 
-## Example compose
+## Пример compose
 
 ```yaml
 simplelogin:
@@ -96,7 +96,7 @@ postfix:
   restart: unless-stopped
 ```
 
-## Example ENV file
+## Пример ENV-файла
 
 ```bash
 URL=https://simplelogin.domain.com
@@ -115,9 +115,9 @@ NAMESERVERS="1.1.1.1"
 DISABLE_REGISTRATION=0
 ```
 
-## Self test
+## Самопроверка
 
-Create `test` aliases for each domain and disable them so you won't get emails. Add the following to your host's cron, edit the `TARGETS` and `curl` command accordingly.
+Создайте `test`-алиасы для каждого домена и отключите их, чтобы не получать письма. Добавьте следующий скрипт в cron хоста, отредактировав `TARGETS` и `curl` команду под себя.
 
 ```bash
 #!/bin/bash
