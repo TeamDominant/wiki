@@ -3,6 +3,7 @@
   "position": 2,
   "link": {
     "type": "generated-index",
+    "slug": "/customer",
     "title": "Customer FAQ",
     "description": "Customer-facing answers, client notes, and service-related documentation."
   }

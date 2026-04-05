@@ -3,6 +3,7 @@
   "position": 2,
   "link": {
     "type": "generated-index",
+    "slug": "/software",
     "title": "Software",
     "description": "Recommended applications, browsers, terminal tools, and networking utilities."
   }

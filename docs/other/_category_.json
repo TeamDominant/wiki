@@ -3,6 +3,7 @@
   "position": 4,
   "link": {
     "type": "generated-index",
+    "slug": "/other",
     "title": "Other",
     "description": "Focused guides for individual tools, devices, and workflows."
   }

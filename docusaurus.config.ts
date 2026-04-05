@@ -3,7 +3,7 @@ import type { Config } from '@docusaurus/types'
 
 import { themes as prismThemes } from 'prism-react-renderer'
 
-const siteUrl = process.env.DOCS_SITE_URL ?? 'https://wiki.example.com'
+const siteUrl = process.env.DOCS_SITE_URL ?? 'https://wiki.dominants.link'
 const baseUrl = process.env.DOCS_BASE_URL ?? '/'
 
 const config: Config = {

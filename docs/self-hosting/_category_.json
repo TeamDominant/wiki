@@ -3,6 +3,7 @@
   "position": 3,
   "link": {
     "type": "generated-index",
+    "slug": "/self-hosting",
     "title": "Self-hosting",
     "description": "Deployment notes, hardening guides, and practical self-hosting references."
   }
