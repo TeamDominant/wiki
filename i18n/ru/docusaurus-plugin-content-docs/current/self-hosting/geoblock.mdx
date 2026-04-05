@@ -1,0 +1,184 @@
+---
+title: "Geoblock"
+description: "Гайд в моем новом Starlight-док-сайте."
+---
+
+<Warning>
+Небольшой дисклеймер. Часть информации взята с [virtualize.link](https://virtualize.link/), потому что материалы автора полезны. Проверьте [источник](https://github.com/quietsy/advanced-configurations) или поставьте звезду репозиторию.
+</Warning>
+
+## VPS
+
+Я сталкивался с постоянными атаками на почтовый сервер на VPS из двух конкретных стран. Рабочим решением оказалась полная блокировка этих стран.
+
+Есть два популярных провайдера geoblock-баз: Maxmind и DB-IP. Их можно использовать через python-библиотеку [geoipsets](https://github.com/chr0mag/geoipsets).
+
+### Установка
+
+Установите пакеты:
+
+```bash
+sudo apt install python3 python3.12 python3-pip python3-venv ipset
+```
+
+Создайте python virtual environment:
+
+```bash
+python3 -m venv .venv
+```
+
+Проверьте, что все работает:
+
+```bash
+source .venv/bin/activate
+```
+
+### Конфиг Geoblock
+
+Создайте конфиг geoblock по документации [geoipsets](https://github.com/chr0mag/geoipsets).
+
+Например `/home/user/geoipsets.conf`:
+
+```ini title="/home/user/geoipsets.conf"
+[general]
+provider=dbip
+firewall=iptables
+address-family=ipv4,ipv6
+
+[countries]
+RU
+CN
+```
+
+Проверьте работу:
+
+```bash
+source .venv/bin/activate
+geoipsets -o /home/user -c /home/user/geoipsets.conf
+```
+
+### Скрипт Geoblock
+
+Создайте скрипт, который обновляет geoblock ipsets и заново создает iptables-правила.
+
+Например `/home/user/geoblock.sh`:
+
+```bash title="/home/user/geoblock.sh"
+#!/bin/bash
+
+output_path="/home/user"
+venv_path="/home/user/.venv/bin/activate"
+config_path="/home/user/geoipsets.conf"
+log="/home/user/geoblock.log"
+
+echo "Updating Blocklist $(date)" >> $log
+source $venv_path
+geoipsets -o $output_path -c $config_path >> $log
+
+for i in $(find "${output_path}/geoipsets" -name "*.ipv*");
+do
+	name=$(basename $i)
+	echo $name >> $log
+	/usr/sbin/ipset flush $name >> $log
+	/usr/sbin/ipset restore --exist --file $i >> $log
+	command=$(if [[ $name == *ipv4 ]]; then echo "/usr/sbin/iptables"; else echo "/usr/sbin/ip6tables"; fi)
+	$command -D FORWARD -m set --match-set $name src -j DROP &>/dev/null
+	$command -D INPUT -m set --match-set $name src -j DROP &>/dev/null
+	$command -D DOCKER-USER -m set --match-set $name src -j DROP &>/dev/null
+	$command -I DOCKER-USER 1 -m set --match-set $name src -j DROP >> $log
+	$command -I INPUT 1 -m set --match-set $name src -j DROP >> $log
+	$command -I FORWARD 1 -m set --match-set $name src -j DROP >> $log
+done
+```
+
+Проверьте, что все работает и ipsets заполнены:
+
+```bash
+chmod +x /home/user/geoblock.sh
+sudo /home/user/geoblock.sh
+sudo ipset list RU.ipv4
+```
+
+### Расписание Cron
+
+<Warning>
+Перед продолжением убедитесь, что вы случайно не заблокируете собственный доступ к VPS.
+</Warning>
+
+Запускайте скрипт geoblock при загрузке и раз в неделю.
+
+Например, добавьте в `sudo crontab -e`:
+
+```text
+20 0 * * 2 /home/user/geoblock.sh
+@reboot sleep 120 && /home/user/geoblock.sh
+```
+
+Проверьте запуск при ребуте и еженедельно. После перезагрузки есть задержка 2 минуты, чтобы успеть исправить блокировку.
+
+## OPNSense
+
+### Alias
+
+Перейдите в **Firewall** > **Aliases** > **GeoIP settings** и добавьте ссылку на [базу geoblock](https://docs.opnsense.org/manual/how-tos/maxmind_geo_ip.html) с вашим license key:
+
+```text
+https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country-CSV&license_key=your-license-key&suffix=zip
+```
+
+Перейдите в **Firewall** > **Aliases** и создайте aliases для стран, которые хотите блокировать, или whitelist для конкретной страны:
+
+```text
+Name: Geoblock
+Type: GeoIP (IPv4, IPv6)
+Content: Select all the countries you want to block
+```
+
+```text
+Name: UK
+Type: GeoIP (IPv4, IPv6)
+Content: Select UK
+```
+
+### Firewall
+
+Перейдите в **Firewall** > **Rules** > **WAN** и создайте правила:
+
+```text
+Action: Block
+Interface: WAN
+Direction: in
+TCP/IP Version: IPv4+IPv6
+Protocol: any
+Source: Geoblock
+Destination: any
+Description: Blocks specific countries
+```
+
+```text
+Action: Pass
+Interface: WAN
+Direction: in
+TCP/IP Version: IPv4+IPv6
+Protocol: TCP
+Source: UK
+Destination: WAN address
+Destination port range: 443
+Description: Whitelist UK on port 443
+```
+
+### Cron
+
+Создайте cron-задачу для ежедневного обновления списков.
+
+Перейдите в **System** > **Settings** > **Cron** и добавьте:
+
+```text
+Enabled: checked
+Minutes: 0
+Hours: 0
+Day of the month: *
+Months: *
+Days of the week: *
+Command: Update and reload firewall aliases
+```

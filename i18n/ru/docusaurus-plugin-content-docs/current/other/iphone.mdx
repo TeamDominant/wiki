@@ -1,0 +1,84 @@
+---
+title: iPhone
+description: Инструкции и заметки для продвинутого использования iPhone
+---
+
+<Info>
+Эта страница намеренно субъективна. Используйте ее как чеклист и оставьте только те настройки, которые подходят вам.
+</Info>
+
+## Периодическая очистка телефона
+
+Полный сброс устройства время от времени — полезная практика. Я рекомендую очищать iPhone на каждом крупном обновлении (iOS 17 -> 18). Почему? Потому что это iOS.
+
+Эта страница была написана после перехода с iPhone 12 (64GB) на Nothing Phone (2).
+
+## Резервное копирование
+
+<Warning>
+Сброс iPhone удаляет локальные данные. Перед началом убедитесь, что бэкап готов.
+</Warning>
+
+- Вручную загрузите все файлы в Nextcloud, если в iCloud не хватает места.
+- Сбросьте телефон и настройте его с нуля, а не из бэкапа. Если в бэкапе только личные файлы, можно восстановиться, но я предпочитаю ручную настройку.
+- Откат iOS невозможен, если устройство не jailbroken.
+
+## Конфигурация
+
+- **Settings**
+  - **Wi-FI**
+    - Ask to Join Networks: Notify
+    - Auto-Join Hotspot: Never
+    - Добавьте Adguard DNS в основную сеть, если нужно.
+  - **Proxy** (Нельзя использовать 3-буквенное слово, поэтому пусть будет Proxy)
+    - Self-hosted
+    - Always-on (включать вручную после каждого перезапуска)
+  - **General**
+    - AirDrop: Contacts only
+    - Autofill & Passwords: Self-hosted Bitwarden
+    - Background App Refresh: Off
+    - **Keyboard**
+      - Auto-Capitalization: Off
+      - Auto-Correction: Off
+    - Language & Region: English & France (так как во Франции нельзя искусственно замедлять устройства)
+  - **Accessibility**
+    - **Display & Text Size**
+      - Bold Text: On
+      - On/Off Labels: On
+  - **Search**
+    - Show Recent: Off
+    - Show Related: Off
+    - Help Apple: Off
+  - **Siri** (худший ассистент)
+    - Suggest Apps: Off
+    - Allow Notifications: Off
+    - Show Listening Suggestions: Off
+  - **StandBy**
+    - StandBy: Off (бесполезно)
+  - **Screen Time**
+    - Communication Safety: Off
+    - Content & Privacy Restrictions: Off
+  - **Privacy & Security**
+    - Location Services -> System Services
+    - HomeKit: Off
+    - iPhone Analytics: Off
+    - Routing & Traffic: Off
+    - Improve Maps: Off
+    - Tracking: Off
+    - Journaling Suggestions: Off
+    - Sensitive Content Warning: Off
+    - Analytics & Improvements: All off
+    - Apple Advertising: Off
+    - App Privacy Report: Off
+    - Stolen Device Protection: On
+  - **App Store**
+    - App Downloads: Off
+    - App Updates: Off
+    - In-App Content: Off
+    - Automatic Downloads: Off
+    - App Downloads: Ask if Over 200 MB
+    - Video Autoplay: Wi-Fi Only
+    - In-App Ratings & Reviews: Off
+    - Offload Unused Apps: Off
+  - **Photos**
+    - Download and Keep Originals: On

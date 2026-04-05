@@ -1,0 +1,140 @@
+---
+title: Wush
+description: CLI-инструмент для P2P-передачи файлов и удаленного shell-доступа через WireGuard.
+---
+
+<Info>
+Используйте Wush, когда нужен прямой peer-to-peer обмен файлами или временный shell-доступ без поднятия полноценного VPN.
+</Info>
+
+## Что такое Wush?
+
+Wush — это CLI-инструмент для передачи файлов и открытия shell-сессий через peer-to-peer соединение WireGuard. Он похож на magic-wormhole, но:
+
+1. Не требует настройки или доверия к relay-серверу для аутентификации.
+2. Работает на базе WireGuard: безопасно, быстро и надежно.
+3. Автоматически устанавливает peer-to-peer соединение по UDP.
+4. Дает гибкость для `rsync`, `ssh` и других сценариев.
+
+## Команды
+
+**Usage:**
+
+`wush <subcommand>`
+
+Запустить сервер Wush:
+
+```bash
+wush serve
+```
+
+Открыть shell к Wush-хосту:
+
+```bash
+wush ssh
+```
+
+Передать файлы на хост через `rsync`:
+
+```bash
+wush rsync local-file.txt :/path/to/remote/file
+```
+
+Скопировать один файл на хост:
+
+```bash
+wush cp local-file.txt
+```
+
+**Subcommands:**
+
+| Command | Meaning |
+| --- | --- |
+| `cp` | Передача файлов. |
+| `port-forward` | Проброс портов. |
+| `rsync` | Передача файлов через `rsync`. |
+| `serve` | Запуск сервера Wush. |
+| `ssh` | Открытие shell-сессии. |
+| `version` | Показ версии Wush. |
+
+**Options:**
+
+```bash
+wush --version
+```
+
+Показать версию и выйти.
+
+## Установка
+
+Скачайте из [GitHub Releases](https://github.com/coder/wush/releases/tag/v0.3.0).
+
+Мы тестировали программу на *Windows* и *Linux* (с GUI).
+
+Для *Windows*: распакуйте файлы в выбранную папку и на нужный диск. Передаваемые файлы будут отправляться/приниматься оттуда.
+
+Для *Linux*: установите удобным для вас способом. У нас файлы отправлялись/сохранялись из домашней директории.
+
+## Как использовать
+
+Передадим PNG-файл с одной машины на другую. В примере Windows — это host, Linux — client.
+
+<Warning>
+Считайте auth key секретом. Передавайте его только нужному получателю и обновляйте, начиная новую сессию.
+</Warning>
+
+<Steps>
+<Step title="Запустите сессию на хосте">
+Откройте **CMD** в папке, где лежит **Wush**, затем выполните:
+
+```bash
+./wush serve
+```
+
+![wushserve](/images/wush/wushserve.png)
+
+Скопируйте `Auth key`.
+</Step>
+
+<Step title="Отправьте файл с клиента">
+На клиентской машине выполните:
+
+```bash
+wush cp 2.png
+```
+
+![wushcp](/images/wush/wushcp.png)
+
+`2.png` — файл, который мы отправляем с Linux на Windows.
+</Step>
+
+<Step title="Вставьте ключ и подтвердите передачу">
+Вставьте ключ с хоста в консоль клиента.
+</Step>
+</Steps>
+
+Как это выглядит:
+
+![wushgif](/images/wush/wush.gif)
+
+## SSH
+
+Wush также можно использовать для удаленного доступа к консоли машины.
+
+Соединение устанавливается через auth key.
+
+Для host:
+
+```bash
+wush serve
+```
+
+Для client:
+
+```bash
+wush ssh
+```
+
+## Credits
+
+Источник: [GitHub Coder-Wush](https://github.com/coder/wush)

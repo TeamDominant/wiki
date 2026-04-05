@@ -1,0 +1,106 @@
+---
+title: "Настройка Obsidian-Sync"
+description: "Инструкция по настройке синхронизации в Obsidian."
+---
+
+<Warning>
+Используйте надежный пароль для `COUCHDB_PASSWORD` и не публикуйте CouchDB напрямую в интернет без корректного reverse-proxy и контроля доступа.
+</Warning>
+
+## Настройка сервера
+
+<Steps>
+<Step title="Создайте рабочую директорию и базовые файлы">
+Создайте директорию Docker Compose и необходимые файлы:
+
+```bash
+mkdir /opt/obsidian-sync && cd /opt/obsidian-sync && mkdir couchdb && mkdir couchdb/data && touch couchdb/local.ini && micro compose.yaml
+```
+</Step>
+
+<Step title="Создайте compose.yaml">
+Добавьте следующее:
+
+```yaml title="compose.yaml"
+services:
+  couchdb:
+    image: couchdb:latest
+    container_name: obsidiansync
+    environment:
+      - TZ=Europe/Moscow # can be changed
+      - COUCHDB_USER=YOUR_USERNAME # important
+      - COUCHDB_PASSWORD=YOUR_LONG_PASSWORD # important
+    volumes:
+      - ./couchdb/data:/opt/couchdb/data
+      - ./couchdb/local.ini:/opt/couchdb/etc/local.ini
+    ports:
+      - 5984:5984
+    restart: unless-stopped
+```
+</Step>
+
+<Step title="Выполните первичную настройку CouchDB через web UI">
+1. Откройте `http://127.0.0.1:5984/_utils`.
+2. Нажмите `<->`, чтобы открыть боковую панель, затем откройте `Setup`.
+3. Выберите `Configure as single node` и введите учетные данные из compose-файла.
+4. Откройте `Verify installation` и убедитесь, что видите `Success!`.
+5. Перейдите в `Create Database`, задайте имя и выберите `Non-partitioned`.
+</Step>
+
+<Step title="Примените обязательные опции CouchDB">
+Перейдите в `Configuration` и нажмите `+ Add option`.
+
+Добавьте:
+
+| Section | Option | Value |
+|---------|--------|-------|
+| chttpd | require_valid_user | true |
+| chttpd_auth | require_valid_user | true |
+| httpd | WWW-Authenticate | Basic realm="couchdb" |
+| httpd | enable_cors | true |
+| chttpd | enable_cors | true |
+| chttpd | max_http_request_size | 4294967296 |
+| couchdb | max_document_size | 50000000 |
+| cors | credentials | true |
+| cors | origins | app://obsidian.md,capacitor://localhost,http://localhost |
+</Step>
+</Steps>
+
+## Настройка клиента
+
+<Steps>
+<Step title="Установите и откройте Self-hosted LiveSync">
+Откройте Obsidian, перейдите в `Settings` -> `Core Plugins` и установите `Self-hosted LiveSync`.
+
+Далее нажмите `Install` -> `Enable` -> `Open setting dialog` -> `Options`.
+</Step>
+
+<Step title="Настройте подключение к CouchDB">
+В верхнем ряду иконок нажмите 4-ю (`🛰️`) и укажите:
+
+- Remote type: `CouchDB`
+- URI: `obsidian.domain.com`
+- Username: `YOUR_USERNAME`
+- Password: `YOUR_LONG_PASSWORD`
+- Database: `YOUR_DB_NAME`
+
+Нажмите `Test` в разделе **Test Database connection** и проверьте `Connection successful!`.
+
+Нажмите `Check` в разделе **Validate Database**, при необходимости примените исправления, затем `Apply`.
+</Step>
+
+<Step title="Настройте режим синхронизации">
+Перейдите на 5-ю вкладку (`🔄`) и выставьте:
+
+- Presets: `Livesync`
+- Sync mode: `LiveSync`
+</Step>
+
+<Step title="Включите статус и завершите настройку">
+1. Откройте 3-ю вкладку и включите 2-й чекбокс (индикатор в статус-баре).
+2. Откройте 1-ю вкладку, пролистайте вниз и нажмите `I've read everything`.
+3. Вернитесь на 2-ю вкладку и нажмите `Enable` в разделе **Enable LiveSync**.
+4. Если появятся всплывающие окна, нажмите fetch и при необходимости игнорируйте предупреждение о лимите размера.
+5. Повторно проверьте режим синхронизации из шага 3.
+</Step>
+</Steps>

@@ -1,0 +1,9 @@
+{
+  "label": "Селф-хостинг",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "title": "Селф-хостинг",
+    "description": "Заметки по деплою, защите сервисов и практические self-hosting-гайды."
+  }
+}
