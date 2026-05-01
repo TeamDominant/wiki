@@ -9,6 +9,14 @@ import starlightGitHubAlerts from 'starlight-github-alerts';
 
 // https://astro.build/config
 export default defineConfig({
+	site: 'https://wiki.dominants.link',
+	vite: {
+		resolve: {
+			alias: {
+				'@components': '/src/components',
+			},
+		},
+	},
 	integrations: [
 		starlight({
 			plugins: [
