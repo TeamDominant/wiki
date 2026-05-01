@@ -35,12 +35,42 @@ export default defineConfig({
 			title: 'TeamDominant',
 			customCss: ['./src/styles/custom.css'],
 			logo: { src: './src/assets/logo.svg' },
+			favicon: './src/assets/logo.svg',
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/TeamDominant/wiki' }],
 			sidebar: [
 				{
+					label: 'Introduction',
+					items: [
+						{ label: 'Overview', slug: 'introduction/overview' }
+					],
+				},
+				{
+					label: 'Software',
+					items: [
+						{ label: 'Apps', slug: 'software/apps' },
+						{ label: 'Betterfox', slug: 'software/betterfox' }
+					],
+				},
+				{
 					label: 'Self-hosting',
 					items: [
-						{ label: 'Example Guide', slug: 'guides/example' },
+						{ label: 'Canary', slug: 'self-hosting/canary' },
+						{ label: 'Cheat Sheet', slug: 'self-hosting/cheat-sheet' },
+						{ label: 'DNS for Containers', slug: 'self-hosting/dns-for-containers' },
+						{ label: 'Firehol', slug: 'self-hosting/firehol' },
+						{ label: 'Geoblock', slug: 'self-hosting/geoblock' },
+						{ label: 'Nextcloud', slug: 'self-hosting/nextcloud' },
+						{ label: 'Simplelogin', slug: 'self-hosting/simplelogin' },
+						{ label: 'SWAG', slug: 'self-hosting/swag' }
+					],
+				},
+				{
+					label: 'Other',
+					items: [
+						{ label: 'Arch Linux', slug: 'other/arch' },
+						{ label: 'iPhone', slug: 'other/iphone' },
+						{ label: 'Nothing Phone', slug: 'other/nothingphone' },
+						{ label: 'Wush', slug: 'other/wush' }
 					],
 				},
 				{
