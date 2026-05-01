@@ -48,8 +48,11 @@ export default defineConfig({
 					],
 				},
 				{
-					label: 'Reference',
-					autogenerate: { directory: 'reference' },
+					label: 'FAQ',
+					items: [
+						// Each item here is one entry in the navigation menu.
+						{ label: 'Koala-Clash', slug: 'faq/koala-clash' },
+					],
 				},
 			],
 			defaultLocale: 'root',
