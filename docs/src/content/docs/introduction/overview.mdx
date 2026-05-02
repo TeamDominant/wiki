@@ -3,7 +3,8 @@ title: "Introduction"
 description: "Welcome to TeamDominant/wiki: practical guides, answers, and real-world documentation."
 ---
 
-import { Aside } from '@astrojs/starlight/components';
+import { Aside, Card, LinkButton } from '@astrojs/starlight/components';
+import { ContributorList } from "astro-contributors";
 
 Welcome to TeamDominant/wiki, a growing collection of practical answers, step-by-step guides, and distilled instructions for software tools and technologies.
 
@@ -20,3 +21,21 @@ This documentation is available in English and Russian. You can switch language 
 The documentation does not aim to spoon-feed. The goal is to guide, encourage exploration, and help build real understanding.
 
 This wiki will continue evolving with the tools, workflows, and problems we face.
+
+## Contributors
+
+<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', textAlign: 'center' }}>
+    <p>Those are all contributors to the <a href="https://github.com/TeamDominant/wiki">Wiki</a> repository, and we are grateful for their contributions, big and small.</p>
+
+    <ContributorList githubRepo="TeamDominant/wiki" ignore={["autofix-ci[bot]", "github-actions[bot]", "renovate[bot]", "snyk-bot", "snyk-bot[bot]"]} />
+
+    <Card title="Become one of us!" icon="github">
+        Want to contribute? We would love your help! Check out our guide to get started.{'\n'}
+        {'\n'}
+        <div style={{ marginTop: '1rem' }}>
+            <LinkButton href="/contribution/guide" icon="npm" iconPlacement="start" variant="primary">
+                {'Contribution Guide'}
+            </LinkButton>
+        </div>
+    </Card>
+</div>

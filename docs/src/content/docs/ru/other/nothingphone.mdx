@@ -3,9 +3,7 @@ title: Nothing Phone
 description: Полезные советы и настройки для серии Nothing Phone
 ---
 
-import Note from '@components/Note.astro';
-import Step from '@components/Step.astro';
-import Steps from '@components/Steps.astro';
+import { Aside, Steps } from '@astrojs/starlight/components';
 
 ## Конфигурация
 
@@ -22,29 +20,18 @@ tbh
 *Также рекомендуем сделать следующее:*
 
 <Steps>
-<Step title="Сбросьте состояние Nothing Launcher">
-Очистите кэш и хранилище Nothing Launcher.
-</Step>
+1. Очистите кэш и хранилище Nothing Launcher.
 
-<Step title="Сбросьте состояние Google Play Services">
-Очистите кэш и удалите данные Google Play Services (если ОС установлена «с нуля»).
-</Step>
+2. Очистите кэш и удалите данные Google Play Services (если ОС установлена «с нуля»).
 
-<Step title="Очистите кэш AR-сервисов">
-Очистите кэш Google Play Services for AR.
-</Step>
+3. Очистите кэш Google Play Services for AR.
 
-<Step title="Ограничьте батарейный режим лаунчера">
-Установите режим энергопотребления Nothing Launcher в `RESTRICTED`.
-</Step>
+4. Установите режим энергопотребления Nothing Launcher в `RESTRICTED`.
 
-<Step title="Отключите доступ к уведомлениям для лаунчера">
-Отключите Notification access для Nothing Launcher.
-</Step>
+5. Отключите Notification access для Nothing Launcher.
 
-<Step title="Перезагрузите и полностью зарядите телефон">
-Перезагрузите устройство и зарядите его до 100%.
-</Step>
+6. Перезагрузите устройство и зарядите его до 100%.
+
 </Steps>
 
 ## Зарядные устройства
@@ -70,23 +57,16 @@ tbh
 Чтобы отключить голосовое уведомление о начале записи звонка, выполните шаги ниже:
 
 <Steps>
-<Step title="Установите TTSLexx">
-Установите **`TTSLexx`** из **Google Play**.
-</Step>
+1. Установите **`TTSLexx`** из **Google Play**.
 
-<Step title="Откройте настройки Text-to-Speech">
-В настройках телефона найдите **`Text-to-Speech`** и откройте этот раздел.
-</Step>
+2. В настройках телефона найдите **`Text-to-Speech`** и откройте этот раздел.
 
-<Step title="Переключите движок на TTSLexx">
-В **Text-to-Speech** укажите **`Default Text-to-Speech Engine`** = **`TTSLexx`**.
-</Step>
+3. В **Text-to-Speech** укажите **`Default Text-to-Speech Engine`** = **`TTSLexx`**.
 
-<Step title="Сбросьте кэш и хранилище приложения Phone">
-Перейдите в **Apps**, откройте **Phone app**, затем нажмите **Clear Cache** и **Clear Storage**. Контакты сохранятся (проверено на Google Phone app).
-</Step>
+4. Перейдите в **Apps**, откройте **Phone app**, затем нажмите **Clear Cache** и **Clear Storage**. Контакты сохранятся (проверено на Google Phone app).
+
 </Steps>
 
-<Note>
+<Aside type="note">
     Уведомление о записи может появиться во время первого звонка, но обычно не появляется в последующих.
-</Note>
+</Aside>

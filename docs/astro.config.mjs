@@ -4,6 +4,10 @@ import starlightThemeGalaxy from 'starlight-theme-galaxy';
 import starlightScrollToTop from 'starlight-scroll-to-top';
 import starlightKbd from 'starlight-kbd';
 import starlightGitHubAlerts from 'starlight-github-alerts';
+import starlightUtils from '@lorenzo_lewis/starlight-utils';
+import starlightAnnouncement from 'starlight-announcement';
+import starlightSidebarSwipe from 'starlight-sidebar-swipe';
+import starlightUiTweaks from 'starlight-ui-tweaks';
 
 export default defineConfig({
 	site: 'https://wiki.dominants.link',
@@ -30,7 +34,23 @@ export default defineConfig({
 						{ id: 'windows', label: 'Windows', default: true },
 						{ id: 'linux', label: 'Linux' },
 					]
-				})
+				}),
+				starlightUtils({
+					navLinks: {
+						leading: { useSidebarLabelled: 'leadingNavLinks' }
+					}
+				}),
+				starlightAnnouncement({
+					announcements: [
+						{
+							id: 'welcome',
+							content: 'Wiki is under a full-reconstruction. Please be patient and look for updates!',
+							variant: 'caution',
+						}
+					]
+				}),
+				starlightSidebarSwipe(),
+				starlightUiTweaks()
 			],
 			title: 'TeamDominant',
 			customCss: ['./src/styles/custom.css'],
@@ -47,8 +67,7 @@ export default defineConfig({
 				{
 					label: 'Software',
 					items: [
-						{ label: 'Apps', slug: 'software/apps' },
-						{ label: 'Betterfox', slug: 'software/betterfox' }
+						{ label: 'Apps', slug: 'software/apps' }
 					],
 				},
 				{
@@ -79,6 +98,13 @@ export default defineConfig({
 						{ label: 'Koala-Clash', slug: 'faq/koala-clash' },
 					],
 				},
+				{
+					label: 'leadingNavLinks',
+					items: [
+						{ label: 'Wiki', slug: 'introduction/overview' },
+						{ label: 'Terms of service', slug: 'faq/terms' }
+					]
+				}
 			],
 			defaultLocale: 'root',
 			locales: {

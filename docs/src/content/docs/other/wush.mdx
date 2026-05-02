@@ -3,14 +3,11 @@ title: Wush
 description: A command line tool for peer-to-peer file transfer and remote shell access using WireGuard.
 ---
 
-import Info from '@components/Info.astro';
-import Step from '@components/Step.astro';
-import Steps from '@components/Steps.astro';
-import Warning from '@components/Warning.astro';
+import { Aside, Steps } from '@astrojs/starlight/components';
 
-<Info>
+<Aside type="note">
 Use Wush when you need direct peer-to-peer transfer or temporary shell access without standing up a full VPN.
-</Info>
+</Aside>
 
 ## What is Wush?
 
@@ -84,43 +81,39 @@ On *Linux*, install it using your preferred method. Files (for us) were saved/se
 
 Now let's transfer a PNG file from one machine to another. In this example, Windows acts as the host and Linux is the client.
 
-<Warning>
+<Aside type="caution">
 Treat the auth key as a secret. Share it only with the intended recipient and rotate by starting a new session.
-</Warning>
+</Aside>
 
 <Steps>
-<Step title="Start the host session">
-Open **CMD** from the folder where **Wush** is located, then run:
 
-```bash
-./wush serve
-```
+1. Open **CMD** from the folder where **Wush** is located, then run:
 
-![wushserve](/images/wush/wushserve.png)
+        ```bash
+        ./wush serve
+        ```
 
-Copy the `Auth key`.
-</Step>
+        ![wushserve](https://github.com/TeamDominant/wiki/blob/main/docs/src/assets/wush/wushserve.png?raw=true)
 
-<Step title="Send a file from the client">
-On the client machine, run:
+2. Copy the `Auth key`.
 
-```bash
-wush cp 2.png
-```
+3. On the client machine, run:
 
-![wushcp](/images/wush/wushcp.png)
+        ```bash
+        wush cp 2.png
+        ```
 
-`2.png` is the file we want to send from Linux to Windows.
-</Step>
+        ![wushcp](https://github.com/TeamDominant/wiki/blob/main/docs/src/assets/wush/wushcp.png?raw=true)
 
-<Step title="Paste the auth key and confirm transfer">
-Paste the key from the host machine into the client console.
-</Step>
+4. `2.png` is the file we want to send from Linux to Windows.
+
+5. Paste the key from the host machine into the client console.
+
 </Steps>
 
 How it looks:
 
-![wushgif](/images/wush/wush.gif)
+![wushgif](https://github.com/TeamDominant/wiki/blob/main/docs/src/assets/wush/wush.gif?raw=true)
 
 ## SSH
 

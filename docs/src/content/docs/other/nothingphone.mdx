@@ -3,9 +3,7 @@ title: Nothing Phone
 description: Tips and tricks for Nothing Phone series
 ---
 
-import Note from '@components/Note.astro';
-import Step from '@components/Step.astro';
-import Steps from '@components/Steps.astro';
+import { Aside, Steps } from '@astrojs/starlight/components';
 
 ## Configuration
 
@@ -22,29 +20,18 @@ If you recently purchased a Nothing Phone, it might be running a very old firmwa
 *We also recommend doing the following:*
 
 <Steps>
-<Step title="Reset Nothing Launcher state">
-Clear cache and storage for Nothing Launcher.
-</Step>
+1. Clear cache and storage for Nothing Launcher.
 
-<Step title="Reset Google Play Services state">
-Clear cache and delete data for Google Play Services (if OS is freshly installed).
-</Step>
+2. Clear cache and delete data for Google Play Services (if OS is freshly installed).
 
-<Step title="Clear AR services cache">
-Clear cache for Google Play Services for AR.
-</Step>
+3. Clear cache for Google Play Services for AR.
 
-<Step title="Restrict launcher battery mode">
-Set battery usage mode for Nothing Launcher to `RESTRICTED`.
-</Step>
+4. Set battery usage mode for Nothing Launcher to `RESTRICTED`.
 
-<Step title="Remove launcher notification access">
-Disable notification access for Nothing Launcher.
-</Step>
+5. Disable notification access for Nothing Launcher.
 
-<Step title="Restart and fully charge">
-Restart and fully charge your phone.
-</Step>
+6. Restart and fully charge your phone.
+
 </Steps>
 
 ## Chargers
@@ -70,23 +57,17 @@ There are no exact recommendations. Choose a charger based on your needs, such a
 To disable the voice notification that call recording has started, follow these steps:
 
 <Steps>
-<Step title="Install TTSLexx">
-Install **`TTSLexx`** from **Google Play**.
-</Step>
 
-<Step title="Open Text-to-Speech settings">
-In phone settings, search for **`Text-to-Speech`** and open it.
-</Step>
+1. Install **`TTSLexx`** from **Google Play**.
 
-<Step title="Switch engine to TTSLexx">
-In **Text-to-Speech** settings, set **`Default Text-to-Speech Engine`** to **`TTSLexx`**.
-</Step>
+2. In phone settings, search for **`Text-to-Speech`** and open it.
 
-<Step title="Reset Phone app cache and storage">
-Go to **Apps**, open the **Phone app**, then tap **Clear Cache** and **Clear Storage**. Contacts remain safe (confirmed for Google Phone app).
-</Step>
+3. In **Text-to-Speech** settings, set **`Default Text-to-Speech Engine`** to **`TTSLexx`**.
+
+4. Go to **Apps**, open the **Phone app**, then tap **Clear Cache** and **Clear Storage**. Contacts remain safe (confirmed for Google Phone app).
+
 </Steps>
 
-<Note>
+<Aside type="note">
     The call recording notification may appear during the first call, but it usually will not occur in subsequent calls.
-</Note>
+</Aside>

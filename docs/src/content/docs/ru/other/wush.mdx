@@ -3,14 +3,11 @@ title: Wush
 description: CLI-инструмент для P2P-передачи файлов и удаленного shell-доступа через WireGuard.
 ---
 
-import Info from '@components/Info.astro';
-import Step from '@components/Step.astro';
-import Steps from '@components/Steps.astro';
-import Warning from '@components/Warning.astro';
+import { Aside, Steps } from '@astrojs/starlight/components';
 
-<Info>
+<Aside type="note">
 Используйте Wush, когда нужен прямой peer-to-peer обмен файлами или временный shell-доступ без поднятия полноценного VPN.
-</Info>
+</Aside>
 
 ## Что такое Wush?
 
@@ -84,43 +81,39 @@ wush --version
 
 Передадим PNG-файл с одной машины на другую. В примере Windows — это host, Linux — client.
 
-<Warning>
+<Aside type="caution">
 Считайте auth key секретом. Передавайте его только нужному получателю и обновляйте, начиная новую сессию.
-</Warning>
+</Aside>
 
 <Steps>
-<Step title="Запустите сессию на хосте">
-Откройте **CMD** в папке, где лежит **Wush**, затем выполните:
+1. Откройте **CMD** в папке, где лежит **Wush**, затем выполните:
 
-```bash
-./wush serve
-```
+        ```bash
+        ./wush serve
+        ```
 
-![wushserve](/images/wush/wushserve.png)
+        ![wushserve](https://github.com/TeamDominant/wiki/blob/main/docs/src/assets/wush/wushserve.png?raw=true)
 
-Скопируйте `Auth key`.
-</Step>
+2. Скопируйте `Auth key`.
 
-<Step title="Отправьте файл с клиента">
-На клиентской машине выполните:
+3. На клиентской машине выполните:
 
-```bash
-wush cp 2.png
-```
+        ```bash
+        wush cp 2.png
+        ```
 
-![wushcp](/images/wush/wushcp.png)
+        ![wushcp](https://github.com/TeamDominant/wiki/blob/main/docs/src/assets/wush/wushcp.png?raw=true)
 
-`2.png` — файл, который мы отправляем с Linux на Windows.
-</Step>
+4. `2.png` — файл, который мы отправляем с Linux на Windows.
 
-<Step title="Вставьте ключ и подтвердите передачу">
-Вставьте ключ с хоста в консоль клиента.
-</Step>
+
+5. Вставьте ключ с хоста в консоль клиента.
+
 </Steps>
 
 Как это выглядит:
 
-![wushgif](/images/wush/wush.gif)
+![wushgif](https://github.com/TeamDominant/wiki/blob/main/docs/src/assets/wush/wush.gif?raw=true)
 
 ## SSH
 

@@ -3,14 +3,14 @@ title: Arch Linux
 description: Пошаговый гайд по установке Arch Linux, включая сеть, разметку диска и конфигурацию GRUB.
 ---
 
-import Danger from '@components/Danger.astro';
-import Note from '@components/Note.astro';
+import { Aside } from '@astrojs/starlight/components';
+
 
 ## Подготовка установочного образа
 
-<Note>
+<Aside type="note">
     Linux можно установить почти куда угодно: на ПК, ноутбук, USB-накопитель и даже телефон (если дистрибутив поддерживает). Процесс в целом похожий, но есть важные отличия. Например, при установке Arch Linux второй системой может потребоваться ручная настройка `efibootmgr`. Для dual-boot на BIOS и UEFI тоже есть различия.
-</Note>
+</Aside>
 
 Что вам понадобится:
 
@@ -37,11 +37,11 @@ import Note from '@components/Note.astro';
 - File system: **FAT32**.
 - Cluster size: оставьте **default**.
 
-![rufus_arch](/images/archlinux/rufus_arch.png)
+![rufus_arch](https://github.com/TeamDominant/wiki/blob/main/docs/src/assets/archlinux/rufus_arch.png?raw=true)
 
-<Danger>
+<Aside type="danger">
     Все файлы на USB-накопителе будут удалены.
-</Danger>
+</Aside>
 
 Нажмите **Start**. В всплывающем окне выберите вариант, где упоминается **ISO**.
 
@@ -49,7 +49,7 @@ import Note from '@components/Note.astro';
 Зайдите в BIOS и отключите Secure Boot (после установки можно включить обратно).
 Загрузитесь с USB, выберите **Arch Linux install medium** и дождитесь загрузки.
 
-![start_arch](/images/archlinux/Arch_install1.png)
+![start_arch](https://github.com/TeamDominant/wiki/blob/main/docs/src/assets/archlinux/Arch_install1.png?raw=true)
 
 ## Установка
 
@@ -69,43 +69,43 @@ ping archlinux.org
 iwctl
 ```
 
-![iwctl](/images/archlinux/iwctl_settings.png)
+![iwctl](https://github.com/TeamDominant/wiki/blob/main/docs/src/assets/archlinux/iwctl_settings.png?raw=true)
 
 Затем выполните:
 
 1. Показать доступные Wi-Fi устройства:
 
-```bash
-device list
-```
+        ```bash
+        device list
+        ```
 
 Определите имя интерфейса (например, `wlan0`).
 
 2. Сканировать сети:
 
-```bash
-station wlan0 scan
-```
+        ```bash
+        station wlan0 scan
+        ```
 
 3. Показать найденные сети:
 
-```bash
-station wlan0 get-networks
-```
+        ```bash
+        station wlan0 get-networks
+        ```
 
 4. Подключиться к сети:
 
-```bash
-station wlan0 connect {network}
-```
+        ```bash
+        station wlan0 connect {network}
+        ```
 
 При необходимости введите пароль.
 
 5. Проверить статус:
 
-```bash
-station wlan0 show
-```
+        ```bash
+        station wlan0 show
+        ```
 
 И еще раз проверьте интернет:
 
@@ -124,9 +124,9 @@ ping archlinux.org
 
 Сначала определите нужный диск.
 
-<Danger>
+<Aside type="danger">
     Отключите лишние диски, чтобы снизить риск выбора неправильного устройства.
-</Danger>
+</Aside>
 
 Показать диски:
 
@@ -154,9 +154,9 @@ fdisk /dev/nvme0n1
 
 Повторите для `swap` (например, `+4G` или `+8G`), оставшееся пространство отдайте под `root`.
 
-<Danger>
+<Aside type="danger">
     SWAP рекомендуется, если у вашей машины меньше 8 GB RAM.
-</Danger>
+</Aside>
 
 После создания разделов нажмите `w`, чтобы записать изменения.
 
@@ -170,7 +170,7 @@ archinstall
 
 Откроется меню установщика.
 
-![archinstall](/images/archlinux/archinstall.png)
+![archinstall](https://github.com/TeamDominant/wiki/blob/main/docs/src/assets/archlinux/archinstall.png?raw=true)
 
 Рекомендуемые параметры:
 
@@ -178,9 +178,9 @@ archinstall
 
 Выберите нужную локаль (например `en_US` или `ru_RU`).
 
-<Note>
+<Aside type="note">
     Для быстрого поиска нажмите `?`.
-</Note>
+</Aside>
 
 **Disk configuration**
 
@@ -230,9 +230,9 @@ archinstall
 
 Выберите часовой пояс.
 
-<Note>
+<Aside type="note">
     Для быстрого поиска нажмите `?`.
-</Note>
+</Aside>
 
 **Audio**
 

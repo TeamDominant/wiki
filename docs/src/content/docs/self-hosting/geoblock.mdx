@@ -3,11 +3,11 @@ title: "Geoblock"
 description: "A guide in my new Starlight docs site."
 ---
 
-import Warning from '@components/Warning.astro';
+import { Aside } from '@astrojs/starlight/components';
 
-<Warning>
+<Aside type="caution">
 Little disclaimer. Some information was copied from [virtualize.link](https://virtualize.link/), because I find information provided by its author useful. Make sure to check the [source](https://github.com/quietsy/advanced-configurations) or star the repo.
-</Warning>
+</Aside>
 
 ## VPS
 
@@ -103,9 +103,9 @@ sudo ipset list RU.ipv4
 
 ### Cron scheduling
 
-<Warning>
+<Aside type="caution">
 Make sure you're not accidentally blocking your own access to the VPS before proceeding.
-</Warning>
+</Aside>
 
 Run the geoblock script on reboot and weekly.
 

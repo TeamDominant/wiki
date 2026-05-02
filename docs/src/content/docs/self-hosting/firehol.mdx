@@ -3,11 +3,11 @@ title: "Firehol"
 description: "Guide to set up Firehol blocklists on a VPS or OPNSense firewall."
 ---
 
-import Warning from '@components/Warning.astro';
+import { Aside } from '@astrojs/starlight/components';
 
-<Warning>
-Little disclaimer. Some information was copied from [virtualize.link](https://virtualize.link/), because I find information provided by its author useful. Make sure to check the [source](https://github.com/quietsy/advanced-configurations) or star the repo.
-</Warning>
+<Aside type="caution">
+	Little disclaimer. Some information was copied from [virtualize.link](https://virtualize.link/), because I find information provided by its author useful. Make sure to check the [source](https://github.com/quietsy/advanced-configurations) or star the repo.
+</Aside>
 
 Firehol blocklists are a collection of automatically updating ipsets from all available security IP feeds, mainly related to online attacks, online service abuse, malware, botnets, command and control servers, and other cybercrime activities.
 
@@ -90,9 +90,9 @@ sudo ipset list firehol_level1.netset
 
 ### Cron scheduling
 
-<Warning>
+<Aside type="caution">
 Make sure you are not accidentally blocking your own access to the VPS before proceeding.
-</Warning>
+</Aside>
 
 Run the firehol script on reboot and daily.
 

@@ -3,12 +3,11 @@ title: iPhone
 description: Instructions and notes for advanced iPhone usage
 ---
 
-import Info from '@components/Info.astro';
-import Warning from '@components/Warning.astro';
+import { Aside } from '@astrojs/starlight/components';
 
-<Info>
-This page is intentionally opinionated. Use it as a checklist, then keep only the settings that match your needs.
-</Info>
+<Aside type="note">
+  This page is intentionally opinionated. Use it as a checklist, then keep only the settings that match your needs.
+</Aside>
 
 ## Periodic phone wipe notes
 
@@ -18,9 +17,9 @@ This page was written because I migrated from iPhone 12 (64GB) to Nothing Phone 
 
 ## Backup
 
-<Warning>
-Resetting your iPhone erases local data. Confirm your backup before you start.
-</Warning>
+<Aside type="caution">
+  Resetting your iPhone erases local data. Confirm your backup before you start.
+</Aside>
 
 - Manually upload all files to Nextcloud if iCloud storage is full.
 - Reset your phone and set it up fresh, not by using a backup. However, if it only contains your personal files, then you may. I still prefer doing everything manually.

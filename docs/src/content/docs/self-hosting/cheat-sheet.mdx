@@ -1,14 +1,10 @@
 ---
 title: "Linux questions and answers"
-sidebar:
-  label: "Cheat sheet"
 description: "Practical Ubuntu self-hosting commands for services, cron, Docker cleanup, diagnostics, and tuning."
 ---
 
-import Note from '@components/Note.astro';
-import Step from '@components/Step.astro';
-import Steps from '@components/Steps.astro';
-import Warning from '@components/Warning.astro';
+import { Aside, Steps } from '@astrojs/starlight/components';
+
 
 Use this page as a quick reference for common Ubuntu self-hosting tasks.
 
@@ -61,9 +57,9 @@ Cron format:
 m h dom mon dow command
 ```
 
-<Note>
-Run `sudo crontab -e` if your reboot command needs root-level execution.
-</Note>
+<Aside type="note">
+  Run `sudo crontab -e` if your reboot command needs root-level execution.
+</Aside>
 
 ## Remove old or unused Docker data
 
@@ -93,9 +89,9 @@ Remove most unused Docker objects:
 docker system prune --all
 ```
 
-<Warning>
-`-a` and `--all` can remove images you still want to keep for fast redeploys.
-</Warning>
+<Aside type="caution">
+  `-a` and `--all` can remove images you still want to keep for fast redeploys.
+</Aside>
 
 ## Clean your server
 
@@ -115,37 +111,37 @@ sudo apt install -y ncdu
 sudo ncdu /
 ```
 
-<Warning>
-Be careful with manual file deletion in system directories.
-</Warning>
+<Aside type="caution">
+  Be careful with manual file deletion in system directories.
+</Aside>
 
 Common cleanup targets:
 
 1. Old logs in `/var/log`:
 
-```bash
-sudo journalctl --vacuum-time=2d
-```
+    ```bash
+    sudo journalctl --vacuum-time=2d
+    ```
 
 2. Unused Docker objects in `/var/lib/docker`:
 
-```bash
-sudo docker image prune
-sudo docker container prune
-sudo docker network prune
-sudo docker volume prune
-sudo docker system prune -a
-```
+    ```bash
+    sudo docker image prune
+    sudo docker container prune
+    sudo docker network prune
+    sudo docker volume prune
+    sudo docker system prune -a
+    ```
 
 3. Unused packages:
 
-```bash
-sudo apt autoremove
-```
+    ```bash
+    sudo apt autoremove
+    ```
 
-<Note>
-For Pterodactyl hosts, avoid manual backup deletion in `/var/lib/pterodactyl` because panel state can become inconsistent.
-</Note>
+<Aside type="note">
+  For Pterodactyl hosts, avoid manual backup deletion in `/var/lib/pterodactyl` because panel state can become inconsistent.
+</Aside>
 
 ## Scripts
 
@@ -179,46 +175,42 @@ wget -qO- speedtest.artydev.ru | bash
 wget -qO- bench.sh | bash
 ```
 
-<Warning>
-Review remote scripts before running `curl | bash` or `wget | bash` in production.
-</Warning>
+<Aside type="caution">
+  Review remote scripts before running `curl | bash` or `wget | bash` in production.
+</Aside>
 
 ## Install Xanmod kernel
 
 <Steps>
-<Step title="Check supported CPU level">
 
-```bash
-wget https://dl.xanmod.org/check_x86-64_psabi.sh
-chmod +x check_x86-64_psabi.sh
-./check_x86-64_psabi.sh
-```
-</Step>
+1. Check supported CPU level
 
-<Step title="Register Xanmod signing key">
+    ```bash
+    wget https://dl.xanmod.org/check_x86-64_psabi.sh
+    chmod +x check_x86-64_psabi.sh
+    ./check_x86-64_psabi.sh
+    ```
 
-```bash
-wget -qO - https://dl.xanmod.org/archive.key | sudo gpg --dearmor -vo /etc/apt/keyrings/xanmod-archive-keyring.gpg
-```
-</Step>
+2. Register Xanmod signing key
 
-<Step title="Add Xanmod repository">
+    ```bash
+    wget -qO - https://dl.xanmod.org/archive.key | sudo gpg --dearmor -vo /etc/apt/keyrings/xanmod-archive-keyring.gpg
+    ```
 
-```bash
-echo 'deb [signed-by=/etc/apt/keyrings/xanmod-archive-keyring.gpg] http://deb.xanmod.org releases main' | sudo tee /etc/apt/sources.list.d/xanmod-release.list
-```
-</Step>
+3. Add Xanmod repository
 
-<Step title="Install kernel package">
+    ```bash
+    echo 'deb [signed-by=/etc/apt/keyrings/xanmod-archive-keyring.gpg] http://deb.xanmod.org releases main' | sudo tee /etc/apt/sources.list.d/xanmod-release.list
+    ```
 
-```bash
-sudo apt update && sudo apt install linux-xanmod-x64v3
-```
-</Step>
+4. Install kernel package
 
-<Step title="Finalize">
-Apply BBR tuning if your stack needs it, then reboot.
-</Step>
+    ```bash
+    sudo apt update && sudo apt install linux-xanmod-x64v3
+    ```
+
+5. Apply BBR tuning if your stack needs it, then reboot.
+
 </Steps>
 
 ## Limit ICMP response rate

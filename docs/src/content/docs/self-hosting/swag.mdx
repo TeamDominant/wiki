@@ -3,14 +3,13 @@ title: "SWAG"
 description: "A guide to securing your SWAG reverse proxy."
 ---
 
-import Note from '@components/Note.astro';
-import Warning from '@components/Warning.astro';
+import { Warning } from '@astrojs/starlight/components';
 
 # Securing SWAG
 
-<Warning>
+<Aside type="caution">
 Little disclaimer. Some information was copied from [virtualize.link](https://virtualize.link/), because I find information provided by its author useful. Make sure to check the [source](https://github.com/quietsy/advanced-configurations) or star the repo.
-</Warning>
+</Aside>
 
 [SWAG](https://github.com/linuxserver/docker-swag) is a reverse proxy that allows you to expose your self-hosted apps to the world, but that comes with risks.
 
@@ -174,9 +173,9 @@ Follow the instructions of one of the following mods to set it up:
 
 DBIP doesn't require an account, but Maxmind might be more accurate in some cases.
 
-<Note>
+<Aside type="note">
 This was removed by [author](https://github.com/quietsy/advanced-configurations), but I simply decided to leave it for personal purpose.
-</Note>
+</Aside>
 
 The mods come with 3 definitions for `$geo-whitelist`, `$geo-blacklist`, `$lan-ip`.
 

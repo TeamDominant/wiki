@@ -3,14 +3,13 @@ title: "SWAG"
 description: "Гайд по защите reverse proxy SWAG."
 ---
 
-import Note from '@components/Note.astro';
-import Warning from '@components/Warning.astro';
+import { Aside } from '@astrojs/starlight/components';
 
 # Защита SWAG
 
-<Warning>
+<Aside type="caution">
 Небольшой дисклеймер. Часть информации взята с [virtualize.link](https://virtualize.link/), потому что материалы автора полезны. Проверьте [источник](https://github.com/quietsy/advanced-configurations) или поставьте звезду репозиторию.
-</Warning>
+</Aside>
 
 [SWAG](https://github.com/linuxserver/docker-swag) — reverse proxy, который позволяет публиковать self-hosted приложения в интернет, но это несет риски.
 
@@ -174,9 +173,9 @@ Geoblock заметно снижает поверхность атаки SWAG, �
 
 DBIP не требует аккаунта, но Maxmind в ряде случаев может быть точнее.
 
-<Note>
+<Aside type="note">
 Этот блок был удален [автором](https://github.com/quietsy/advanced-configurations), но я оставил его для личного использования.
-</Note>
+</Aside>
 
 Моды дают 3 переменные: `$geo-whitelist`, `$geo-blacklist`, `$lan-ip`.
 

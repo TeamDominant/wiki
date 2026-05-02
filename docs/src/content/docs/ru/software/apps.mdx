@@ -3,36 +3,34 @@ title: "Приложения"
 description: "Рекомендуемые приложения для браузинга, сети, продуктивности и администрирования системы."
 ---
 
-import Columns from '@components/Columns.astro';
-import Info from '@components/Info.astro';
-import Card from '@components/Card.astro';
+import { Aside, Card, CardGrid, LinkCard, Icon } from '@astrojs/starlight/components';
 
 Эта страница содержит приложения для повседневной работы, сети, мониторинга и самоорганизации.
 
-<Info>
-Это практические рекомендации, а не строгие требования. Выбирайте инструменты под свою ОС, модель угроз и рабочий процесс.
-</Info>
+<Aside type="note">
+  Это практические рекомендации, а не строгие требования. Выбирайте инструменты под свою ОС, модель угроз и рабочий процесс.
+</Aside>
 
-<Columns cols={3}>
-  <Card title="Веб" icon="code" href="#web">
+<CardGrid>
+  <LinkCard title="Веб" href="#web">
     Браузеры и ссылки по их усилению.
-  </Card>
-  <Card title="Терминал" icon="square-code" href="#terminal-and-ssh">
+  </LinkCard>
+  <LinkCard title="Терминал" href="#terminal-and-ssh">
     SSH и терминальные клиенты.
-  </Card>
-  <Card title="Мониторинг" icon="server" href="#monitoring-and-system-info">
+  </LinkCard>
+  <LinkCard title="Мониторинг" href="#monitoring-and-system-info">
     Инструменты наблюдаемости за ресурсами и железом.
-  </Card>
-  <Card title="Удаленный доступ" icon="flag" href="#remote-access">
+  </LinkCard>
+  <LinkCard title="Удаленный доступ" href="#remote-access">
     Инструменты удаленного рабочего стола и совместной работы.
-  </Card>
-  <Card title="Заметки" icon="code" href="#notes">
+  </LinkCard>
+  <LinkCard title="Заметки" href="#notes">
     Приложения для базы знаний и заметок.
-  </Card>
-  <Card title="Сеть" icon="server" href="#network">
+  </LinkCard>
+  <LinkCard title="Сеть" href="#network">
     Инструменты анализа пакетов и обнаружения сервисов.
-  </Card>
-</Columns>
+  </LinkCard>
+</CardGrid>
 
 ## Web
 

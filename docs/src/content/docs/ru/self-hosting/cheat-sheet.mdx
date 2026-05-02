@@ -5,10 +5,8 @@ sidebar:
 description: "Практичные Ubuntu-команды для self-hosting: сервисы, cron, очистка Docker, диагностика и тюнинг."
 ---
 
-import Note from '@components/Note.astro';
-import Step from '@components/Step.astro';
-import Steps from '@components/Steps.astro';
-import Warning from '@components/Warning.astro';
+import { Aside, Steps } from '@astrojs/starlight/components';
+
 
 Используйте эту страницу как быстрый справочник по частым задачам self-hosting на Ubuntu.
 
@@ -61,9 +59,9 @@ crontab -e
 m h dom mon dow command
 ```
 
-<Note>
+<Aside type="note">
 Если команда ребута требует root-прав, используйте `sudo crontab -e`.
-</Note>
+</Aside>
 
 ## Удаление старых/неиспользуемых данных Docker
 
@@ -93,9 +91,9 @@ docker image prune -a
 docker system prune --all
 ```
 
-<Warning>
+<Aside type="caution">
 `-a` и `--all` могут удалить образы, которые вы хотели оставить для быстрого redeploy.
-</Warning>
+</Aside>
 
 ## Очистка сервера
 
@@ -115,37 +113,37 @@ sudo apt install -y ncdu
 sudo ncdu /
 ```
 
-<Warning>
+<Aside type="caution">
 Будьте осторожны с ручным удалением файлов в системных директориях.
-</Warning>
+</Aside>
 
 Частые цели для очистки:
 
 1. Старые логи в `/var/log`:
 
-```bash
-sudo journalctl --vacuum-time=2d
-```
+    ```bash
+    sudo journalctl --vacuum-time=2d
+    ```
 
 2. Неиспользуемые Docker-объекты в `/var/lib/docker`:
 
-```bash
-sudo docker image prune
-sudo docker container prune
-sudo docker network prune
-sudo docker volume prune
-sudo docker system prune -a
-```
+    ```bash
+    sudo docker image prune
+    sudo docker container prune
+    sudo docker network prune
+    sudo docker volume prune
+    sudo docker system prune -a
+    ```
 
 3. Неиспользуемые пакеты:
 
-```bash
-sudo apt autoremove
-```
+    ```bash
+    sudo apt autoremove
+    ```
 
-<Note>
+<Aside type="note">
 Для хостов Pterodactyl избегайте ручного удаления бэкапов в `/var/lib/pterodactyl`, чтобы не нарушить состояние панели.
-</Note>
+</Aside>
 
 ## Скрипты
 
@@ -179,46 +177,42 @@ wget -qO- speedtest.artydev.ru | bash
 wget -qO- bench.sh | bash
 ```
 
-<Warning>
-Перед запуском `curl | bash` или `wget | bash` в production обязательно проверяйте удаленные скрипты.
-</Warning>
+<Aside type="caution">
+  Перед запуском `curl | bash` или `wget | bash` в production обязательно проверяйте удаленные скрипты.
+</Aside>
 
 ## Установка ядра Xanmod
 
 <Steps>
-<Step title="Проверьте поддерживаемый уровень CPU">
 
-```bash
-wget https://dl.xanmod.org/check_x86-64_psabi.sh
-chmod +x check_x86-64_psabi.sh
-./check_x86-64_psabi.sh
-```
-</Step>
+1. Проверьте поддерживаемый уровень CPU
 
-<Step title="Зарегистрируйте ключ подписи Xanmod">
+    ```bash
+    wget https://dl.xanmod.org/check_x86-64_psabi.sh
+    chmod +x check_x86-64_psabi.sh
+    ./check_x86-64_psabi.sh
+    ```
 
-```bash
-wget -qO - https://dl.xanmod.org/archive.key | sudo gpg --dearmor -vo /etc/apt/keyrings/xanmod-archive-keyring.gpg
-```
-</Step>
+2. Зарегистрируйте ключ подписи Xanmod 
 
-<Step title="Добавьте репозиторий Xanmod">
+    ```bash
+    wget -qO - https://dl.xanmod.org/archive.key | sudo gpg --dearmor -vo /etc/apt/keyrings/xanmod-archive-keyring.gpg
+    ```
 
-```bash
-echo 'deb [signed-by=/etc/apt/keyrings/xanmod-archive-keyring.gpg] http://deb.xanmod.org releases main' | sudo tee /etc/apt/sources.list.d/xanmod-release.list
-```
-</Step>
+3. Добавьте репозиторий Xanmod
 
-<Step title="Установите пакет ядра">
+    ```bash
+    echo 'deb [signed-by=/etc/apt/keyrings/xanmod-archive-keyring.gpg] http://deb.xanmod.org releases main' | sudo tee /etc/apt/sources.list.d/xanmod-release.list
+    ```
 
-```bash
-sudo apt update && sudo apt install linux-xanmod-x64v3
-```
-</Step>
+4. Установите пакет ядра
 
-<Step title="Завершение">
-Если вашему стеку нужен BBR-тюнинг, примените его и перезагрузитесь.
-</Step>
+    ```bash
+    sudo apt update && sudo apt install linux-xanmod-x64v3
+    ```
+
+5. Если вашему стеку нужен BBR-тюнинг, примените его и перезагрузитесь.
+
 </Steps>
 
 ## Ограничение частоты ICMP-ответов

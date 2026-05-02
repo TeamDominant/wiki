@@ -3,14 +3,13 @@ title: Arch Linux
 description: A step-by-step guide to installing Arch Linux, including network setup, disk partitioning, and GRUB configuration.
 ---
 
-import Danger from '@components/Danger.astro';
-import Note from '@components/Note.astro';
+import { Aside } from '@astrojs/starlight/components';
 
 ## Preparation of installation image
 
-<Note>
+<Aside type="note">
     Linux systems can be installed almost anywhere: on a desktop, laptop, USB drive, or even a phone (if the distribution supports it). The installation process is roughly the same, but some differences matter. For example, when installing Arch Linux as a second system, you may need to manually configure `efibootmgr`. Dual boot setup also differs between BIOS and UEFI.
-</Note>
+</Aside>
 
 What you need:
 
@@ -37,11 +36,11 @@ In this example, we use Rufus. After downloading the image, open Rufus and confi
 - File system: Select **FAT32**.
 - Cluster size: Leave as **default**.
 
-![rufus_arch](/images/archlinux/rufus_arch.png)
+![rufus_arch](https://github.com/TeamDominant/wiki/blob/main/docs/src/assets/archlinux/rufus_arch.png?raw=true)
 
-<Danger>
+<Aside type="danger">
     All files on the USB drive will be erased.
-</Danger>
+</Aside>
 
 Click **Start**. In the pop-up window, select the option that mentions **ISO**.
 
@@ -49,7 +48,7 @@ After the process is complete, connect the USB flash drive to the target machine
 Enter BIOS and disable Secure Boot (you can enable it again after installation).
 Boot from USB, choose **Arch Linux install medium**, and wait for the system to load.
 
-![start_arch](/images/archlinux/Arch_install1.png)
+![start_arch](https://github.com/TeamDominant/wiki/blob/main/docs/src/assets/archlinux/Arch_install1.png?raw=true)
 
 ## Installation
 
@@ -69,43 +68,43 @@ For Wi-Fi, use `iwctl`:
 iwctl
 ```
 
-![iwctl](/images/archlinux/iwctl_settings.png)
+![iwctl](https://github.com/TeamDominant/wiki/blob/main/docs/src/assets/archlinux/iwctl_settings.png?raw=true)
 
 Then run:
 
 1. List available wireless devices:
 
-```bash
-device list
-```
+        ```bash
+        device list
+        ```
 
 Identify your wireless interface (for example, `wlan0`).
 
 2. Scan for networks:
 
-```bash
-station wlan0 scan
-```
+        ```bash
+        station wlan0 scan
+        ```
 
 3. Show available networks:
 
-```bash
-station wlan0 get-networks
-```
+        ```bash
+        station wlan0 get-networks
+        ```
 
 4. Connect to a network:
 
-```bash
-station wlan0 connect {network}
-```
+        ```bash
+        station wlan0 connect {network}
+        ```
 
 Enter the password if prompted.
 
 5. Check status:
 
-```bash
-station wlan0 show
-```
+        ```bash
+        station wlan0 show
+        ```
 
 Then confirm connectivity:
 
@@ -124,9 +123,9 @@ This guide uses `fdisk`.
 
 First, identify your disk.
 
-<Danger>
+<Aside type="danger">
     Disconnect unnecessary disks to reduce risk of selecting the wrong disk.
-</Danger>
+</Aside>
 
 List disks:
 
@@ -154,9 +153,9 @@ Press `n` to create a new partition. Keep default partition number and first sec
 
 Repeat for `swap` (for example `+4G` to `+8G`) and use the remaining space for `root`.
 
-<Danger>
+<Aside type="danger">
     SWAP is recommended if your machine has less than 8 GB of RAM.
-</Danger>
+</Aside>
 
 After creating partitions, press `w` to write changes.
 
@@ -170,7 +169,7 @@ archinstall
 
 You should see the installer menu.
 
-![archinstall](/images/archlinux/archinstall.png)
+![archinstall](https://github.com/TeamDominant/wiki/blob/main/docs/src/assets/archlinux/archinstall.png?raw=true)
 
 Suggested settings:
 
@@ -178,9 +177,9 @@ Suggested settings:
 
 Select your preferred locale (for example `en_US` or `ru_RU`).
 
-<Note>
+<Aside type="note">
     Press `?` to search quickly.
-</Note>
+</Aside>
 
 **Disk configuration**
 
@@ -230,9 +229,9 @@ Add useful tools, for example:
 
 Choose your timezone.
 
-<Note>
+<Aside type="note">
     Press `?` to search quickly.
-</Note>
+</Aside>
 
 **Audio**
 

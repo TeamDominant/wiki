@@ -3,11 +3,11 @@ title: "Geoblock"
 description: "Гайд в моем новом Starlight-док-сайте."
 ---
 
-import Warning from '@components/Warning.astro';
+import { Aside } from '@astrojs/starlight/components';
 
-<Warning>
+<Aside type="caution">
 Небольшой дисклеймер. Часть информации взята с [virtualize.link](https://virtualize.link/), потому что материалы автора полезны. Проверьте [источник](https://github.com/quietsy/advanced-configurations) или поставьте звезду репозиторию.
-</Warning>
+</Aside>
 
 ## VPS
 
@@ -103,9 +103,9 @@ sudo ipset list RU.ipv4
 
 ### Расписание Cron
 
-<Warning>
+<Aside type="caution">
 Перед продолжением убедитесь, что вы случайно не заблокируете собственный доступ к VPS.
-</Warning>
+</Aside>
 
 Запускайте скрипт geoblock при загрузке и раз в неделю.
 
