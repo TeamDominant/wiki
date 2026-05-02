@@ -102,7 +102,8 @@ export default defineConfig({
 					label: 'leadingNavLinks',
 					items: [
 						{ label: 'Wiki', slug: 'introduction/overview' },
-						{ label: 'Terms of service', slug: 'faq/terms' }
+						{ label: 'Terms of service', slug: 'faq/terms' },
+						{ label: 'Support', link: 'https://t.me/teamdominant_support_bot'}
 					]
 				}
 			],
