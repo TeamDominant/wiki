@@ -96,6 +96,8 @@ export default defineConfig({
 					label: 'FAQ',
 					items: [
 						{ label: 'Koala-Clash', slug: 'faq/koala-clash' },
+						{ label: 'Terms of service', slug: 'faq/terms' },
+						{ label: 'Support', link: 'https://t.me/teamdominant_support_bot' }
 					],
 				},
 				{
