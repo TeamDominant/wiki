@@ -1,0 +1,63 @@
+---
+title: Rules & limits
+description: Torrents, games and ping, AI services, MAX and other things worth knowing about how the service works.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+## Torrents
+
+Torrent traffic through the VPN is not allowed: it makes server providers send complaints and they may
+block a server for every user on it.
+
+If the system detects torrents, you get a notice and your access is blocked. Close the torrent
+client — the block lifts in about 5 minutes. If you are sure it is a mistake, message
+[support](/faq/support/).
+
+Downloading large files (games from a launcher, for example) is fine. After a sharp traffic spike we
+sometimes ask to confirm it is not a torrent — that is just a routine check.
+
+## Games and ping
+
+- A VPN does not lower ping: traffic goes through a server in another country, so latency is usually
+  higher than without a VPN. Internet speed does not affect ping.
+- Check server latency with the test button in the app and pick the closest one.
+- Games that do not need the VPN are better sent directly — see
+  [Routing rules](/faq/routing-rules/#exclude-a-program-from-the-vpn).
+- If a game blocks players by account region, a VPN cannot get around it.
+
+## AI services
+
+Some AI services (Claude, for example) block accounts that sign in from different countries. To avoid
+that, always use the same location for them (Germany, for example) — changing IP addresses within one
+country causes no problems.
+
+If a service says your region is not supported, try another location and tell us which one showed
+the error.
+
+## MAX messenger
+
+MAX does not work while the VPN is on — this is intentional, for your protection.
+
+## Mobile operators
+
+The service works with all operators. If mobile internet works poorly, use the
+[linked profile](/faq/subscription/#linked-profile-lte--wl). It cannot be guaranteed to work under
+operator-side restrictions (“whitelists”) — it depends on the region.
+
+## Locations
+
+Currently available: Germany (Frankfurt, Nuremberg), the Netherlands (Amsterdam, Eygelshoven), Japan
+(Tokyo) and Russia (Moscow). Every location is available on every plan and you can switch freely. The
+list keeps growing — the current one is always in the app after a profile update.
+
+There is no Kazakhstan location yet: we have not found a reliable provider for it.
+
+## Platforms
+
+- Apps for all popular platforms — see [Installation](/faq/install/).
+- Servers and infrastructure (Linux, Docker) — we offer turnkey setup, message [support](/faq/support/).
+
+<Aside type="note">
+  The full usage rules are in the [user agreement](/faq/terms/).
+</Aside>

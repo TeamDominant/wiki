@@ -1,16 +1,71 @@
 ---
-title: "Koala-Clash"
-description: "Koala-Clash setup and usage."
+title: "Koala Clash"
+description: "Installing Koala Clash, updating the profile, choosing a server, logs and common errors."
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 
-<Aside type="note">
-This page is a stub. Add working profiles, policy groups, and update/rollback notes.
+Koala Clash is our main recommended app. It is available for iPhone and iPad (via TestFlight),
+Android, Android TV, Windows, macOS and Linux. Download links are in the **Install** section of your
+account. Desktop releases are also published on
+[GitHub](https://github.com/coolcoala/koala-clash/releases).
+
+<Aside type="tip">
+  Keep the app up to date. Many issues people bring to support are already fixed in the latest version.
 </Aside>
 
-Use this page to document how you run and maintain Koala-Clash.
+## Update the profile
 
-## Next steps
+- **Main screen** — the profile update button.
+- **Profiles tab** → the three dots next to the profile → **Update**.
 
-- Add profile management, rules, and update notes.
+Update the profile after paying, changing plans, removing devices and whenever something breaks.
+
+## Choose a server
+
+On the proxies tab, pick a location in the **Proxy** group. Every server and every group has a
+latency test button — pick a server that responds with lower latency. If a location has problems, we
+post about it in the [alerts channel](/faq/alerts/).
+
+Some services (YouTube, for example) have their own groups in the list — pick their server the same way.
+
+## Tabs worth knowing
+
+In the side menu of the desktop version:
+
+- **Rules** — your own rules for websites, games and apps. The edit button is the pencil in the
+  top-right corner. How to use it — see [Routing rules](/faq/routing-rules/).
+- **Connections** (fourth from the top) — which connections go through the proxy and which go
+  directly. The switch at the top toggles open and closed connections.
+- **Logs** (second from the bottom) — core errors and warnings. Logs can be exported to a file and
+  sent to support. The button that pauses the log stream is in the top-right corner, left of the
+  trash can.
+
+## Common issues
+
+**The VPN is on, but nothing loads.**
+Check in the settings that the core is enabled. Then update the profile and switch the server.
+
+**The VPN stopped working after I added my own rule.**
+Most likely the rule points to a specific server (for example, “Frankfurt 2”) instead of the
+**Proxy** group. When the server list changes, such a rule breaks the configuration. Open the rule
+editor, choose **Proxy** and update the profile.
+
+**The selected server keeps switching back.**
+Another program is interfering: a second VPN, Telegram's built-in proxy, Zapret. Turn them off and
+restart Koala Clash.
+
+**The app does not start or the core crashes.**
+Check your antivirus: third-party antiviruses (for example, Norton, which sometimes gets installed
+together with driver utilities) can block the core. Add Koala Clash to the exclusions or remove the
+extra antivirus.
+
+**My rules are gone.**
+This happened in old versions. Update the app and add the rules again. Keep important rules saved
+somewhere on your side.
+
+## On iPhone
+
+- If Koala Clash does not open, update it in TestFlight — see [Installation](/faq/install/#iphone-and-ipad).
+- iOS does not allow rules for individual apps. If you need a website that is not in our rules,
+  message [support](/faq/support/).

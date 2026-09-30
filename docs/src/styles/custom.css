@@ -1,52 +1,643 @@
-/* Dark mode colors. */
+/*
+ * TeamDominant design tokens — adapted from web-exds.tg (src/index.css).
+ * Starlight is dark by default (`:root`) and switches to light with `[data-theme='light']`.
+ * Change `--td-brand` (and its soft/high companions) to rebrand the whole wiki.
+ */
+
+/* ----------------------------------------------------------------- tokens -- */
+
+/* Dark: warm Notion-like dark neutrals; `ink` flips to the lightest text tone. */
 :root {
-	--sl-color-accent-low: #4d3f63;
-	--sl-color-accent: #c2b5d3;
-	--sl-color-accent-high: #f0e6ff;
-	--sl-color-white: #ffffff;
-	--sl-color-gray-1: #f2edf7;
-	--sl-color-gray-2: #d5cbe0;
-	--sl-color-gray-3: #a89bb8;
-	--sl-color-gray-4: #746983;
-	--sl-color-gray-5: #4c4557;
-	--sl-color-gray-6: #332d3b;
-	--sl-color-black: #1b1721;
+	--td-radius: 0.875rem;
+	--td-font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+	--td-font-heading: 'Manrope Variable', 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+
+	--td-background: oklch(0.205 0.004 85);
+	--td-foreground: oklch(0.9 0.005 85);
+	--td-ink: oklch(0.955 0.004 85);
+	--td-text: oklch(0.82 0.006 85);
+	--td-surface: oklch(0.225 0.004 85);
+	--td-card: oklch(0.24 0.004 85);
+	--td-muted: oklch(0.275 0.004 85);
+	--td-muted-foreground: oklch(0.72 0.008 85);
+	--td-border: oklch(0.31 0.004 85);
+	--td-input: oklch(0.38 0.004 85);
+
+	--td-brand: oklch(0.63 0.2 358);
+	--td-brand-foreground: oklch(0.99 0 0);
+	--td-brand-soft: oklch(0.3 0.07 358);
+	--td-brand-text: oklch(0.72 0.17 358);
+
+	--td-pastel-yellow: oklch(0.33 0.045 92);
+	--td-pastel-blue: oklch(0.31 0.04 230);
+	--td-pastel-green: oklch(0.32 0.045 170);
+	--td-pastel-pink: oklch(0.31 0.05 350);
+	--td-pastel-purple: oklch(0.31 0.045 300);
+
+	/* sticker circles keep light pastels in both themes: the characters are black line art */
+	--td-sticker-yellow: oklch(0.965 0.035 92);
+	--td-sticker-blue: oklch(0.935 0.025 230);
+	--td-sticker-green: oklch(0.94 0.03 170);
+	--td-sticker-purple: oklch(0.93 0.03 300);
+
+	/* aside accents (title + icon) */
+	--td-note: oklch(0.8 0.08 230);
+	--td-tip: oklch(0.8 0.1 165);
+	--td-caution: oklch(0.84 0.11 85);
+	--td-danger: oklch(0.75 0.16 20);
+
+	/* hard offset "sticker" shadows */
+	--td-shadow-hard: oklch(0.08 0.004 85);
+	--td-shadow-sticker: 2px 3px 0 0 var(--td-shadow-hard);
 }
-/* Light mode colors. */
+
 :root[data-theme='light'] {
-	--sl-color-accent-low: #efe8f6;
-	--sl-color-accent: #c2b5d3;
-	--sl-color-accent-high: #5b4a70;
-	--sl-color-white: #17131c;
-	--sl-color-gray-1: #241e2c;
-	--sl-color-gray-2: #3b3445;
-	--sl-color-gray-3: #5d536b;
-	--sl-color-gray-4: #8f849d;
-	--sl-color-gray-5: #c9bfd5;
-	--sl-color-gray-6: #efeaf5;
-	--sl-color-gray-7: #f8f5fb;
-	--sl-color-black: #ffffff;
+	--td-background: oklch(1 0 0);
+	--td-foreground: oklch(0.24 0.006 85);
+	--td-ink: oklch(0.2 0.006 85);
+	--td-text: oklch(0.36 0.006 85);
+	--td-surface: oklch(0.974 0.004 91);
+	--td-card: oklch(1 0 0);
+	--td-muted: oklch(0.962 0.004 91);
+	--td-muted-foreground: oklch(0.52 0.008 85);
+	--td-border: oklch(0.915 0.005 85);
+	--td-input: oklch(0.86 0.005 85);
+
+	--td-brand: oklch(0.57 0.21 358);
+	--td-brand-soft: oklch(0.955 0.025 358);
+	--td-brand-text: oklch(0.52 0.2 358);
+
+	--td-pastel-yellow: var(--td-sticker-yellow);
+	--td-pastel-blue: var(--td-sticker-blue);
+	--td-pastel-green: var(--td-sticker-green);
+	--td-pastel-pink: oklch(0.935 0.035 350);
+	--td-pastel-purple: var(--td-sticker-purple);
+
+	--td-note: oklch(0.48 0.1 240);
+	--td-tip: oklch(0.47 0.09 165);
+	--td-caution: oklch(0.5 0.1 70);
+	--td-danger: oklch(0.52 0.19 25);
+
+	--td-shadow-hard: var(--td-ink);
 }
 
-/* Fix button text color */
+/* ------------------------------------------------- Starlight palette mapping -- */
+
+:root {
+	--sl-font: var(--td-font-sans);
+
+	--sl-color-white: var(--td-ink);
+	--sl-color-gray-1: var(--td-foreground);
+	--sl-color-gray-2: var(--td-text);
+	--sl-color-gray-3: var(--td-muted-foreground);
+	--sl-color-gray-4: oklch(0.55 0.006 85);
+	--sl-color-gray-5: var(--td-input);
+	--sl-color-gray-6: var(--td-border);
+	--sl-color-black: var(--td-background);
+
+	--sl-color-accent-low: var(--td-brand-soft);
+	--sl-color-accent: var(--td-brand);
+	--sl-color-accent-high: var(--td-brand-text);
+
+	--sl-color-text-accent: var(--td-brand-text);
+	--sl-color-text-invert: var(--td-brand-foreground);
+	--sl-color-bg-accent: var(--td-brand);
+	--sl-color-bg-nav: color-mix(in oklch, var(--td-background) 80%, transparent);
+	--sl-color-bg-sidebar: var(--td-background);
+	--sl-color-bg-inline-code: var(--td-muted);
+	--sl-color-hairline-light: var(--td-border);
+	--sl-color-hairline: var(--td-border);
+	--sl-color-hairline-shade: var(--td-border);
+
+	--sl-text-h1: 2.25rem;
+	--sl-text-h2: 1.625rem;
+	--sl-text-h3: 1.3125rem;
+	--sl-text-h4: 1.125rem;
+	--sl-line-height: 1.7;
+	--sl-line-height-headings: 1.15;
+
+	--sl-nav-height: 4rem;
+	--sl-menu-button-size: 2.25rem;
+}
+
+:root[data-theme='light'] {
+	--sl-color-gray-4: oklch(0.68 0.006 85);
+	--sl-color-gray-7: var(--td-surface);
+	--sl-color-backdrop-overlay: oklch(0.2 0.006 85 / 0.4);
+}
+
+@media (min-width: 50em) {
+	:root {
+		--sl-text-h1: 3rem;
+		--sl-text-h2: 1.875rem;
+		--sl-text-h3: 1.375rem;
+		--sl-text-h4: 1.125rem;
+	}
+}
+
+/* ------------------------------------------------------------------- base -- */
+
+body {
+	background-color: var(--td-background);
+	font-feature-settings: 'cv11', 'ss01';
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--td-font-heading);
+	text-wrap: balance;
+}
+
+p {
+	text-wrap: pretty;
+}
+
+::selection {
+	background-color: var(--td-brand-soft);
+	color: var(--td-ink);
+}
+
+:focus-visible {
+	outline-color: color-mix(in oklch, var(--td-brand) 60%, transparent);
+}
+
+/* ------------------------------------------------------------------ header -- */
+
+header.header {
+	-webkit-backdrop-filter: blur(12px);
+	backdrop-filter: blur(12px);
+}
+
+site-search button[data-open-modal] {
+	border-radius: 999px;
+}
+
+@media (min-width: 50rem) {
+	site-search button[data-open-modal] {
+		border-color: var(--td-border);
+		background-color: var(--td-muted);
+		color: var(--td-muted-foreground);
+		padding-inline: 0.875rem 0.5rem;
+		transition: color 0.15s, border-color 0.15s;
+	}
+	site-search button[data-open-modal]:hover {
+		border-color: var(--td-input);
+		color: var(--td-ink);
+	}
+	site-search button[data-open-modal] > kbd {
+		border-radius: 999px;
+		background-color: var(--td-background);
+		padding-inline: 0.5rem;
+	}
+}
+
+/* `:root` + `[aria-controls]` outweigh the unlayered styles of starlight-sidebar-swipe's toggle */
+:root starlight-menu-button button[aria-controls] {
+	border: 1px solid var(--td-border);
+	background-color: var(--td-muted);
+	color: var(--td-ink);
+	box-shadow: none;
+}
+
+:root starlight-menu-button[aria-expanded='true'] button[aria-controls] {
+	border-color: var(--td-ink);
+	background-color: var(--td-ink);
+	color: var(--td-background);
+}
+
+site-search dialog {
+	border-radius: 1.25rem;
+	border-color: var(--td-border);
+	background-color: var(--td-surface);
+}
+
+/* ----------------------------------------------------------------- sidebar -- */
+
+.sidebar-content {
+	--sl-sidebar-item-padding-inline: 0.75rem;
+}
+
+.sidebar-content .large {
+	font-family: var(--td-font-heading);
+	font-weight: 800;
+	letter-spacing: -0.01em;
+	color: var(--td-ink);
+}
+
+.sidebar-content summary {
+	border-radius: 0.75rem;
+}
+
+.sidebar-content ul ul li {
+	margin-inline-start: 0;
+	border-inline-start: 0;
+	padding-inline-start: 0;
+}
+
+.sidebar-content ul ul {
+	margin-top: 0.25rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.125rem;
+}
+
+.sidebar-content ul a {
+	border-radius: 0.75rem;
+	padding-block: 0.45em;
+	font-weight: 500;
+	color: var(--td-muted-foreground);
+	transition: color 0.15s, background-color 0.15s;
+}
+
+.sidebar-content ul a:hover,
+.sidebar-content ul a:focus-visible {
+	color: var(--td-ink);
+	background-color: var(--td-muted);
+}
+
+/* active page: inverted ink pill, like the section nav on exds.tg/legal */
+.sidebar-content ul a[aria-current='page'],
+.sidebar-content ul a[aria-current='page']:hover,
+.sidebar-content ul a[aria-current='page']:focus {
+	font-weight: 600;
+	color: var(--td-background);
+	background-color: var(--td-ink);
+}
+
+/* --------------------------------------------------------- table of contents -- */
+
+starlight-toc h2,
+mobile-starlight-toc .toggle {
+	font-family: var(--td-font-heading);
+}
+
+starlight-toc h2 {
+	font-size: var(--sl-text-xs);
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--td-brand-text);
+}
+
+starlight-toc a {
+	color: var(--td-muted-foreground);
+	transition: color 0.15s;
+}
+
+starlight-toc a:hover {
+	color: var(--td-ink);
+}
+
+starlight-toc a[aria-current='true'],
+starlight-toc a[aria-current='true']:hover,
+starlight-toc a[aria-current='true']:focus {
+	color: var(--td-ink);
+	font-weight: 600;
+}
+
+mobile-starlight-toc nav {
+	background-color: color-mix(in oklch, var(--td-background) 88%, transparent);
+	-webkit-backdrop-filter: blur(12px);
+	backdrop-filter: blur(12px);
+}
+
+/* ------------------------------------------------------------------ content -- */
+
+.sl-markdown-content :is(h1, h2, h3, h4, h5, h6):not(:where(.not-content *)) {
+	font-family: var(--td-font-heading);
+	font-weight: 800;
+	letter-spacing: -0.025em;
+	color: var(--td-ink);
+}
+
+.sl-markdown-content :is(h3, h4, h5, h6):not(:where(.not-content *)) {
+	font-weight: 700;
+	letter-spacing: -0.015em;
+}
+
+.sl-markdown-content a:not(:where(.not-content *)) {
+	color: var(--td-brand-text);
+	font-weight: 500;
+	text-decoration-color: color-mix(in oklch, var(--td-brand) 35%, transparent);
+	text-underline-offset: 4px;
+	transition: text-decoration-color 0.15s;
+}
+
+.sl-markdown-content a:not(:where(.not-content *)):hover {
+	text-decoration-color: currentColor;
+}
+
+.sl-markdown-content .sl-anchor-link {
+	font-weight: inherit;
+}
+
+.sl-markdown-content :is(ul, ol) li::marker {
+	color: var(--td-brand);
+}
+
+.sl-markdown-content ol > li::marker {
+	font-family: var(--td-font-heading);
+	font-weight: 700;
+}
+
+.sl-markdown-content strong:not(:where(.not-content *)) {
+	color: var(--td-ink);
+}
+
+.sl-markdown-content :not(pre) > code:not(:where(.not-content *)) {
+	border: 1px solid var(--td-border);
+	border-radius: 0.4rem;
+	padding: 0.1em 0.35em;
+	color: var(--td-ink);
+}
+
+.sl-markdown-content blockquote:not(:where(.not-content *)) {
+	border-inline-start: 3px solid var(--td-brand);
+	border-radius: 0 0.75rem 0.75rem 0;
+	background-color: var(--td-surface);
+	padding: 0.75rem 1rem;
+}
+
+.sl-markdown-content hr:not(:where(.not-content *)) {
+	border-color: var(--td-border);
+}
+
+.sl-markdown-content img:not(:where(.not-content *)) {
+	border-radius: var(--td-radius);
+}
+
+/* tables: rounded card with a surface header row */
+.sl-markdown-content table:not(:where(.not-content *)) {
+	border-collapse: separate;
+	border-spacing: 0;
+	border: 1px solid var(--td-border);
+	border-radius: calc(var(--td-radius) * 1.4);
+}
+
+/* Starlight renders tables as scrollable blocks; on wide screens make them fill the column
+   so the header row and dividers run edge to edge. */
+@media (min-width: 50rem) {
+	.sl-markdown-content table:not(:where(.not-content *)) {
+		display: table;
+		width: 100%;
+	}
+	.sl-markdown-content tr:first-child > th:first-child {
+		border-start-start-radius: calc(var(--td-radius) * 1.4 - 1px);
+	}
+	.sl-markdown-content tr:first-child > th:last-child {
+		border-start-end-radius: calc(var(--td-radius) * 1.4 - 1px);
+	}
+}
+
+.sl-markdown-content :is(th, td):not(:where(.not-content *)) {
+	border: 0;
+	border-bottom: 1px solid var(--td-border);
+	padding: 0.625rem 1rem;
+}
+
+.sl-markdown-content tr:last-child > td:not(:where(.not-content *)) {
+	border-bottom: 0;
+}
+
+.sl-markdown-content th:not(:where(.not-content *)) {
+	background-color: var(--td-surface);
+	color: var(--td-ink);
+	font-weight: 600;
+}
+
+.sl-markdown-content kbd:not(:where(.not-content *)) {
+	border: 1px solid var(--td-border);
+	border-bottom-width: 2px;
+	border-radius: 0.4rem;
+	background-color: var(--td-card);
+	color: var(--td-ink);
+}
+
+/* ------------------------------------------------------------------ asides -- */
+
+.starlight-aside {
+	--td-aside-bg: var(--td-pastel-blue);
+	--td-aside-accent: var(--td-note);
+	border: 1px solid color-mix(in oklch, var(--td-aside-accent) 22%, transparent);
+	border-radius: calc(var(--td-radius) * 1.4);
+	background: var(--td-aside-bg);
+	padding: 1rem 1.25rem;
+	color: var(--td-foreground);
+}
+
+.starlight-aside--tip {
+	--td-aside-bg: var(--td-pastel-green);
+	--td-aside-accent: var(--td-tip);
+}
+
+.starlight-aside--caution {
+	--td-aside-bg: var(--td-pastel-yellow);
+	--td-aside-accent: var(--td-caution);
+}
+
+.starlight-aside--danger {
+	--td-aside-bg: var(--td-pastel-pink);
+	--td-aside-accent: var(--td-danger);
+}
+
+.starlight-aside__title {
+	font-family: var(--td-font-heading);
+	font-weight: 800;
+	color: var(--td-aside-accent);
+}
+
+.starlight-aside__icon {
+	color: var(--td-aside-accent);
+}
+
+.starlight-aside a {
+	color: var(--td-ink);
+	text-decoration-color: color-mix(in oklch, var(--td-ink) 40%, transparent);
+}
+
+/* ------------------------------------------------------------------- steps -- */
+
+/* numbered "sticker" circles, like the how-it-works steps on exds.tg */
+.sl-steps {
+	--bullet-size: 2.125rem;
+	--bullet-margin: 0.375rem;
+}
+
+.sl-steps > li::before {
+	border: 2px solid var(--td-ink);
+	background-color: var(--td-background);
+	box-shadow: var(--td-shadow-sticker);
+	color: var(--td-ink);
+	font-family: var(--td-font-heading);
+	font-weight: 800;
+	font-size: var(--sl-text-sm);
+	line-height: calc(var(--bullet-size) - 4px);
+}
+
+.sl-steps > li::after {
+	background-color: var(--td-border);
+	inset-block-start: calc(var(--bullet-size) + var(--bullet-margin) + 0.25rem);
+	width: 2px;
+	inset-inline-start: calc((var(--bullet-size) - 2px) / 2);
+}
+
+/* ------------------------------------------------------------ cards & links -- */
+
+.card {
+	border: 1px solid var(--td-border);
+	border-radius: calc(var(--td-radius) * 1.8);
+	background-color: var(--td-card);
+	padding: 1.5rem;
+}
+
+.card .title {
+	font-family: var(--td-font-heading);
+	font-weight: 800;
+	letter-spacing: -0.015em;
+}
+
+.card .icon {
+	border: 2px solid var(--td-ink);
+	border-radius: 0.75rem;
+	background-color: var(--td-pastel-yellow);
+	box-shadow: var(--td-shadow-sticker);
+	color: var(--td-ink);
+	padding: 0.25rem;
+}
+
+/* LinkCard + prev/next pagination lift into a sticker on hover */
+.sl-link-card,
+.pagination-links a {
+	border: 1px solid var(--td-border);
+	border-radius: calc(var(--td-radius) * 1.4);
+	background-color: var(--td-card);
+	box-shadow: none;
+	transition: border-color 0.2s, box-shadow 0.2s, translate 0.2s;
+}
+
+.sl-link-card:hover,
+.pagination-links a:hover {
+	border-color: var(--td-ink);
+	background-color: var(--td-card);
+	box-shadow: var(--td-shadow-sticker);
+	translate: 0 -2px;
+}
+
+.sl-link-card .title,
+.pagination-links .link-title {
+	font-family: var(--td-font-heading);
+	font-weight: 700;
+	letter-spacing: -0.015em;
+	color: var(--td-ink);
+}
+
+.pagination-links .link-title {
+	font-size: var(--sl-text-xl);
+}
+
+.sl-link-card .description {
+	color: var(--td-muted-foreground);
+}
+
+.sl-link-card .icon {
+	color: var(--td-brand-text);
+}
+
+.sl-link-card:hover .icon {
+	color: var(--td-ink);
+}
+
+/* ---------------------------------------------------------------- buttons -- */
+
+.sl-link-button {
+	border-radius: 999px;
+	border: 1px solid transparent;
+	font-family: var(--td-font-sans);
+	font-weight: 600;
+	transition: background-color 0.15s, border-color 0.15s, translate 0.1s;
+}
+
+.sl-link-button:active {
+	translate: 0 1px;
+}
+
 .sl-link-button.primary {
-	color: black !important;
-}
-.sl-link-button.primary * {
-	color: black !important;
-}
-
-/* Fix splash page overflow */
-html[data-has-hero] {
-	overflow-y: hidden;
+	background-color: var(--td-brand);
+	border-color: var(--td-brand);
+	color: var(--td-brand-foreground);
+	box-shadow: 0 1px 2px 0 color-mix(in oklch, var(--td-brand) 20%, transparent);
 }
 
-html[data-has-hero] body {
-	overflow-y: hidden;
-	max-height: 100vh;
+.sl-link-button.primary:hover {
+	background-color: color-mix(in oklch, var(--td-brand) 90%, var(--td-background));
+	color: var(--td-brand-foreground);
 }
 
-.page[data-has-hero] {
-	max-height: 100vh;
-	overflow-y: hidden;
+.sl-link-button.secondary {
+	background-color: var(--td-background);
+	border-color: var(--td-border);
+	color: var(--td-ink);
+}
+
+.sl-link-button.secondary:hover {
+	background-color: var(--td-muted);
+	color: var(--td-ink);
+}
+
+.sl-link-button.minimal {
+	color: var(--td-brand-text);
+}
+
+/* ------------------------------------------------------------------ badges -- */
+
+.sl-badge {
+	border-radius: 999px;
+	font-weight: 600;
+}
+
+/* -------------------------------------------------------------- page footer -- */
+
+footer.sl-flex .meta,
+footer.sl-flex .kudos {
+	color: var(--td-muted-foreground);
+}
+
+/* ----------------------------------------------------------- scroll to top -- */
+
+/* same round sticker button as the "back to top" on exds.tg */
+:root .scroll-to-top-button {
+	width: 2.75rem;
+	height: 2.75rem;
+	right: 1.5rem;
+	bottom: 1.5rem;
+	border: 2px solid var(--td-ink);
+	border-radius: 999px;
+	background-color: var(--td-background);
+	color: var(--td-ink);
+	box-shadow: var(--td-shadow-sticker);
+}
+
+:root .scroll-to-top-button:hover {
+	border-color: var(--td-ink);
+	background-color: var(--td-background);
+	color: var(--td-ink);
+	box-shadow: var(--td-shadow-sticker);
+	translate: 0 -2px;
+}
+
+:root .scroll-to-top-button:active {
+	background-color: var(--td-muted);
+	color: var(--td-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
 }

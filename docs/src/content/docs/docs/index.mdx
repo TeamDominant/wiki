@@ -1,0 +1,40 @@
+---
+title: Docs
+description: Practical guides for self-hosting, Linux, software and devices, written from real-world experience.
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+Step-by-step guides, distilled instructions and notes on software tools and technologies. New here?
+Start with the [introduction](/docs/introduction/overview/).
+
+Looking for help with the TeamDominant subscription and apps? That lives in the [Wiki](/faq/).
+
+## Introduction
+
+<CardGrid>
+  <LinkCard title="Introduction" description="What this documentation is and how it is written." href="/docs/introduction/overview/" />
+  <LinkCard title="Apps" description="Recommended apps for browsing, networking, productivity and system management." href="/docs/software/apps/" />
+</CardGrid>
+
+## Self-hosting
+
+<CardGrid>
+  <LinkCard title="SWAG" description="Securing your SWAG reverse proxy." href="/docs/self-hosting/swag/" />
+  <LinkCard title="Optimizing Nextcloud" description="Nextcloud with SWAG, Redis, Collabora and more." href="/docs/self-hosting/nextcloud/" />
+  <LinkCard title="DNS for containers" description="Per-container DNS visibility with a dedicated AdGuard Home resolver." href="/docs/self-hosting/dns-for-containers/" />
+  <LinkCard title="Linux questions and answers" description="Ubuntu commands for services, cron, Docker cleanup and diagnostics." href="/docs/self-hosting/cheat-sheet/" />
+  <LinkCard title="Firehol" description="Firehol blocklists on a VPS or an OPNSense firewall." href="/docs/self-hosting/firehol/" />
+  <LinkCard title="Geoblock" description="Allow or block traffic by country." href="/docs/self-hosting/geoblock/" />
+  <LinkCard title="Canary" description="Canary Tokens and OpenCanary to detect suspicious activity." href="/docs/self-hosting/canary/" />
+  <LinkCard title="Simplelogin" description="Email aliases with SimpleLogin." href="/docs/self-hosting/simplelogin/" />
+</CardGrid>
+
+## Other
+
+<CardGrid>
+  <LinkCard title="Arch Linux" description="Installing Arch Linux: network, disk partitioning and GRUB." href="/docs/other/arch/" />
+  <LinkCard title="Wush" description="Peer-to-peer file transfer and remote shell over WireGuard." href="/docs/other/wush/" />
+  <LinkCard title="iPhone" description="Notes for advanced iPhone usage." href="/docs/other/iphone/" />
+  <LinkCard title="Nothing Phone" description="Tips and tricks for the Nothing Phone series." href="/docs/other/nothingphone/" />
+</CardGrid>

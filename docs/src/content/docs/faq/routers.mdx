@@ -1,0 +1,43 @@
+---
+title: "Routers"
+description: "Which routers are supported and what to do when the VPN on the router stops working."
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+A VPN on the router works for every device on your home network at once. Supported:
+
+| Router | What you need |
+| --- | --- |
+| Routers running OpenWrt | The [Nikki](https://github.com/nikkinikki-org/OpenWrt-nikki) package |
+| Keenetic and Netcraze | A USB port, Entware and [XKeen](https://github.com/Corvus-Malus/XKeen) (Mihomo core) |
+
+Installing through SSClash-Go is currently being tested.
+
+<Aside type="tip">
+  Setting up the router is the hardest part. Message [support](/faq/support/): we will send a ready
+  configuration for your subscription and, if needed, help you set it up over remote access (RustDesk
+  or AnyDesk).
+</Aside>
+
+## The VPN on the router stopped working
+
+- **You changed or revoked the subscription** — the router config still has the old link. Message
+  support and we will tell you what to replace and where.
+- **After changing the XKeen config, servers disappeared or the changes did not apply** — remove the
+  provider cache and restart XKeen:
+
+  ```sh
+  rm -r /opt/etc/mihomo/proxy-providers
+  xkeen -restart
+  ```
+
+  The country list in the selectors comes back after the restart.
+- **The internet is gone completely** — temporarily turn off the VPN on the router (in OpenWrt:
+  **Services → Nikki**, untick **Enable**) and message support.
+
+## Lag and packet loss in games
+
+If online games show packet loss, check on the connections tab that the game traffic goes directly
+rather than through the proxy. Games that do not need the VPN are better sent around it — see
+[Routing rules](/faq/routing-rules/).

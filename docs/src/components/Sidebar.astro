@@ -1,0 +1,46 @@
+---
+import Default from '@astrojs/starlight/components/Sidebar.astro';
+import Segmented from './Segmented.astro';
+
+// The Docs / Wiki switch lives in the header on wide screens; below that it tops the sidebar
+// (and the mobile menu) so every sidebar can still be reached.
+const { isPageWithTopic, topics } = Astro.locals.starlightSidebarTopics;
+---
+
+{
+	isPageWithTopic && (
+		<div class="topic-switch">
+			<Segmented label="Docs / Wiki" class="topics">
+				{topics.map(({ link, label, isCurrent }) => (
+					<a href={link} aria-current={isCurrent ? 'page' : undefined}>
+						{label}
+					</a>
+				))}
+			</Segmented>
+		</div>
+	)
+}
+<Default><slot /></Default>
+
+<style>
+	.topic-switch {
+		padding-bottom: 1rem;
+		border-bottom: 1px solid var(--td-border);
+	}
+
+	.topic-switch :global(.topics) {
+		display: flex;
+	}
+
+	.topic-switch :global(.topics > a) {
+		flex: 1;
+		height: 2.25rem;
+		font-size: var(--sl-text-sm);
+	}
+
+	@media (min-width: 72rem) {
+		.topic-switch {
+			display: none;
+		}
+	}
+</style>

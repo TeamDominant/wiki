@@ -1,0 +1,40 @@
+---
+title: Документация
+description: Практические руководства по self-hosting, Linux, программам и устройствам, основанные на реальном опыте.
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+Пошаговые руководства, краткие инструкции и заметки о программах и технологиях. Впервые здесь?
+Начните с [введения](/ru/docs/introduction/overview/).
+
+Нужна помощь с подпиской TeamDominant и приложениями? Это в [Вики](/ru/faq/).
+
+## Введение
+
+<CardGrid>
+  <LinkCard title="Введение" description="Что это за документация и как она написана." href="/ru/docs/introduction/overview/" />
+  <LinkCard title="Приложения" description="Рекомендуемые приложения для браузинга, сети, продуктивности и администрирования." href="/ru/docs/software/apps/" />
+</CardGrid>
+
+## Self-hosting
+
+<CardGrid>
+  <LinkCard title="SWAG" description="Защита reverse proxy SWAG." href="/ru/docs/self-hosting/swag/" />
+  <LinkCard title="Оптимизация Nextcloud" description="Nextcloud со SWAG, Redis, Collabora и не только." href="/ru/docs/self-hosting/nextcloud/" />
+  <LinkCard title="DNS для контейнеров" description="Отдельный резолвер AdGuard Home для каждого контейнера." href="/ru/docs/self-hosting/dns-for-containers/" />
+  <LinkCard title="Linux вопросы и ответы" description="Команды Ubuntu: сервисы, cron, очистка Docker, диагностика." href="/ru/docs/self-hosting/cheat-sheet/" />
+  <LinkCard title="Firehol" description="Firehol blocklists на VPS или фаерволе OPNSense." href="/ru/docs/self-hosting/firehol/" />
+  <LinkCard title="Geoblock" description="Разрешение и блокировка трафика по странам." href="/ru/docs/self-hosting/geoblock/" />
+  <LinkCard title="Canary" description="Canary Tokens и OpenCanary для обнаружения подозрительной активности." href="/ru/docs/self-hosting/canary/" />
+  <LinkCard title="Simplelogin" description="Почтовые алиасы с SimpleLogin." href="/ru/docs/self-hosting/simplelogin/" />
+</CardGrid>
+
+## Разное
+
+<CardGrid>
+  <LinkCard title="Arch Linux" description="Установка Arch Linux: сеть, разметка диска и GRUB." href="/ru/docs/other/arch/" />
+  <LinkCard title="Wush" description="P2P-передача файлов и удалённый shell через WireGuard." href="/ru/docs/other/wush/" />
+  <LinkCard title="iPhone" description="Заметки для продвинутого использования iPhone." href="/ru/docs/other/iphone/" />
+  <LinkCard title="Nothing Phone" description="Советы и настройки для серии Nothing Phone." href="/ru/docs/other/nothingphone/" />
+</CardGrid>

@@ -1,0 +1,57 @@
+---
+import mark from '../assets/brand/mark.svg?url';
+
+const { siteTitleHref } = Astro.locals.starlightRoute;
+---
+
+<a href={siteTitleHref} class="site-title">
+	{/* The fox-mask brand mark on its black tile. */}
+	<img src={mark} alt="" width="36" height="36" draggable="false" class="mark" />
+	<span translate="no">Team<span class="accent">Dominant</span></span>
+</a>
+
+<style>
+	.site-title {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.625rem;
+		min-width: 0;
+		font-family: var(--td-font-heading);
+		font-size: 1.125rem;
+		font-weight: 700;
+		letter-spacing: -0.025em;
+		color: var(--td-ink);
+		text-decoration: none;
+		white-space: nowrap;
+	}
+
+	.mark {
+		width: 2.25rem;
+		height: 2.25rem;
+		flex-shrink: 0;
+		border: 2px solid var(--td-ink);
+		border-radius: 11px;
+		box-shadow: var(--td-shadow-sticker);
+		user-select: none;
+		transition: transform 0.2s;
+	}
+
+	.site-title:hover .mark {
+		transform: rotate(-6deg);
+	}
+
+	span {
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.accent {
+		color: var(--td-brand-text);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.mark {
+			transition: none;
+		}
+	}
+</style>

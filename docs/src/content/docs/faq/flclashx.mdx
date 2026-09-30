@@ -1,12 +1,35 @@
 ---
 title: "FlClashX"
-description: "FlClashX setup and troubleshooting."
+description: "Updating FlClashX, profiles and custom rules on Android and Windows."
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 
-<Aside type="note">
-This page is a stub. Add your known-good profiles, DNS behavior, and routing baselines.
+FlClashX is an alternative to [Koala Clash](/faq/koala-clash/) for Android and Windows. The download
+link is in the **Install** section of your account.
+
+<Aside type="caution">
+  If nothing loads on your computer, check the version first. Early builds were betas and did not
+  announce updates — download the current version from the install section.
 </Aside>
 
-Use this page to document your FlClashX profiles and routing behavior.
+## Update the profile
+
+**Profiles** tab → the three dots next to the profile → **Update**.
+
+## Custom rules
+
+In FlClashX, rules are added through a profile override:
+
+1. **Profiles** tab → the three dots next to the profile → **Override**.
+2. Add a rule the same way as in Koala Clash: type, value and where to send the traffic.
+
+Rule types and typical mistakes are covered in [Routing rules](/faq/routing-rules/).
+
+## Common issues
+
+- **Error 403 (DioException) when adding the profile.** Make sure the
+  [device limit](/faq/subscription/#device-limit) is not exceeded and try again in a couple of
+  minutes. If the error stays, message [support](/faq/support/) — the protection system may have
+  temporarily blocked your IP address.
+- **Anything else** — see the general checklist in [Something is not working](/faq/troubleshooting/).
