@@ -8,11 +8,7 @@ cd ./wiki
 npm install
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
 ## 🚀 Project Structure
-
-Inside of your Astro + Starlight project, you'll see the following folders and files:
 
 ```
 .
@@ -26,12 +22,6 @@ Inside of your Astro + Starlight project, you'll see the following folders and f
 ├── package.json
 └── tsconfig.json
 ```
-
-Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory. Each file is exposed as a route based on its file name.
-
-Images can be added to `src/assets/` and embedded in Markdown with a relative link.
-
-Static assets, like favicons, can be placed in the `public/` directory.
 
 ## 🧞 Commands
 
