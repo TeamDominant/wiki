@@ -3,7 +3,9 @@
 [![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
 
 ```
-npm create astro@latest -- --template starlight
+git clone https://github.com/TeamDominant/wiki
+cd ./wiki
+npm install
 ```
 
 > 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
