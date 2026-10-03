@@ -1,16 +1,24 @@
 ---
 title: "Роутеры"
-description: "Какие роутеры поддерживаются и что делать, если VPN на роутере перестал работать."
+description: "Какие роутеры поддерживаются, как перейти с Nikki и XKeen на Exodus и что делать, если VPN на роутере перестал работать."
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 
-VPN на роутере работает сразу для всех устройств в домашней сети. Поддерживаются:
+VPN на роутере работает сразу для всех устройств в домашней сети. На роутерах мы используем
+[Exodus](https://github.com/prettyleaf/openwrt-exodus) — прозрачный прокси на ядре Mihomo с
+веб-интерфейсом, своя версия для каждого типа роутеров:
 
 | Роутер | Что нужно |
 | --- | --- |
-| Роутеры на прошивке OpenWrt | Пакет [Nikki](https://github.com/nikkinikki-org/OpenWrt-nikki) |
-| Keenetic и Netcraze | USB-разъём, Entware и [XKeen](https://github.com/Corvus-Malus/XKeen) (ядро Mihomo) |
+| Роутеры на прошивке OpenWrt 24.10 и новее | Пакет [Exodus](https://github.com/prettyleaf/openwrt-exodus) вместо Nikki |
+| Keenetic и Netcraze | USB-разъём или встроенная память, Entware и [Exodus для Keenetic](https://github.com/prettyleaf/openwrt-exodus/tree/keenetic) вместо XKeen |
+| Asus с прошивкой Asuswrt-Merlin | USB-разъём, Entware и [Exodus для Asuswrt-Merlin](https://github.com/prettyleaf/openwrt-exodus/tree/asuswrt) |
+
+Если у вас уже настроены [Nikki](https://github.com/nikkinikki-org/OpenWrt-nikki) или
+[XKeen](https://github.com/Corvus-Malus/XKeen), они продолжают работать, с ними мы тоже помогаем.
+Переходить не обязательно, новые роутеры настраиваем на Exodus — см.
+[Переход с Nikki и XKeen](#переход-с-nikki-и-xkeen).
 
 Установка через SSClash-Go сейчас в тестировании.
 
@@ -20,10 +28,68 @@ VPN на роутере работает сразу для всех устрой
   или AnyDesk).
 </Aside>
 
+## Установка Exodus
+
+Команды выполняются в SSH-консоли роутера.
+
+- **OpenWrt**:
+
+  ```sh
+  wget -O - https://raw.githubusercontent.com/prettyleaf/openwrt-exodus/main/install.sh | ash
+  ```
+
+  Затем в LuCI откройте **Службы → Exodus → Профиль** и добавьте ссылку подписки, а в
+  **Настройки приложения** выберите её и поставьте галочку **Включить**.
+- **Keenetic и Netcraze** (в консоли Entware):
+
+  ```sh
+  opkg update && opkg install curl
+  curl -fsSL https://raw.githubusercontent.com/prettyleaf/openwrt-exodus/keenetic/install.sh | sh
+  ```
+
+- **Asus с Asuswrt-Merlin** (Entware ставится через `amtm`):
+
+  ```sh
+  curl -fsSL https://raw.githubusercontent.com/prettyleaf/openwrt-exodus/asuswrt/install.sh | sh
+  ```
+
+На Keenetic и Asus установщик в конце печатает адрес веб-интерфейса Exodus: обычно
+`http://192.168.1.1:9099/` на Keenetic и `http://192.168.50.1:9099/` на Asus. Там на странице
+**«Профили»** добавьте ссылку подписки, а на странице **«Статус»** включите сервис, выберите подписку
+и нажмите **«Сохранить и применить»**.
+
+Требования и подробности — в README каждой версии по ссылкам из таблицы выше.
+
+## Переход с Nikki и XKeen
+
+- **OpenWrt с Nikki** — запустите установщик Exodus из раздела выше. Он удалит Nikki и поставит
+  Exodus на его место. Настройки, профили и подписки сохраняются, меню переезжает из
+  **Службы → Nikki** в **Службы → Exodus**.
+- **Keenetic с XKeen** — оба перехватывают один и тот же трафик, поэтому сначала остановите XKeen и
+  выключите его автозапуск (или удалите его командой `xkeen -remove`):
+
+  ```sh
+  xkeen -stop
+  xkeen -auto off
+  ```
+
+  Затем установите Exodus и добавьте на странице **«Профили»** ту же ссылку подписки, что была в
+  XKeen. Устройства, которые XKeen проксировал через политику доступа `XKeen`, выбираются в Exodus
+  на странице **«Статус» → «Устройства»**. Метки DSCP 61, 62 и 63 работают так же.
+
+Пошагово, с переносом конфига XKeen и возвратом обратно, — в README
+[для OpenWrt](https://github.com/prettyleaf/openwrt-exodus#migrating-from-nikki) и
+[для Keenetic](https://github.com/prettyleaf/openwrt-exodus/blob/keenetic/README.RU.md#переход-с-xkeen).
+
 ## VPN на роутере перестал работать
 
 - **Сменили подписку или отозвали ссылку** — в конфигурации роутера осталась старая ссылка.
-  Напишите в поддержку, подскажем, что и где заменить.
+  Напишите в поддержку, подскажем, что и где заменить. В Exodus ссылка подписки — на странице
+  **«Профили»** (в OpenWrt — **Службы → Exodus → Профиль**).
+- **В Exodus пропали серверы или не подхватились изменения подписки** — нажмите **«Полное
+  обновление»** на странице **«Профили»** (в OpenWrt — **«Жёсткое обновление»** в
+  **Службы → Exodus → Профиль**): скачанные провайдеры удалятся, подписка скачается заново и сервис
+  перезапустится.
 - **После изменения конфигурации в XKeen пропали серверы или не подхватились изменения** — удалите
   кэш провайдеров и перезапустите XKeen:
 
@@ -33,8 +99,12 @@ VPN на роутере работает сразу для всех устрой
   ```
 
   Список стран в селекторах появится после перезапуска.
-- **Интернет пропал совсем** — временно выключите VPN на роутере (в OpenWrt: **Services → Nikki**,
-  снимите галочку **Enable**) и напишите в поддержку.
+- **Интернет пропал совсем** — временно выключите VPN на роутере и напишите в поддержку:
+  - Exodus на Keenetic и Asus — выключите **«Включить»** на странице **«Статус»** веб-интерфейса
+    Exodus или выполните `exodus stop` в SSH-консоли;
+  - Exodus на OpenWrt — **Службы → Exodus → Настройки приложения**, снимите галочку **Включить**;
+  - Nikki на OpenWrt — **Services → Nikki**, снимите галочку **Enable**;
+  - XKeen на Keenetic — `xkeen -stop`.
 
 ## Задержки и потери в играх
 

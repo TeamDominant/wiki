@@ -1,16 +1,24 @@
 ---
 title: "Routers"
-description: "Which routers are supported and what to do when the VPN on the router stops working."
+description: "Which routers are supported, how to move from Nikki and XKeen to Exodus, and what to do when the VPN on the router stops working."
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 
-A VPN on the router works for every device on your home network at once. Supported:
+A VPN on the router works for every device on your home network at once. On routers we use
+[Exodus](https://github.com/prettyleaf/openwrt-exodus), a transparent proxy on the Mihomo core with a
+web interface, in its own version for each kind of router:
 
 | Router | What you need |
 | --- | --- |
-| Routers running OpenWrt | The [Nikki](https://github.com/nikkinikki-org/OpenWrt-nikki) package |
-| Keenetic and Netcraze | A USB port, Entware and [XKeen](https://github.com/Corvus-Malus/XKeen) (Mihomo core) |
+| Routers running OpenWrt 24.10 or newer | The [Exodus](https://github.com/prettyleaf/openwrt-exodus) package instead of Nikki |
+| Keenetic and Netcraze | A USB port or internal storage, Entware and [Exodus for Keenetic](https://github.com/prettyleaf/openwrt-exodus/tree/keenetic) instead of XKeen |
+| Asus running Asuswrt-Merlin | A USB port, Entware and [Exodus for Asuswrt-Merlin](https://github.com/prettyleaf/openwrt-exodus/tree/asuswrt) |
+
+If you already run [Nikki](https://github.com/nikkinikki-org/OpenWrt-nikki) or
+[XKeen](https://github.com/Corvus-Malus/XKeen), they keep working and we still help with them. You do
+not have to move, new routers are set up with Exodus — see
+[Moving from Nikki and XKeen](#moving-from-nikki-and-xkeen).
 
 Installing through SSClash-Go is currently being tested.
 
@@ -20,10 +28,67 @@ Installing through SSClash-Go is currently being tested.
   or AnyDesk).
 </Aside>
 
+## Installing Exodus
+
+Run the commands in the SSH console of the router.
+
+- **OpenWrt**:
+
+  ```sh
+  wget -O - https://raw.githubusercontent.com/prettyleaf/openwrt-exodus/main/install.sh | ash
+  ```
+
+  Then open **Services → Exodus → Profile** in LuCI and add your subscription link, choose it on
+  **App Config** and tick **Enable**.
+- **Keenetic and Netcraze** (in the Entware console):
+
+  ```sh
+  opkg update && opkg install curl
+  curl -fsSL https://raw.githubusercontent.com/prettyleaf/openwrt-exodus/keenetic/install.sh | sh
+  ```
+
+- **Asus with Asuswrt-Merlin** (Entware is installed with `amtm`):
+
+  ```sh
+  curl -fsSL https://raw.githubusercontent.com/prettyleaf/openwrt-exodus/asuswrt/install.sh | sh
+  ```
+
+On Keenetic and Asus the installer prints the address of the Exodus web interface at the end:
+usually `http://192.168.1.1:9099/` on Keenetic and `http://192.168.50.1:9099/` on Asus. Add your
+subscription link on the **Profiles** page there, then enable the service on the **Status** page,
+choose the subscription and press **Save & Apply**.
+
+The requirements and the details are in the README of each version, linked in the table above.
+
+## Moving from Nikki and XKeen
+
+- **OpenWrt with Nikki**: run the Exodus installer from the section above. It removes Nikki and
+  installs Exodus in its place. Settings, profiles and subscriptions are kept, the menu moves from
+  **Services → Nikki** to **Services → Exodus**.
+- **Keenetic with XKeen**: both intercept the same traffic, so stop XKeen and turn off its autostart
+  first (or remove it with `xkeen -remove`):
+
+  ```sh
+  xkeen -stop
+  xkeen -auto off
+  ```
+
+  Then install Exodus and add the same subscription link you had in XKeen on the **Profiles** page.
+  The devices XKeen proxied through the `XKeen` access policy are chosen in Exodus on
+  **Status → Devices**. The DSCP marks 61, 62 and 63 work the same way.
+
+Step by step, with moving the XKeen config and going back, see the README
+[for OpenWrt](https://github.com/prettyleaf/openwrt-exodus#migrating-from-nikki) and
+[for Keenetic](https://github.com/prettyleaf/openwrt-exodus/tree/keenetic#migrating-from-xkeen).
+
 ## The VPN on the router stopped working
 
 - **You changed or revoked the subscription** — the router config still has the old link. Message
-  support and we will tell you what to replace and where.
+  support and we will tell you what to replace and where. In Exodus the subscription link is on the
+  **Profiles** page (in OpenWrt: **Services → Exodus → Profile**).
+- **Servers disappeared in Exodus or the subscription changes did not apply** — press **Hard update**
+  on the **Profiles** page (in OpenWrt: **Hard Update** on **Services → Exodus → Profile**): the
+  downloaded providers are removed, the subscription is downloaded again and the service restarts.
 - **After changing the XKeen config, servers disappeared or the changes did not apply** — remove the
   provider cache and restart XKeen:
 
@@ -33,8 +98,13 @@ Installing through SSClash-Go is currently being tested.
   ```
 
   The country list in the selectors comes back after the restart.
-- **The internet is gone completely** — temporarily turn off the VPN on the router (in OpenWrt:
-  **Services → Nikki**, untick **Enable**) and message support.
+- **The internet is gone completely** — temporarily turn off the VPN on the router and message
+  support:
+  - Exodus on Keenetic and Asus: turn off **Enable** on the **Status** page of the Exodus web
+    interface, or run `exodus stop` in the SSH console;
+  - Exodus on OpenWrt: **Services → Exodus → App Config**, untick **Enable**;
+  - Nikki on OpenWrt: **Services → Nikki**, untick **Enable**;
+  - XKeen on Keenetic: `xkeen -stop`.
 
 ## Lag and packet loss in games
 
