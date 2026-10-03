@@ -1,73 +1,72 @@
 ---
 title: Nothing Phone
-description: Tips and tricks for Nothing Phone series
+description: Полезные советы и настройки для серии Nothing Phone
 ---
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-## Configuration
+## Конфигурация
 
 tbh
 
-## Apps
+## Приложения
 
 tbh
 
-## Battery drain
+## Разряд батареи
 
-If you recently purchased a Nothing Phone, it might be running a very old firmware version, which can cause weird performance. Increased battery consumption may occur until you update to the latest version.
+Если вы недавно купили Nothing Phone, на нем может быть очень старая прошивка, из-за чего возможны странная производительность и повышенный расход батареи. Обычно это проходит после обновления до последней версии.
 
-*We also recommend doing the following:*
+*Также рекомендуем сделать следующее:*
 
 <Steps>
-1. Clear cache and storage for Nothing Launcher.
+1. Очистите кэш и хранилище Nothing Launcher.
 
-2. Clear cache and delete data for Google Play Services (if OS is freshly installed).
+2. Очистите кэш и удалите данные Google Play Services (если ОС установлена «с нуля»).
 
-3. Clear cache for Google Play Services for AR.
+3. Очистите кэш Google Play Services for AR.
 
-4. Set battery usage mode for Nothing Launcher to `RESTRICTED`.
+4. Установите режим энергопотребления Nothing Launcher в `RESTRICTED`.
 
-5. Disable notification access for Nothing Launcher.
+5. Отключите Notification access для Nothing Launcher.
 
-6. Restart and fully charge your phone.
+6. Перезагрузите устройство и зарядите его до 100%.
 
 </Steps>
 
-## Chargers
+## Зарядные устройства
 
-The phones support Quick Charge 4.0 and Power Delivery 3.0 charging protocols.
+Телефоны поддерживают протоколы Quick Charge 4.0 и Power Delivery 3.0.
 
 - Nothing Phone 1: 33 Watts
 - Nothing Phone 2, 2a: 45 Watts
 
-All phones support Qi standard wireless charging up to 15 Watts.
-Recommended GaN charger brands:
+Все телефоны поддерживают беспроводную зарядку Qi до 15 Watts.
+Рекомендуемые бренды GaN-зарядок:
 
 - Baseus
 - Anker
 - Ugreen
 
-The author has been using the Baseus GaN5 Pro 2C+U charger for a year.
+Автор использует Baseus GaN5 Pro 2C+U уже год.
 
-There are no exact recommendations. Choose a charger based on your needs, such as number of ports, size, and power.
+Точных рекомендаций нет. Подбирайте зарядку под свои задачи: количество портов, размер, мощность и так далее.
 
-## Disabling call recording notification during a call
+## Отключение голосового уведомления о записи звонка
 
-To disable the voice notification that call recording has started, follow these steps:
+Чтобы отключить голосовое уведомление о начале записи звонка, выполните шаги ниже:
 
 <Steps>
+1. Установите **`TTSLexx`** из **Google Play**.
 
-1. Install **`TTSLexx`** from **Google Play**.
+2. В настройках телефона найдите **`Text-to-Speech`** и откройте этот раздел.
 
-2. In phone settings, search for **`Text-to-Speech`** and open it.
+3. В **Text-to-Speech** укажите **`Default Text-to-Speech Engine`** = **`TTSLexx`**.
 
-3. In **Text-to-Speech** settings, set **`Default Text-to-Speech Engine`** to **`TTSLexx`**.
-
-4. Go to **Apps**, open the **Phone app**, then tap **Clear Cache** and **Clear Storage**. Contacts remain safe (confirmed for Google Phone app).
+4. Перейдите в **Apps**, откройте **Phone app**, затем нажмите **Clear Cache** и **Clear Storage**. Контакты сохранятся (проверено на Google Phone app).
 
 </Steps>
 
 <Aside type="note">
-    The call recording notification may appear during the first call, but it usually will not occur in subsequent calls.
+    Уведомление о записи может появиться во время первого звонка, но обычно не появляется в последующих.
 </Aside>

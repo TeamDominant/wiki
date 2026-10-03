@@ -1,45 +1,45 @@
 ---
 title: "Geoblock"
-description: "A guide in my new Starlight docs site."
+description: "Гайд в моем новом Starlight-док-сайте."
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 
 <Aside type="caution">
-Little disclaimer. Some information was copied from [virtualize.link](https://virtualize.link/), because I find information provided by its author useful. Make sure to check the [source](https://github.com/quietsy/advanced-configurations) or star the repo.
+Небольшой дисклеймер. Часть информации взята с [virtualize.link](https://virtualize.link/), потому что материалы автора полезны. Проверьте [источник](https://github.com/quietsy/advanced-configurations) или поставьте звезду репозиторию.
 </Aside>
 
 ## VPS
 
-I've been dealing with constant attacks on a mail server on a VPS coming from 2 specific countries, the only solution that worked was completely blocking these countries.
+Я сталкивался с постоянными атаками на почтовый сервер на VPS из двух конкретных стран. Рабочим решением оказалась полная блокировка этих стран.
 
-There are 2 popular geoblock providers, Maxmind and DB-IP, we can utilize them using a python library called [geoipsets](https://github.com/chr0mag/geoipsets).
+Есть два популярных провайдера geoblock-баз: Maxmind и DB-IP. Их можно использовать через python-библиотеку [geoipsets](https://github.com/chr0mag/geoipsets).
 
-### Installation
+### Установка
 
-Install the following packages:
+Установите пакеты:
 
 ```bash
 sudo apt install python3 python3.12 python3-pip python3-venv ipset
 ```
 
-Create a python virtual environment:
+Создайте python virtual environment:
 
 ```bash
 python3 -m venv .venv
 ```
 
-Verify that it works:
+Проверьте, что все работает:
 
 ```bash
 source .venv/bin/activate
 ```
 
-### Geoblock config
+### Конфиг Geoblock
 
-Create a geoblock config according to the [geoipsets](https://github.com/chr0mag/geoipsets) documentation.
+Создайте конфиг geoblock по документации [geoipsets](https://github.com/chr0mag/geoipsets).
 
-For example `/home/user/geoipsets.conf`:
+Например `/home/user/geoipsets.conf`:
 
 ```ini title="/home/user/geoipsets.conf"
 [general]
@@ -52,18 +52,18 @@ RU
 CN
 ```
 
-Verify that it works:
+Проверьте работу:
 
 ```bash
 source .venv/bin/activate
 geoipsets -o /home/user -c /home/user/geoipsets.conf
 ```
 
-### Geoblock script
+### Скрипт Geoblock
 
-Create a script to refresh the geoblock ipsets and recreate the iptables rules.
+Создайте скрипт, который обновляет geoblock ipsets и заново создает iptables-правила.
 
-For example `/home/user/geoblock.sh`:
+Например `/home/user/geoblock.sh`:
 
 ```bash title="/home/user/geoblock.sh"
 #!/bin/bash
@@ -93,7 +93,7 @@ do
 done
 ```
 
-Verify that it works and the ipsets have been filled:
+Проверьте, что все работает и ipsets заполнены:
 
 ```bash
 chmod +x /home/user/geoblock.sh
@@ -101,34 +101,34 @@ sudo /home/user/geoblock.sh
 sudo ipset list RU.ipv4
 ```
 
-### Cron scheduling
+### Расписание Cron
 
 <Aside type="caution">
-Make sure you're not accidentally blocking your own access to the VPS before proceeding.
+Перед продолжением убедитесь, что вы случайно не заблокируете собственный доступ к VPS.
 </Aside>
 
-Run the geoblock script on reboot and weekly.
+Запускайте скрипт geoblock при загрузке и раз в неделю.
 
-For example, add the following to `sudo crontab -e`:
+Например, добавьте в `sudo crontab -e`:
 
 ```text
 20 0 * * 2 /home/user/geoblock.sh
 @reboot sleep 120 && /home/user/geoblock.sh
 ```
 
-Verify that it runs on reboot and weekly. There's a 2 minute delay before it applies after reboots, to give you enough time to fix a lockout.
+Проверьте запуск при ребуте и еженедельно. После перезагрузки есть задержка 2 минуты, чтобы успеть исправить блокировку.
 
 ## OPNSense
 
 ### Alias
 
-Navigate to **Firewall** > **Aliases** > **GeoIP settings** and add a link to [a geoblock database](https://docs.opnsense.org/manual/how-tos/maxmind_geo_ip.html) with your license key:
+Перейдите в **Firewall** > **Aliases** > **GeoIP settings** и добавьте ссылку на [базу geoblock](https://docs.opnsense.org/manual/how-tos/maxmind_geo_ip.html) с вашим license key:
 
 ```text
 https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country-CSV&license_key=your-license-key&suffix=zip
 ```
 
-Navigate to **Firewall** > **Aliases** and create aliases with the countries you want to block or whitelist a specific country:
+Перейдите в **Firewall** > **Aliases** и создайте aliases для стран, которые хотите блокировать, или whitelist для конкретной страны:
 
 ```text
 Name: Geoblock
@@ -144,7 +144,7 @@ Content: Select UK
 
 ### Firewall
 
-Navigate to **Firewall** > **Rules** > **WAN** and create firewall rules:
+Перейдите в **Firewall** > **Rules** > **WAN** и создайте правила:
 
 ```text
 Action: Block
@@ -171,9 +171,9 @@ Description: Whitelist UK on port 443
 
 ### Cron
 
-Create a cron job to automatically update the blocklists every day.
+Создайте cron-задачу для ежедневного обновления списков.
 
-Navigate to **System** > **Settings** > **Cron** and add the following job:
+Перейдите в **System** > **Settings** > **Cron** и добавьте:
 
 ```text
 Enabled: checked

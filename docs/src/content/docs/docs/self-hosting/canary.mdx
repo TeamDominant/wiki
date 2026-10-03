@@ -1,41 +1,41 @@
 ---
 title: "Canary"
-description: "Use Canary Tokens and OpenCanary to detect suspicious activity in your environment."
+description: "Используйте Canary Tokens и OpenCanary для обнаружения подозрительной активности в вашей среде."
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 
-Use this guide to deploy lightweight deception controls and get early alerts when someone touches assets they should never access.
+Используйте этот гайд, чтобы развернуть легковесные deception-контроли и получать ранние алерты, когда кто-то трогает активы, к которым не должно быть доступа.
 
 <Aside type="caution">
-Some information is adapted from [virtualize.link](https://virtualize.link/).  
-Check the original [source repository](https://github.com/quietsy/advanced-configurations).
+Часть информации адаптирована из [virtualize.link](https://virtualize.link/).  
+Проверьте оригинальный [репозиторий-источник](https://github.com/quietsy/advanced-configurations).
 </Aside>
 
 ## Canary tokens
 
-[Canary tokens](https://www.canarytokens.org/nest/generate) act like motion sensors for networks, endpoints, and cloud environments.
+[Canary tokens](https://www.canarytokens.org/nest/generate) работают как датчики движения для сетей, endpoint-узлов и облачной инфраструктуры.
 
-You place them where no legitimate access should happen, then alert when they are opened or triggered. They are designed to look attractive to attackers and increase interaction rates.
+Вы размещаете их там, где легитимного доступа быть не должно, и получаете алерт при открытии/срабатывании. Они специально выглядят привлекательно для атакующего и повышают шанс взаимодействия.
 
-Examples:
+Примеры:
 
-- QR code named `wallet.png`
-- Microsoft Excel file named `passwords.xlsx`
-- Microsoft Word file named `servers.docx`
-- AWS key file named `aws-keys.txt`
-- WireGuard VPN configuration
-- PDF file named `investments.pdf`
+- QR-код с именем `wallet.png`
+- Microsoft Excel файл с именем `passwords.xlsx`
+- Microsoft Word файл с именем `servers.docx`
+- AWS key-файл с именем `aws-keys.txt`
+- Конфигурация WireGuard VPN
+- PDF-файл с именем `investments.pdf`
 
-## OpenCanary honeypot container
+## Контейнер honeypot OpenCanary
 
-[OpenCanary](https://github.com/thinkst/opencanary) is a multi-protocol network honeypot with low resource usage. Use it to detect lateral movement after a perimeter breach.
+[OpenCanary](https://github.com/thinkst/opencanary) — это многопротокольный сетевой honeypot с низким потреблением ресурсов. Используйте его для обнаружения lateral movement после компрометации периметра.
 
-### Configuration
+### Конфигурация
 
-- Store your config as `opencanary.conf`.
-- Disable or remap ports that are already in use.
-- Update the webhook URL so alerts reach your notification system.
+- Сохраните конфиг как `opencanary.conf`.
+- Отключите или переназначьте порты, которые уже заняты.
+- Обновите webhook URL, чтобы алерты приходили в вашу систему уведомлений.
 
 ```json title="opencanary.conf"
 {
@@ -182,8 +182,8 @@ Examples:
 
 ### Docker Compose
 
-- Remove or remap ports that are already in use.
-- Update the mounted path to your local `opencanary.conf`.
+- Удалите или переназначьте порты, которые уже заняты.
+- Обновите путь монтирования к вашему локальному `opencanary.conf`.
 
 ```yaml title="compose.yaml"
 services:

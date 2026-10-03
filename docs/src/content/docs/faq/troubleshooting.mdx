@@ -1,98 +1,100 @@
 ---
-title: Something is not working
-description: Step-by-step diagnostics when the VPN does not connect or YouTube, Telegram and other services do not open.
+title: Что-то не работает
+description: Пошаговая диагностика, если VPN не подключается или не открываются YouTube, Telegram и другие сервисы.
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 
-Go through the steps in order — most issues are solved by the first three.
+Пройдите шаги по порядку — большинство проблем решается на первых трёх.
 
-## 1. Update your profile
+## 1. Обновите профиль
 
-The app only gets the server list, rules and subscription expiry when the profile updates.
+Приложение получает список серверов, правила и срок подписки только при обновлении профиля.
 
-| App | How to update |
+| Приложение | Как обновить |
 | --- | --- |
-| Koala Clash | The update button on the main screen, or **Profiles** → ⋮ → **Update** |
-| FlClashX | **Profiles** → ⋮ → **Update** |
-| Rabbit Hole | The icon with four squares → **Update** |
+| Koala Clash | Кнопка обновления на главном экране или **Профили** → ⋮ → **Обновить** |
+| FlClashX | **Профили** → ⋮ → **Обновить** |
+| Rabbit Hole | Значок с четырьмя квадратиками → **Обновить** |
 
-If updating does not help, delete the profile and add the subscription again from your account.
+Если обновление не помогает, удалите профиль и добавьте подписку заново из личного кабинета.
 
-## 2. Check the subscription and the device limit
+## 2. Проверьте подписку и лимит устройств
 
-- In your account, make sure the subscription is active. The trial is limited in both time and traffic.
-- If the app mentions the device limit or the connect button switches off right away — see
-  [Device limit](/faq/subscription/#device-limit).
+- В личном кабинете проверьте, что подписка активна. У пробного периода ограничены и срок, и трафик.
+- Если приложение пишет про лимит устройств или кнопка подключения сразу выключается —
+  см. [Лимит устройств](/faq/subscription/#лимит-устройств).
 
-## 3. Update the app
+## 3. Обновите приложение
 
-Outdated versions are a frequent cause of problems. Download the current version from the **Install**
-section. If you use Happ or another unsupported app, switch to a
-[recommended one](/faq/install/#which-app-to-use).
+Устаревшие версии — частая причина проблем. Скачайте актуальную версию из раздела
+**Установить и настроить**. Если вы пользуетесь Happ или другим неподдерживаемым приложением,
+перейдите на [рекомендуемое](/faq/install/#какое-приложение-выбрать).
 
-## 4. Switch the server
+## 4. Смените сервер
 
-Pick another location and check its latency with the test button next to the server. If a specific
-location has problems, we post about it in the [alerts channel](/faq/alerts/).
+Выберите другую локацию и проверьте задержку кнопкой теста рядом с сервером. Если проблемы у
+конкретной локации, мы пишем об этом в [канале оповещений](/faq/alerts/).
 
-## 5. Restart
+## 5. Перезапустите
 
-Close the app completely and open it again. If that does not help, reboot the phone or computer, and
-the router if the whole home network is affected.
+Полностью закройте приложение и откройте снова. Если не помогло — перезагрузите телефон или
+компьютер, а при проблемах во всей домашней сети — роутер.
 
-## 6. Remove what gets in the way
+## 6. Уберите то, что мешает
 
-The VPN app conflicts with other programs that also intercept traffic:
+VPN-приложению мешают программы, которые тоже перехватывают трафик:
 
-- other VPNs, Zapret, ExitLag and similar tools — do not run them together with our app;
-- third-party antiviruses — they can block the app's core;
-- **Telegram's built-in proxy** — if Telegram does not connect, open its proxy settings and turn it off;
-- **“Secure DNS”** in the browser (in Chrome: Settings → Privacy and security) and **“Private DNS”**
-  in Android settings — turn them off if a service does not open in just one browser or only on the phone;
-- internet “boosters” and tweaks on the computer — restore the default network settings.
+- другие VPN, Zapret, ExitLag и подобные утилиты — не запускайте их вместе с нашим приложением;
+- сторонние антивирусы — могут блокировать ядро приложения;
+- **встроенный прокси в Telegram** — если Telegram не подключается, откройте в нём настройки
+  прокси и выключите его;
+- **«Безопасный DNS»** в браузере (в Chrome: Настройки → Конфиденциальность и безопасность) и
+  **«Частный DNS»** в настройках Android — выключите их, если сервис не открывается только в одном
+  браузере или только на телефоне;
+- твики и «ускорители» интернета на компьютере — верните сетевые настройки по умолчанию.
 
-## 7. Mobile internet
+## 7. Мобильный интернет
 
-If the VPN fails only on mobile internet while Wi-Fi is fine, add the
-[linked profile](/faq/subscription/#linked-profile-lte--wl). If it is the other way round — it fails
-only on Wi-Fi — the problem is in the network settings: forget the Wi-Fi network and reconnect, and
-check the DNS on the router and “Private DNS” on the phone.
+Если VPN не работает только на мобильном интернете, а по Wi-Fi всё в порядке, добавьте
+[связной профиль](/faq/subscription/#связной-профиль-lte--wl). Если наоборот — не работает только
+по Wi-Fi — проблема в настройках сети: забудьте Wi-Fi-сеть и подключитесь заново, проверьте DNS в
+роутере и «Частный DNS» на телефоне.
 
-## 8. One website, game or app does not work
+## 8. Не работает один сайт, игра или приложение
 
-Its traffic most likely goes around the VPN. On a computer you can see this on the **Connections**
-tab and fix it with your own rule — see [Routing rules](/faq/routing-rules/). On a phone, tell support
-which service does not work.
+Скорее всего, его трафик идёт мимо VPN. На компьютере это видно во вкладке **Соединения**, а
+исправляется своим правилом — см. [Правила маршрутизации](/faq/routing-rules/). На телефоне
+напишите в поддержку, какой сервис не работает.
 
-## Common errors
+## Частые ошибки
 
-**“Xray Core critical error”, “list not found in ghosted.dat”, the core does not start.**
-Update the profile. If the error is in Happ, switch to Koala Clash or Rabbit Hole.
+**«Критическая ошибка Xray Core», «list not found in ghosted.dat», ядро не запускается.**
+Обновите профиль. Если ошибка в Happ — перейдите на Koala Clash или Rabbit Hole.
 
-**The app shows “0 days” although the subscription is paid.**
-Update the profile — the expiry date only arrives with an update.
+**В приложении «0 дней», хотя подписка оплачена.**
+Обновите профиль — срок подтягивается только при обновлении.
 
-**IPv6 errors in Koala Clash logs on a computer.**
-Disable IPv6 in the Windows network adapter settings (connection properties → untick “Internet
-Protocol Version 6”), and on the router too if it is enabled there. Then restart Koala Clash.
+**Ошибки про IPv6 в логах Koala Clash на компьютере.**
+Отключите IPv6 в настройках сетевого адаптера Windows (свойства подключения → снимите галочку
+«IP версии 6»), а если он включён в роутере — и там. После этого перезапустите Koala Clash.
 
-**Your account does not open while the VPN is on.**
-The protection system may have blocked your IP address by mistake. Turn the VPN off, open
-[2ip.ru](https://2ip.ru) and send your IP address to
-[support@dominants.link](mailto:support@dominants.link) — we will unblock it.
+**С включённым VPN не открывается личный кабинет.**
+Система защиты могла по ошибке заблокировать ваш IP-адрес. Выключите VPN, откройте
+[2ip.ru](https://2ip.ru) и отправьте свой IP-адрес на
+[support@dominants.link](mailto:support@dominants.link) — разблокируем.
 
-**I got a notice about torrent usage.**
-See [Rules & limits](/faq/limits/#torrents).
+**Пришло уведомление об использовании торрентов.**
+См. [Правила и ограничения](/faq/limits/#торренты).
 
-## If nothing helped
+## Если ничего не помогло
 
-Message [support](/faq/support/#what-to-include) and include right away: the device, the app and its
-version, the server, your provider (Wi-Fi or mobile), a screenshot of the error and the logs.
+Напишите в [поддержку](/faq/support/#что-написать-в-обращении) и сразу приложите: устройство,
+приложение и его версию, сервер, провайдера (Wi-Fi или мобильный интернет), скриншот ошибки и логи.
 
-<Aside type="note" title="Connection check on Windows">
-  Support may ask you to run a check: turn the VPN client off completely, open PowerShell and run the
-  commands below. Send the output to the chat.
+<Aside type="note" title="Проверка соединения на Windows">
+  Поддержка может попросить выполнить проверку: полностью выключите VPN-клиент, откройте PowerShell и
+  выполните команды ниже. Пришлите результат в чат.
 
   ```powershell
   Test-NetConnection 77.88.8.8 -Port 443

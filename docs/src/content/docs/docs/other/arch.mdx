@@ -1,68 +1,69 @@
 ---
 title: Arch Linux
-description: A step-by-step guide to installing Arch Linux, including network setup, disk partitioning, and GRUB configuration.
+description: Пошаговый гайд по установке Arch Linux, включая сеть, разметку диска и конфигурацию GRUB.
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 
-## Preparation of installation image
+
+## Подготовка установочного образа
 
 <Aside type="note">
-    Linux systems can be installed almost anywhere: on a desktop, laptop, USB drive, or even a phone (if the distribution supports it). The installation process is roughly the same, but some differences matter. For example, when installing Arch Linux as a second system, you may need to manually configure `efibootmgr`. Dual boot setup also differs between BIOS and UEFI.
+    Linux можно установить почти куда угодно: на ПК, ноутбук, USB-накопитель и даже телефон (если дистрибутив поддерживает). Процесс в целом похожий, но есть важные отличия. Например, при установке Arch Linux второй системой может потребоваться ручная настройка `efibootmgr`. Для dual-boot на BIOS и UEFI тоже есть различия.
 </Aside>
 
-What you need:
+Что вам понадобится:
 
-- A USB flash drive
-- The system ISO file
-- A program to write the ISO image
-- A machine where Arch will be installed
+- USB-флешка
+- ISO-образ системы
+- Программа для записи ISO
+- Машина, на которую будет устанавливаться Arch
 
-This guide assumes Arch will be the primary operating system.
+Этот гайд предполагает, что Arch будет основной операционной системой.
 
-First, download the system image from the official Arch Linux website using your preferred method. We recommend using a torrent client.
+Сначала скачайте образ с официального сайта Arch Linux удобным способом. Рекомендуем использовать torrent-клиент.
 
-You can write the image with tools like:
+Для записи образа можно использовать:
 
 - Rufus
 - Balena Etcher
 - UltraISO
 
-In this example, we use Rufus. After downloading the image, open Rufus and configure:
+В этом примере используем Rufus. После скачивания образа откройте Rufus и задайте:
 
-- Device: Select your **USB flash drive**.
-- Boot selection: Choose **Disk or ISO image** and select the Arch Linux ISO path.
-- Partition scheme: Select **MBR**.
-- File system: Select **FAT32**.
-- Cluster size: Leave as **default**.
+- Device: выберите **USB flash drive**.
+- Boot selection: выберите **Disk or ISO image** и укажите путь к ISO Arch Linux.
+- Partition scheme: **MBR**.
+- File system: **FAT32**.
+- Cluster size: оставьте **default**.
 
 ![rufus_arch](https://github.com/TeamDominant/wiki/blob/main/docs/src/assets/archlinux/rufus_arch.png?raw=true)
 
 <Aside type="danger">
-    All files on the USB drive will be erased.
+    Все файлы на USB-накопителе будут удалены.
 </Aside>
 
-Click **Start**. In the pop-up window, select the option that mentions **ISO**.
+Нажмите **Start**. В всплывающем окне выберите вариант, где упоминается **ISO**.
 
-After the process is complete, connect the USB flash drive to the target machine.
-Enter BIOS and disable Secure Boot (you can enable it again after installation).
-Boot from USB, choose **Arch Linux install medium**, and wait for the system to load.
+После завершения подключите USB к целевой машине.
+Зайдите в BIOS и отключите Secure Boot (после установки можно включить обратно).
+Загрузитесь с USB, выберите **Arch Linux install medium** и дождитесь загрузки.
 
 ![start_arch](https://github.com/TeamDominant/wiki/blob/main/docs/src/assets/archlinux/Arch_install1.png?raw=true)
 
-## Installation
+## Установка
 
-### Setting up a wireless network
+### Настройка беспроводной сети
 
-If you are connected via wired Ethernet, test connectivity:
+Если вы подключены по кабелю Ethernet, проверьте сеть:
 
 ```bash
 ping archlinux.org
 ```
 
-If you get a response, networking works. If not, required services may not have started. Try restarting or re-creating the installer image.
+Если есть ответ, сеть работает. Если нет, возможно не стартовали нужные службы. Попробуйте перезагрузку или пересоздание установочного образа.
 
-For Wi-Fi, use `iwctl`:
+Для Wi-Fi используйте `iwctl`:
 
 ```bash
 iwctl
@@ -70,76 +71,76 @@ iwctl
 
 ![iwctl](https://github.com/TeamDominant/wiki/blob/main/docs/src/assets/archlinux/iwctl_settings.png?raw=true)
 
-Then run:
+Затем выполните:
 
-1. List available wireless devices:
+1. Показать доступные Wi-Fi устройства:
 
         ```bash
         device list
         ```
 
-Identify your wireless interface (for example, `wlan0`).
+Определите имя интерфейса (например, `wlan0`).
 
-2. Scan for networks:
+2. Сканировать сети:
 
         ```bash
         station wlan0 scan
         ```
 
-3. Show available networks:
+3. Показать найденные сети:
 
         ```bash
         station wlan0 get-networks
         ```
 
-4. Connect to a network:
+4. Подключиться к сети:
 
         ```bash
         station wlan0 connect {network}
         ```
 
-Enter the password if prompted.
+При необходимости введите пароль.
 
-5. Check status:
+5. Проверить статус:
 
         ```bash
         station wlan0 show
         ```
 
-Then confirm connectivity:
+И еще раз проверьте интернет:
 
 ```bash
 ping archlinux.org
 ```
 
-### Disk partitioning
+### Разметка диска
 
-Two common partitioning utilities are:
+Часто используются две утилиты:
 
 - `fdisk`
 - `cfdisk`
 
-This guide uses `fdisk`.
+В этом гайде используется `fdisk`.
 
-First, identify your disk.
+Сначала определите нужный диск.
 
 <Aside type="danger">
-    Disconnect unnecessary disks to reduce risk of selecting the wrong disk.
+    Отключите лишние диски, чтобы снизить риск выбора неправильного устройства.
 </Aside>
 
-List disks:
+Показать диски:
 
 ```bash
 fdisk -l
 ```
 
-Configure your target disk (example):
+Настроить целевой диск (пример):
 
 ```bash
 fdisk /dev/nvme0n1
 ```
 
-Create three partitions:
+Создайте три раздела:
 
 | Partition | Size | Type |
 | --- | --- | --- |
@@ -147,125 +148,125 @@ Create three partitions:
 | `swap` | `8G` | Linux swap |
 | `root` | Remaining space | Linux filesystem |
 
-Press `p` to list current partitions.
+Нажмите `p`, чтобы посмотреть текущие разделы.
 
-Press `n` to create a new partition. Keep default partition number and first sector, then set last sector to `+1G` for `boot`.
+Нажмите `n` для создания нового раздела. Оставьте номер и первый сектор по умолчанию, а последний сектор задайте как `+1G` для `boot`.
 
-Repeat for `swap` (for example `+4G` to `+8G`) and use the remaining space for `root`.
+Повторите для `swap` (например, `+4G` или `+8G`), оставшееся пространство отдайте под `root`.
 
 <Aside type="danger">
-    SWAP is recommended if your machine has less than 8 GB of RAM.
+    SWAP рекомендуется, если у вашей машины меньше 8 GB RAM.
 </Aside>
 
-After creating partitions, press `w` to write changes.
+После создания разделов нажмите `w`, чтобы записать изменения.
 
 ### Archinstall
 
-Now run:
+Теперь запустите:
 
 ```bash
 archinstall
 ```
 
-You should see the installer menu.
+Откроется меню установщика.
 
 ![archinstall](https://github.com/TeamDominant/wiki/blob/main/docs/src/assets/archlinux/archinstall.png?raw=true)
 
-Suggested settings:
+Рекомендуемые параметры:
 
 **Locale**
 
-Select your preferred locale (for example `en_US` or `ru_RU`).
+Выберите нужную локаль (например `en_US` или `ru_RU`).
 
 <Aside type="note">
-    Press `?` to search quickly.
+    Для быстрого поиска нажмите `?`.
 </Aside>
 
 **Disk configuration**
 
-- Select `Manual Partitioning`.
-- Select your disk (for example `nvme0n1`).
-- For the 1G partition: assign mountpoint `/boot`, mark for format, set filesystem to `fat32`.
-- For the root partition: assign mountpoint `/`, mark for format, set filesystem to `ext4`.
-- Select `Confirm and exit`.
+- Выберите `Manual Partitioning`.
+- Выберите диск (например `nvme0n1`).
+- Для раздела 1G: mountpoint `/boot`, отметить форматирование, filesystem `fat32`.
+- Для root-раздела: mountpoint `/`, отметить форматирование, filesystem `ext4`.
+- Выберите `Confirm and exit`.
 
 **Bootloader**
 
-- Select `GRUB`.
+- Выберите `GRUB`.
 
 **Hostname**
 
-Enter your system name (you can keep `archlinux`).
+Введите имя системы (можно оставить `archlinux`).
 
 **Root password**
 
-Set and confirm a root password.
+Задайте и подтвердите пароль root.
 
 **User account**
 
-- Add username and password.
-- Confirm superuser privileges (`sudo`) with `Yes`.
+- Добавьте имя пользователя и пароль.
+- Подтвердите выдачу superuser-прав (`sudo`) ответом `Yes`.
 
 **Profile**
 
-- Select `Type`.
-- Select `Desktop`.
-- Choose `KDE Plasma`.
-- Choose `sddm`.
+- Выберите `Type`.
+- Выберите `Desktop`.
+- Выберите `KDE Plasma`.
+- Выберите `sddm`.
 
-You can keep graphics driver as default (`All`) unless you need a specific one.
+Драйвер графики можно оставить по умолчанию (`All`), если нет особых требований.
 
 **Network configuration**
 
-- Choose `Use NetworkManager`.
+- Выберите `Use NetworkManager`.
 
 **Additional packages**
 
-Add useful tools, for example:
+Добавьте полезные пакеты, например:
 
 `nano firefox btop`
 
 **Timezone**
 
-Choose your timezone.
+Выберите часовой пояс.
 
 <Aside type="note">
-    Press `?` to search quickly.
+    Для быстрого поиска нажмите `?`.
 </Aside>
 
 **Audio**
 
-Select `pipewire`.
+Выберите `pipewire`.
 
 **Install**
 
-- Select `Install`.
-- Confirm `Yes` and wait.
-- When asked to continue setup in `chroot`, select `Yes`.
+- Выберите `Install`.
+- Подтвердите `Yes` и дождитесь завершения.
+- Когда установщик спросит про продолжение настройки в `chroot`, выберите `Yes`.
 
-### GRUB configuration
+### Конфигурация GRUB
 
-Check if Arch boot entry exists:
+Проверьте, есть ли запись Arch в загрузчике:
 
 ```bash
 efibootmgr
 ```
 
-Install GRUB to EFI:
+Установите GRUB в EFI:
 
 ```bash
 grub-install --target=x86_64-efi --efi-directory=/boot --recheck
 ```
 
-If successful, you should see `Installation finished. No errors reported`.
+При успехе вы увидите `Installation finished. No errors reported`.
 
-Re-check boot entries:
+Проверьте записи снова:
 
 ```bash
 efibootmgr
 ```
 
-Reboot:
+Перезагрузка:
 
 ```bash
 reboot
@@ -273,25 +274,25 @@ reboot
 
 ## Dual-boot
 
-If you need to add a Windows boot entry, become root first:
+Если нужно добавить запись Windows, сначала получите root:
 
 ```bash
 sudo su
 ```
 
-Install `os-prober`:
+Установите `os-prober`:
 
 ```bash
 pacman -S os-prober
 ```
 
-Edit GRUB defaults:
+Откройте настройки GRUB:
 
 ```bash
 nano /etc/default/grub
 ```
 
-Uncomment or set:
+Раскомментируйте или задайте:
 
 ```bash title="/etc/default/grub"
 GRUB_SAVEDEFAULT=true
@@ -299,21 +300,21 @@ GRUB_DISABLE_SUBMENU=y
 GRUB_DISABLE_OS_PROBER=false
 ```
 
-Save and exit (`Ctrl+X`, then `Y`, then `Enter`).
+Сохраните и выйдите (`Ctrl+X`, затем `Y`, затем `Enter`).
 
-Check for Windows Boot Manager:
+Проверьте наличие Windows Boot Manager:
 
 ```bash
 os-prober
 ```
 
-Generate GRUB config:
+Сгенерируйте конфиг GRUB:
 
 ```bash
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
-If there are no errors, reboot:
+Если ошибок нет, перезагрузитесь:
 
 ```bash
 reboot
@@ -323,7 +324,7 @@ reboot
 
 | Application | Description |
 | --- | --- |
-| [Blue Screen of Life](https://github.com/harishnkr/bsol) | Menu styled like the Windows Blue Screen of Death, but family-friendly |
-| [Arch Linux Gangster Edition Plymouth theme](https://github.com/dj-no/arch-gangster-edition-plymouth?tab=readme-ov-file) | Windows XP boot screen styled as gangster |
-| [macOS Boot Splash Style](https://www.pling.com/p/2106821) | Apple-style minimal boot splash |
-| [Plymouth Themes](https://www.pling.com/p/2216301) | A pack of multiple boot animations |
+| [Blue Screen of Life](https://github.com/harishnkr/bsol) | Меню в стиле Windows BSOD, но в дружелюбном формате |
+| [Arch Linux Gangster Edition Plymouth theme](https://github.com/dj-no/arch-gangster-edition-plymouth?tab=readme-ov-file) | Загрузочный экран в стиле Windows XP с «гангстерской» темой |
+| [macOS Boot Splash Style](https://www.pling.com/p/2106821) | Минималистичный загрузочный экран в стиле Apple |
+| [Plymouth Themes](https://www.pling.com/p/2216301) | Пак с несколькими анимациями загрузки |

@@ -1,63 +1,64 @@
 ---
-title: Rules & limits
-description: Torrents, games and ping, AI services, MAX and other things worth knowing about how the service works.
+title: Правила и ограничения
+description: Торренты, игры и пинг, ИИ-сервисы, MAX и другие вещи, которые стоит знать о работе сервиса.
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 
-## Torrents
+## Торренты
 
-Torrent traffic through the VPN is not allowed: it makes server providers send complaints and they may
-block a server for every user on it.
+Торрент-трафик через VPN запрещён: из-за него провайдеры серверов присылают жалобы и могут
+заблокировать сервер для всех пользователей.
 
-If the system detects torrents, you get a notice and your access is blocked. Close the torrent
-client — the block lifts in about 5 minutes. If you are sure it is a mistake, message
-[support](/faq/support/).
+Если система заметит торренты, вы получите уведомление, а доступ будет заблокирован. Закройте
+торрент-клиент — блокировка снимется примерно через 5 минут. Если вы уверены, что это ошибка,
+напишите в [поддержку](/faq/support/).
 
-Downloading large files (games from a launcher, for example) is fine. After a sharp traffic spike we
-sometimes ask to confirm it is not a torrent — that is just a routine check.
+Скачивать большие файлы (например, игры из лаунчера) можно. При резком скачке трафика мы иногда
+уточняем, что это не торрент, — это обычная проверка.
 
-## Games and ping
+## Игры и пинг
 
-- A VPN does not lower ping: traffic goes through a server in another country, so latency is usually
-  higher than without a VPN. Internet speed does not affect ping.
-- Check server latency with the test button in the app and pick the closest one.
-- Games that do not need the VPN are better sent directly — see
-  [Routing rules](/faq/routing-rules/#exclude-a-program-from-the-vpn).
-- If a game blocks players by account region, a VPN cannot get around it.
+- VPN не уменьшает пинг: трафик идёт через сервер в другой стране, поэтому задержка обычно выше,
+  чем без VPN. Скорость интернета на пинг не влияет.
+- Проверьте задержку до серверов кнопкой теста в приложении и выберите ближайший.
+- Играм, которым VPN не нужен, лучше идти напрямую — см.
+  [Правила маршрутизации](/faq/routing-rules/#исключить-программу-из-vpn).
+- Если игра блокирует игроков по региону аккаунта, VPN это не обойдёт.
 
-## AI services
+## ИИ-сервисы
 
-Some AI services (Claude, for example) block accounts that sign in from different countries. To avoid
-that, always use the same location for them (Germany, for example) — changing IP addresses within one
-country causes no problems.
+Некоторые ИИ-сервисы (например, Claude) блокируют аккаунты, если заходить в них из разных стран.
+Чтобы этого избежать, всегда используйте для них одну и ту же локацию (например, Германию) — смена
+IP-адреса внутри одной страны проблем не создаёт.
 
-If a service says your region is not supported, try another location and tell us which one showed
-the error.
+Если сервис пишет, что ваш регион не поддерживается, попробуйте другую локацию и сообщите нам, на
+какой возникла ошибка.
 
-## MAX messenger
+## Мессенджер MAX
 
-MAX does not work while the VPN is on — this is intentional, for your protection.
+MAX не работает при включённом VPN — это сделано намеренно, для вашей защиты.
 
-## Mobile operators
+## Мобильные операторы
 
-The service works with all operators. If mobile internet works poorly, use the
-[linked profile](/faq/subscription/#linked-profile-lte--wl). It cannot be guaranteed to work under
-operator-side restrictions (“whitelists”) — it depends on the region.
+Сервис работает со всеми операторами. Если мобильный интернет работает плохо, используйте
+[связной профиль](/faq/subscription/#связной-профиль-lte--wl). Работа при ограничениях со
+стороны оператора («белых списках») не гарантируется — всё зависит от региона.
 
-## Locations
+## Локации
 
-Currently available: Germany (Frankfurt, Nuremberg), the Netherlands (Amsterdam, Eygelshoven), Japan
-(Tokyo) and Russia (Moscow). Every location is available on every plan and you can switch freely. The
-list keeps growing — the current one is always in the app after a profile update.
+Сейчас доступны Германия (Франкфурт, Нюрнберг), Нидерланды (Амстердам, Эйгельсховен), Япония
+(Токио) и Россия (Москва). Все локации доступны на любом тарифе, менять их можно свободно. Список
+пополняется — актуальный всегда в приложении после обновления профиля.
 
-There is no Kazakhstan location yet: we have not found a reliable provider for it.
+Локации в Казахстане пока нет: найти для неё надёжного поставщика не удалось.
 
-## Platforms
+## Поддержка платформ
 
-- Apps for all popular platforms — see [Installation](/faq/install/).
-- Servers and infrastructure (Linux, Docker) — we offer turnkey setup, message [support](/faq/support/).
+- Приложения для всех популярных платформ — см. [Установку](/faq/install/).
+- Серверы и инфраструктура (Linux, Docker) — поможем с настройкой под ключ, напишите в
+  [поддержку](/faq/support/).
 
 <Aside type="note">
-  The full usage rules are in the [user agreement](/faq/terms/).
+  Полный список правил использования — в [пользовательском соглашении](/faq/terms/).
 </Aside>

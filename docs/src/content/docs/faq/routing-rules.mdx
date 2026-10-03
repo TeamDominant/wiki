@@ -1,82 +1,83 @@
 ---
-title: "Routing rules"
-description: "How to send a website, game or app through the VPN or around it in Koala Clash and FlClashX."
+title: "Правила маршрутизации"
+description: "Как направить сайт, игру или приложение через VPN или мимо него в Koala Clash и FlClashX."
 ---
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-## How routing works
+## Как устроена маршрутизация
 
-Our apps do not push all traffic through the VPN. For every connection, rules decide where it goes:
+Наши приложения не гонят весь трафик через VPN. Для каждого соединения правила решают, куда его
+отправить:
 
-- **Proxy** — through a VPN server (blocked websites and services);
-- **No proxy** (DIRECT) — directly, as without a VPN (Russian websites, games that do not need a VPN);
-- **REJECT** — blocked.
+- **Proxy** — через VPN-сервер (заблокированные сайты и сервисы);
+- **No proxy** (DIRECT) — напрямую, как без VPN (российские сайты, игры, которым VPN не нужен);
+- **REJECT** — заблокировать.
 
-There is no global “everything through the VPN” mode — the rules are what let Russian services work
-without turning the VPN off. If a website or a game goes the wrong way, add your own rule.
+Глобального режима «всё через VPN» нет — именно правила позволяют российским сервисам работать без
+отключения VPN. Если какой-то сайт или игра идут не туда, добавьте своё правило.
 
 <Aside type="note">
-  Custom rules can only be added in the desktop versions of Koala Clash and FlClashX. Phones do not
-  offer this, and iOS does not allow per-app rules at all. If a website does not work on your phone,
-  message [support](/faq/support/) and we will add it to the shared rules.
+  Свои правила можно добавить только в компьютерных версиях Koala Clash и FlClashX. На телефонах
+  такой возможности нет, а на iPhone правила для отдельных приложений запрещены системой. Если нужный
+  сайт не работает на телефоне, напишите в [поддержку](/faq/support/) — добавим его в общие правила.
 </Aside>
 
-## Add a rule
+## Добавить правило
 
 <Steps>
 
-1. Open the rule editor:
-   - **Koala Clash** — the **Rules** tab in the side menu → the pencil in the top-right corner;
-   - **FlClashX** — the **Profiles** tab → the three dots next to the profile → **Override**.
+1. Откройте редактор правил:
+   - **Koala Clash** — вкладка **Правила** в боковом меню → карандаш в правом верхнем углу;
+   - **FlClashX** — вкладка **Профили** → три точки у профиля → **Переопределение**.
 
-2. Pick the rule type and enter the value (see the table below).
+2. Выберите тип правила и введите значение (таблица ниже).
 
-3. Choose where to send the traffic: **Proxy** or **No proxy**. A new rule defaults to DIRECT — do
-   not forget to change it if you need the VPN.
+3. Выберите, куда направить трафик: **Proxy** или **No proxy**. По умолчанию у нового правила стоит
+   DIRECT — не забудьте поменять, если нужен VPN.
 
-4. Press **Add to the top** — rules are checked from top to bottom and the first match wins.
+4. Нажмите **Добавить в самый верх** — правила проверяются сверху вниз, и срабатывает первое
+   подходящее.
 
 </Steps>
 
-| What you need | Type | Value | Target |
+| Что нужно | Тип | Значение | Куда |
 | --- | --- | --- | --- |
-| A website through the VPN | `DOMAIN` and `DOMAIN-SUFFIX` | `example.com` | Proxy |
-| A game or program through the VPN | `PROCESS-NAME` | `game.exe` | Proxy |
-| A program around the VPN | `PROCESS-NAME` | `discord.exe`, `chrome.exe` | No proxy |
+| Сайт через VPN | `DOMAIN` и `DOMAIN-SUFFIX` | `example.com` | Proxy |
+| Игра или программа через VPN | `PROCESS-NAME` | `game.exe` | Proxy |
+| Программа мимо VPN | `PROCESS-NAME` | `discord.exe`, `chrome.exe` | No proxy |
 
-For a website, add two rules: `DOMAIN` for the address itself and `DOMAIN-SUFFIX` for all of its
-subdomains.
+Для сайта добавьте два правила: `DOMAIN` — для самого адреса и `DOMAIN-SUFFIX` — для всех его
+поддоменов.
 
-<Aside type="caution" title="Choose Proxy, not a specific server">
-  If a rule points to a specific server (for example, “Frankfurt 2”), the configuration stops passing
-  validation when the server list updates, and the VPN will not start. Always choose the **Proxy**
-  group and switch servers inside it.
+<Aside type="caution" title="Выбирайте Proxy, а не конкретный сервер">
+  Если в правиле выбрать конкретный сервер (например, «Frankfurt 2»), при обновлении списка серверов
+  конфигурация перестанет проходить проверку и VPN не запустится. Всегда выбирайте группу **Proxy**, а
+  сервер переключайте в ней.
 </Aside>
 
-## The website still loads poorly
+## Сайт всё равно грузится плохо
 
-Websites load images and video from other domains. Open the **Connections** tab, select your browser
-and open the website: you will see every domain it contacts. Add the ones that go through DIRECT to
-the rules the same way.
+Сайты подгружают картинки и видео с других доменов. Откройте вкладку **Соединения**, выберите свой
+браузер и откройте сайт: вы увидите все домены, к которым он обращается. Те, что идут через DIRECT,
+добавьте в правила так же.
 
-## Games
+## Игры
 
-You can find a game's process name in Task Manager (the Details tab) or in the game folder.
+Имя процесса игры можно найти в диспетчере задач (вкладка «Подробности») или в папке игры.
 
-| Game | Processes |
+| Игра | Процессы |
 | --- | --- |
 | Dead by Daylight | `DeadByDaylight-Win64-Shipping.exe` |
 | Metal Gear Solid V | `mgsvtpp.exe`, `mgsvmgo.exe` |
 | Sky: Children of the Light | `Sky.exe` |
 | GTA 5 RP (Majestic) | `GTA5.exe`, `majestic-webengine.exe` |
 
-If a game has several processes, add a rule for each. If a game refuses to let you in because of your
-account region (for example, a Steam account with a Russian region), a VPN will not help — the
-restriction is on the publisher's side. About ping in games — see
-[Rules & limits](/faq/limits/#games-and-ping).
+Если у игры несколько процессов, добавьте правило для каждого. Если игра не пускает из-за региона
+аккаунта (например, Steam-аккаунт с российским регионом), VPN не поможет — ограничение на стороне
+издателя. Про пинг в играх — в [Правилах и ограничениях](/faq/limits/#игры-и-пинг).
 
-## Exclude a program from the VPN
+## Исключить программу из VPN
 
-If a program (for example, Discord or a browser) does not need the VPN, add a `PROCESS-NAME` rule with
-its process and choose **No proxy**.
+Если программе (например, Discord или браузеру) VPN не нужен, добавьте правило `PROCESS-NAME` с её
+процессом и выберите **No proxy**.

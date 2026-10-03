@@ -1,103 +1,104 @@
 ---
-title: Subscription & devices
-description: Your account, the subscription link, the device limit, revoking the link and the linked profile for mobile internet.
+title: Подписка и устройства
+description: Личный кабинет, ссылка на подписку, лимит устройств, отзыв ссылки и связной профиль для мобильного интернета.
 ---
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-## Your account
+## Личный кабинет
 
-You manage the subscription in your account. It is available in two places with the same data:
+Подпиской управляют в личном кабинете. Он доступен в двух местах, данные в них одинаковые:
 
-- the Telegram bot [@teamdominant_get_bot](https://t.me/teamdominant_get_bot);
-- the website [infra.dominants.link](https://infra.dominants.link) — sign in with Telegram or a linked email.
+- Telegram-бот [@teamdominant_get_bot](https://t.me/teamdominant_get_bot);
+- сайт [infra.dominants.link](https://infra.dominants.link) — вход через Telegram или привязанную почту.
 
-To sign in on the website with email, link it in your account first. Only addresses at popular mail
-services (Gmail, Rambler and similar) are accepted — this is a requirement of our mail provider.
-Addresses on custom domains will not work.
+Для входа на сайт по почте привяжите её в кабинете. Принимаются адреса популярных почтовых сервисов
+(Gmail, Rambler и т. п.) — это требование нашего почтового провайдера. Адреса на собственных доменах
+не подойдут.
 
-## Where to get the subscription link
+## Где взять ссылку на подписку
 
-On the main page of your account, press **Install**. There you will find a **Copy link** button and a
-button that adds the subscription to the chosen app for you.
+На главной странице кабинета нажмите **Установить и настроить**. Там есть кнопка **Скопировать
+ссылку** и кнопка, которая сама добавит подписку в выбранное приложение.
 
-If you paid for a friend's subscription, they just need to open the account from their own Telegram
-or email — the subscription is on the main page.
+Если вы оплатили подписку другу, ему достаточно зайти в кабинет со своего аккаунта — подписка будет
+на главной странице.
 
-## Device limit
+## Лимит устройств
 
-Plans differ only in how many devices can be connected at the same time:
+Тарифы отличаются только числом устройств, которые можно подключить одновременно:
 
-| Plan | Devices |
+| Тариф | Устройств |
 | --- | --- |
-| Start | 3–5 |
-| Plus | 6–9 |
-| Maximum | 10–15, more available to buy |
+| Старт | 3–5 |
+| Плюс | 6–9 |
+| Максимум | 10–15, можно докупить ещё |
 
-The network, speed and locations are the same on every plan. The number of connected devices is shown
-on the main page of your account; prices are on [dominants.link](https://dominants.link/#pricing).
+Сеть, скорость и локации на всех тарифах одинаковые. Число подключенных устройств видно на главной
+странице кабинета, цены — на [dominants.link](https://dominants.link/#pricing).
 
-<Aside type="note" title="What counts as a device">
-  Every **app** on every device. If one phone has, say, Koala Clash and Happ with your subscription,
-  that is already two devices.
+<Aside type="note" title="Что считается устройством">
+  Каждое **приложение** на каждом устройстве. Если на одном телефоне стоят, например, Koala Clash и
+  Happ с вашей подпиской, это уже два устройства.
 </Aside>
 
-If the app says **“Device limit exceeded”**, no servers show up, or the connect button switches off
-right away:
+Если приложение пишет **«Превышен лимит устройств»**, серверы не появляются или кнопка подключения
+сразу выключается:
 
 <Steps>
 
-1. Open your account and tap the number of devices on the main page.
+1. Откройте кабинет и на главной странице нажмите на количество устройств.
 
-2. Remove the devices you no longer use.
+2. Удалите устройства, которыми больше не пользуетесь.
 
-3. In old apps, delete the profile with your subscription — otherwise the device comes back the next
-   time that app updates the profile.
+3. В старых приложениях удалите профиль с подпиской — иначе при следующем обновлении профиля
+   устройство снова появится в списке.
 
-4. On the new device, [update the profile](/faq/troubleshooting/#1-update-your-profile).
+4. На новом устройстве [обновите профиль](/faq/troubleshooting/#1-обновите-профиль).
 
 </Steps>
 
-If you need more devices, buy extra ones or switch to a bigger plan — see
-[Payments](/faq/payments/#extra-devices).
+Если устройств не хватает, можно докупить дополнительные или перейти на тариф побольше — см.
+[Оплату](/faq/payments/#дополнительные-устройства).
 
-## Revoke or delete a subscription
+## Отозвать или удалить подписку
 
-On the main page of your account, tap the subscription at the top — there are two different buttons:
+На главной странице кабинета нажмите на подписку вверху — там две разные кнопки:
 
-- **Revoke** issues a new link and the old one stops working. Your remaining days are kept. After
-  that, add the subscription to all your apps again.
-- **Delete** removes the subscription completely. To delete your main subscription, first make
-  another one the main.
+- **Отозвать** — выпускает новую ссылку, старая перестаёт работать. Дни подписки сохраняются.
+  После этого подписку нужно заново добавить во все свои приложения.
+- **Удалить** — удаляет подписку целиком. Чтобы удалить основную подписку, сначала сделайте основной
+  другую.
 
 <Aside type="caution">
-  If you only need to cut off someone else's device, press **Revoke**, not **Delete**.
+  Если нужно просто отключить чужое устройство, нажимайте **Отозвать**, а не **Удалить**.
 </Aside>
 
-### A stranger's device appeared in the list
+### В списке появилось чужое устройство
 
-This happens when you sold or gave away a phone or computer without deleting the subscription from
-it: the app keeps updating the profile and takes a slot again. Removing the device from the list will
-not help — revoke the subscription and add the new link to your own devices.
+Так бывает, если вы продали или отдали телефон или компьютер, не удалив с него подписку: приложение
+продолжает обновлять профиль и снова занимает место. Удаление устройства из списка тут не поможет —
+отзовите подписку и добавьте новую ссылку на свои устройства.
 
-Before worrying, check it is not your own device: after updates, Windows 11 is sometimes detected as
-Windows 10 and shows up as a new device.
+Прежде чем паниковать, проверьте, не ваше ли это устройство: после обновлений Windows 11 иногда
+определяется как Windows 10 и появляется как новое.
 
-## Linked profile (LTE / WL)
+## Связной профиль (LTE / WL)
 
-After purchase, the main page of your account shows a second, linked subscription next to the main
-one (its plan name contains LTE or WL). It uses servers that are easier to reach from mobile networks.
+После покупки на главной странице кабинета рядом с основной подпиской есть вторая — связная (в
+названии тарифа есть LTE или WL). Она использует серверы с лучшей доступностью из мобильных сетей.
 
-- Use it when the main subscription does not work, or works poorly, on mobile internet.
-- Traffic on the linked profile is limited, so use the main one at home on Wi-Fi.
-- Add the linked profile to the app just like the main one and switch between them in the profile list.
+- Используйте её, если на мобильном интернете основная подписка не работает или работает плохо.
+- Трафик на связном профиле ограничен, поэтому дома по Wi-Fi пользуйтесь основным.
+- Добавьте связной профиль в приложение так же, как основной, и переключайтесь между ними в списке
+  профилей.
 
 <Aside type="note">
-  The linked profile improves reachability but cannot guarantee it under every restriction a mobile
-  operator may apply — it depends on the region and the operator.
+  Связной профиль улучшает доступность, но не гарантирует работу при любых ограничениях мобильного
+  оператора — всё зависит от региона и оператора.
 </Aside>
 
-## Several subscriptions
+## Несколько подписок
 
-If you ended up with two subscriptions (for example, you bought a new one instead of renewing),
-message [support](/faq/support/) — we can merge them into one or make the right one the main.
+Если у вас оказалось две подписки (например, купили новую вместо продления), напишите в
+[поддержку](/faq/support/) — мы можем объединить их в одну или сделать нужную основной.

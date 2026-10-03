@@ -1,21 +1,21 @@
 ---
 title: "Firehol"
-description: "Guide to set up Firehol blocklists on a VPS or OPNSense firewall."
+description: "Гайд по настройке Firehol blocklists на VPS или фаерволе OPNSense."
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 
 <Aside type="caution">
-	Little disclaimer. Some information was copied from [virtualize.link](https://virtualize.link/), because I find information provided by its author useful. Make sure to check the [source](https://github.com/quietsy/advanced-configurations) or star the repo.
+Небольшой дисклеймер. Часть информации взята с [virtualize.link](https://virtualize.link/), потому что материалы автора полезны. Проверьте [источник](https://github.com/quietsy/advanced-configurations) или поставьте звезду репозиторию.
 </Aside>
 
-Firehol blocklists are a collection of automatically updating ipsets from all available security IP feeds, mainly related to online attacks, online service abuse, malware, botnets, command and control servers, and other cybercrime activities.
+Firehol blocklists — это набор автоматически обновляемых ipset-списков из множества security feed-источников: онлайн-атаки, злоупотребления сервисами, malware, botnet, C2-серверы и другая киберкриминальная активность.
 
 ## VPS
 
-### Installation
+### Установка
 
-Install the following packages:
+Установите пакеты:
 
 ```bash
 sudo apt install ipset iprange
@@ -23,10 +23,10 @@ sudo apt install ipset iprange
 
 ### Firehol blocklists
 
-Navigate to [Firehol's website](https://iplists.firehol.org/) or [Firehol's GitHub repo](https://github.com/firehol/blocklist-ipsets) and choose which blocklists you want to enable.
+Перейдите на [сайт Firehol](https://iplists.firehol.org/) или в [GitHub-репозиторий Firehol](https://github.com/firehol/blocklist-ipsets) и выберите blocklists, которые хотите включить.
 
-Copy the raw links into `/home/user/firehol/firehol.conf`.
-For example:
+Скопируйте raw-ссылки в `/home/user/firehol/firehol.conf`.
+Пример:
 
 ```text title="/home/user/firehol/firehol.conf"
 https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_level1.netset
@@ -35,11 +35,11 @@ https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_level3
 https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_abusers_1d.netset
 ```
 
-### Firehol script
+### Скрипт Firehol
 
-Create a script to refresh the firehol ipsets and recreate the iptables rules.
+Создайте скрипт, который обновляет firehol ipsets и заново создает iptables-правила.
 
-For example, `/home/user/firehol/firehol.sh`:
+Например, `/home/user/firehol/firehol.sh`:
 
 ```bash title="/home/user/firehol/firehol.sh"
 #!/bin/bash
@@ -80,7 +80,7 @@ do
 done
 ```
 
-Verify that it works and the ipsets have been filled:
+Проверьте, что все работает и ipsets заполнены:
 
 ```bash
 chmod +x /home/user/firehol/firehol.sh
@@ -88,28 +88,28 @@ sudo /home/user/firehol/firehol.sh
 sudo ipset list firehol_level1.netset
 ```
 
-### Cron scheduling
+### Расписание Cron
 
 <Aside type="caution">
-Make sure you are not accidentally blocking your own access to the VPS before proceeding.
+Убедитесь, что вы случайно не заблокируете свой доступ к VPS перед продолжением.
 </Aside>
 
-Run the firehol script on reboot and daily.
+Запускайте скрипт firehol при загрузке и ежедневно.
 
-For example, add the following to `sudo crontab -e`:
+Например, добавьте в `sudo crontab -e`:
 
 ```text
 0 1 * * * /home/user/firehol/firehol.sh
 @reboot sleep 120 && /home/user/firehol/firehol.sh
 ```
 
-Verify that it runs on reboot and daily. There is a 2 minute delay before it applies after reboots, to give enough time to fix a lockout.
+Проверьте запуск при ребуте и ежедневно. После перезагрузки есть задержка 2 минуты, чтобы успеть исправить возможную блокировку.
 
 ## OPNSense
 
 ### Alias
 
-Navigate to **Firewall** > **Aliases** and create the following aliases:
+Перейдите в **Firewall** > **Aliases** и создайте:
 
 ```text
 Name: Firehol
@@ -135,7 +135,7 @@ Content: External, Firehol
 
 ### Firewall
 
-Navigate to **Firewall** > **Rules** > **WAN** and create the following firewall rule:
+Перейдите в **Firewall** > **Rules** > **WAN** и создайте правило:
 
 ```text
 Action: Block
@@ -149,9 +149,9 @@ Destination: any
 
 ### Cron
 
-Create a cron job to automatically update the blocklists every day.
+Создайте cron-задачу для ежедневного обновления списков.
 
-Navigate to **System** > **Settings** > **Cron** and add the following job:
+Перейдите в **System** > **Settings** > **Cron** и добавьте:
 
 ```text
 Enabled: checked

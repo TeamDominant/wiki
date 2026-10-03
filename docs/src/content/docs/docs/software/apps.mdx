@@ -1,34 +1,34 @@
 ---
-title: "Apps"
-description: "Recommended apps for browsing, networking, productivity, and system management."
+title: "Приложения"
+description: "Рекомендуемые приложения для браузинга, сети, продуктивности и администрирования системы."
 ---
 
 import { Aside, Card, CardGrid, LinkCard, Icon } from '@astrojs/starlight/components';
 
-This page lists apps for daily work, networking, monitoring, and self-management.
+Эта страница содержит приложения для повседневной работы, сети, мониторинга и самоорганизации.
 
 <Aside type="note">
-  These are practical recommendations, not strict requirements. Pick tools based on your OS, threat model, and workflow.
+  Это практические рекомендации, а не строгие требования. Выбирайте инструменты под свою ОС, модель угроз и рабочий процесс.
 </Aside>
 
 <CardGrid>
-  <LinkCard title="Web" href="#web">
-    Browsers and browser hardening references.
+  <LinkCard title="Веб" href="#web">
+    Браузеры и ссылки по их усилению.
   </LinkCard>
-  <LinkCard title="Terminal" href="#terminal-and-ssh">
-    SSH and terminal clients.
+  <LinkCard title="Терминал" href="#terminal-and-ssh">
+    SSH и терминальные клиенты.
   </LinkCard>
-  <LinkCard title="Monitoring" href="#monitoring-and-system-info">
-    Resource and hardware observability tools.
+  <LinkCard title="Мониторинг" href="#monitoring-and-system-info">
+    Инструменты наблюдаемости за ресурсами и железом.
   </LinkCard>
-  <LinkCard title="Remote access" href="#remote-access">
-    Remote desktop and collaboration tools.
+  <LinkCard title="Удаленный доступ" href="#remote-access">
+    Инструменты удаленного рабочего стола и совместной работы.
   </LinkCard>
-  <LinkCard title="Notes" href="#notes">
-    Knowledge and note-taking applications.
+  <LinkCard title="Заметки" href="#notes">
+    Приложения для базы знаний и заметок.
   </LinkCard>
-  <LinkCard title="Network" href="#network">
-    Packet and service discovery tools.
+  <LinkCard title="Сеть" href="#network">
+    Инструменты анализа пакетов и обнаружения сервисов.
   </LinkCard>
 </CardGrid>
 
@@ -36,88 +36,88 @@ This page lists apps for daily work, networking, monitoring, and self-management
 
 | Application | Description |
 | ----------- | ----------- |
-| [Helium](https://helium.computer/) | Best privacy and unbiased ad-blocking by default. Handy features like native !bangs and split view. No adware, no bloat, no noise. Made for people, by people. Fully open source. |
-| [Firefox](https://www.mozilla.org/en-US/) | Fast browser for Windows, macOS, Linux, and mobile. Tune with [Betterfox](https://github.com/TeamDominant/Betterfox) for stronger defaults. |
-| [Betterfox](https://github.com/TeamDominant/Betterfox) | Tuned `user.js` profile for speed, privacy, and security. Based on [yokoffing/Betterfox](https://github.com/yokoffing/Betterfox) with personal improvements. |
-| [Zen](https://github.com/zen-browser/desktop) | Firefox-based browser with a modern interface and privacy-focused defaults. Tune with [Betterfox](https://github.com/TeamDominant/Betterfox/zen) for stronger defaults. |
-| [Floorp](https://github.com/Floorp-Projects/Floorp) | Fast, customizable browser with Betterfox-style performance and privacy improvements. |
+| [Helium](https://helium.computer/) | Приватный браузер с нейтральной встроенной блокировкой рекламы. Удобные функции вроде нативных `!bangs` и split view. Без adware и лишнего шума. Полностью open source. |
+| [Firefox](https://www.mozilla.org/en-US/) | Быстрый браузер для Windows, macOS, Linux и мобильных устройств. Можно усилить через [Betterfox](https://github.com/TeamDominant/Betterfox). |
+| [Betterfox](https://github.com/TeamDominant/Betterfox) | Настроенный `user.js` профиль для скорости, приватности и безопасности. Основан на [yokoffing/Betterfox](https://github.com/yokoffing/Betterfox) с личными правками. |
+| [Zen](https://github.com/zen-browser/desktop) | Браузер на базе Firefox с современным интерфейсом и акцентом на приватность. Можно усилить через [Betterfox](https://github.com/TeamDominant/Betterfox/zen). |
+| [Floorp](https://github.com/Floorp-Projects/Floorp) | Быстрый и настраиваемый браузер с улучшениями в стиле Betterfox. |
 
 ## Terminal and SSH
 
 | Application | Description |
 | ----------- | ----------- |
-| [PuTTY](https://www.putty.org/) | Lightweight terminal emulator with SSH, Telnet, and SCP support for remote administration. |
-| [Termius](https://termius.com/) | Modern SSH client with host groups, cross-device sync, and SFTP support. |
+| [PuTTY](https://www.putty.org/) | Легковесный терминальный эмулятор с поддержкой SSH, Telnet и SCP для удаленного администрирования. |
+| [Termius](https://termius.com/) | Современный SSH-клиент с группировкой хостов, синхронизацией между устройствами и SFTP. |
 
 ## FTP
 
 | Application | Description |
 | ----------- | ----------- |
-| [FileZilla](https://filezilla-project.org/) | Cross-platform client for file transfers over FTP, SFTP, and FTPS. |
+| [FileZilla](https://filezilla-project.org/) | Кроссплатформенный клиент для передачи файлов по FTP, SFTP и FTPS. |
 
 ## Monitoring and system info
 
 | Application | Description |
 | ----------- | ----------- |
-| [btop4win](https://github.com/aristocratos/btop4win) | Resource monitor for CPU, memory, disk, network, and process usage on Windows. |
-| [btop](https://github.com/aristocratos/btop) | Resource monitor for CPU, memory, disk, network, and process usage across platforms. |
-| [lm-sensors](https://github.com/lm-sensors/lm-sensors) | Linux utility for reading hardware sensor values, including CPU temperature. |
-| [HWiNFO](https://www.hwinfo.com/) | Detailed hardware diagnostics and real-time monitoring for Windows. |
-| [CPU-Z](https://www.cpuid.com/softwares/cpu-z.html) | Lightweight utility for CPU, motherboard, memory, and GPU details. |
-| [CPU-G](https://github.com/atareao/cpu-g) | Open-source system information tool similar to CPU-Z. |
+| [btop4win](https://github.com/aristocratos/btop4win) | Монитор ресурсов CPU, памяти, диска, сети и процессов в Windows. |
+| [btop](https://github.com/aristocratos/btop) | Монитор CPU, памяти, диска, сети и процессов на разных платформах. |
+| [lm-sensors](https://github.com/lm-sensors/lm-sensors) | Linux-утилита для чтения датчиков оборудования, включая температуру CPU. |
+| [HWiNFO](https://www.hwinfo.com/) | Подробная диагностика железа и мониторинг в реальном времени для Windows. |
+| [CPU-Z](https://www.cpuid.com/softwares/cpu-z.html) | Легкая утилита для информации о CPU, материнской плате, памяти и GPU. |
+| [CPU-G](https://github.com/atareao/cpu-g) | Open-source инструмент системной информации, похожий на CPU-Z. |
 
 ## Video recording
 
 | Application | Description |
 | ----------- | ----------- |
-| [OBS](https://obsproject.com/) | Open-source tool for video recording and live streaming with advanced scene control. |
+| [OBS](https://obsproject.com/) | Open-source инструмент для записи видео и стриминга с продвинутым управлением сценами. |
 
 ## Remote access
 
 | Application | Description |
 | ----------- | ----------- |
-| [AnyDesk](https://anydesk.com/en) | Remote desktop software for support, collaboration, and daily operations. |
-| [RustDesk](https://github.com/rustdesk/rustdesk) | Open-source remote desktop tool with optional self-hosting for stronger privacy control. |
-| [Parsec](https://parsec.app/) | Low-latency remote access platform optimized for collaboration and performance. |
+| [AnyDesk](https://anydesk.com/en) | Программа удаленного доступа для поддержки, совместной работы и ежедневных задач. |
+| [RustDesk](https://github.com/rustdesk/rustdesk) | Open-source удаленный рабочий стол с опциональным self-hosting для лучшего контроля приватности. |
+| [Parsec](https://parsec.app/) | Низколатентная платформа удаленного доступа для совместной работы и высокой производительности. |
 
 ## Tools
 
 | Application | Description |
 | ----------- | ----------- |
-| [PowerToys](https://github.com/microsoft/PowerToys) | Microsoft utility suite that adds advanced productivity features to Windows. |
-| [EarTrumpet](https://apps.microsoft.com/detail/9nblggh516xp?hl=ru-ru&gl=RU) | Enhanced Windows volume mixer with per-app audio control. |
-| [NVIDIA Shader Cache Explorer](https://github.com/Aetopia/NVIDIA-Shader-Cache-Explorer) | Utility for inspecting and managing NVIDIA shader cache data. |
-| [MPO GPU Fix](https://github.com/RedDot-3ND7355/MPO-GPU-FIX) | Fix utility for MPO-related display issues on supported AMD and NVIDIA GPUs. |
-| [MAS](https://github.com/massgravel/Microsoft-Activation-Scripts) | Open-source activation and troubleshooting scripts for Windows and Office. |
-| [PaintDotNet](https://github.com/paintdotnet/release) | Release repository for Paint.NET installers and portable builds. |
+| [PowerToys](https://github.com/microsoft/PowerToys) | Набор утилит Microsoft, добавляющий расширенные функции продуктивности в Windows. |
+| [EarTrumpet](https://apps.microsoft.com/detail/9nblggh516xp?hl=ru-ru&gl=RU) | Улучшенный микшер громкости Windows с управлением звуком по приложениям. |
+| [NVIDIA Shader Cache Explorer](https://github.com/Aetopia/NVIDIA-Shader-Cache-Explorer) | Утилита для просмотра и управления кэшем шейдеров NVIDIA. |
+| [MPO GPU Fix](https://github.com/RedDot-3ND7355/MPO-GPU-FIX) | Утилита для исправления проблем отображения, связанных с MPO, на поддерживаемых AMD/NVIDIA GPU. |
+| [MAS](https://github.com/massgravel/Microsoft-Activation-Scripts) | Open-source скрипты активации и устранения проблем для Windows и Office. |
+| [PaintDotNet](https://github.com/paintdotnet/release) | Репозиторий релизов установщиков и portable-сборок Paint.NET. |
 
 ## Notes
 
 | Application | Description |
 | ----------- | ----------- |
-| [AFFiNE](https://affine.pro/) | Collaborative knowledge management and note-taking app. |
-| [Obsidian](https://obsidian.md/) | Local-first Markdown note app for building a connected knowledge base. |
-| [Notion](https://www.notion.com/) | All-in-one workspace for notes, tasks, databases, and collaboration. |
-| [Karakeep](https://github.com/karakeep-app/karakeep) | Self-hostable bookmark-everything app with AI-assisted organization. |
-| [AppFlowy](https://github.com/AppFlowy-IO/AppFlowy-Cloud) | Self-hosted cloud backend for AppFlowy with auth, storage, and real-time sync. |
+| [AFFiNE](https://affine.pro/) | Совместное приложение для управления знаниями и заметками. |
+| [Obsidian](https://obsidian.md/) | Локальное Markdown-приложение для создания связанной базы знаний. |
+| [Notion](https://www.notion.com/) | Универсальное рабочее пространство для заметок, задач, баз данных и совместной работы. |
+| [Karakeep](https://github.com/karakeep-app/karakeep) | Self-hosted приложение «сохраняй все закладки» с AI-организацией. |
+| [AppFlowy](https://github.com/AppFlowy-IO/AppFlowy-Cloud) | Self-hosted облачный backend для AppFlowy с аутентификацией, хранилищем и real-time синхронизацией. |
 
 ## Virtual machine
 
 | Application | Description |
 | ----------- | ----------- |
-| [VirtualBox](https://www.virtualbox.org/) | Open-source hypervisor for running multiple operating systems on one host. |
-| [VMware Workstation](https://www.vmware.com/products/desktop-hypervisor/workstation-and-fusion) | Desktop hypervisor with advanced virtualization features and high stability. |
-| [VM Manager](https://www.ispsystem.ru/docs/vmmanager-admin) | Platform for automating virtual infrastructure and managing virtualization workloads. |
+| [VirtualBox](https://www.virtualbox.org/) | Open-source гипервизор для запуска нескольких ОС на одном хосте. |
+| [VMware Workstation](https://www.vmware.com/products/desktop-hypervisor/workstation-and-fusion) | Десктопный гипервизор с продвинутой виртуализацией и высокой стабильностью. |
+| [VM Manager](https://www.ispsystem.ru/docs/vmmanager-admin) | Платформа для автоматизации виртуальной инфраструктуры и управления нагрузками виртуализации. |
 
 ## Audio
 
 | Application | Description |
 | ----------- | ----------- |
-| [Audacity](https://www.audacityteam.org/) | Free, open-source, cross-platform tool for recording and editing audio. |
+| [Audacity](https://www.audacityteam.org/) | Бесплатный open-source кроссплатформенный инструмент для записи и редактирования аудио. |
 
 ## Network
 
 | Application | Description |
 | ----------- | ----------- |
-| [Wireshark](https://www.wireshark.org/) | Network protocol analyzer for troubleshooting, analysis, and education. |
-| [Jfscan](https://github.com/nullt3r/jfscan) | Super fast port scanning & service discovery using Masscan and Nmap. Scan large networks with Masscan and use Nmap's scripting abilities to discover information about services. Generate report. |
+| [Wireshark](https://www.wireshark.org/) | Анализатор сетевых протоколов для диагностики, анализа и обучения. |
+| [Jfscan](https://github.com/nullt3r/jfscan) | Очень быстрый сканер портов и обнаружения сервисов на базе Masscan и Nmap с генерацией отчетов. |

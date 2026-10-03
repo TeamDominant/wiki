@@ -1,0 +1,82 @@
+---
+title: "Routing rules"
+description: "How to send a website, game or app through the VPN or around it in Koala Clash and FlClashX."
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+## How routing works
+
+Our apps do not push all traffic through the VPN. For every connection, rules decide where it goes:
+
+- **Proxy** — through a VPN server (blocked websites and services);
+- **No proxy** (DIRECT) — directly, as without a VPN (Russian websites, games that do not need a VPN);
+- **REJECT** — blocked.
+
+There is no global “everything through the VPN” mode — the rules are what let Russian services work
+without turning the VPN off. If a website or a game goes the wrong way, add your own rule.
+
+<Aside type="note">
+  Custom rules can only be added in the desktop versions of Koala Clash and FlClashX. Phones do not
+  offer this, and iOS does not allow per-app rules at all. If a website does not work on your phone,
+  message [support](/en/faq/support/) and we will add it to the shared rules.
+</Aside>
+
+## Add a rule
+
+<Steps>
+
+1. Open the rule editor:
+   - **Koala Clash** — the **Rules** tab in the side menu → the pencil in the top-right corner;
+   - **FlClashX** — the **Profiles** tab → the three dots next to the profile → **Override**.
+
+2. Pick the rule type and enter the value (see the table below).
+
+3. Choose where to send the traffic: **Proxy** or **No proxy**. A new rule defaults to DIRECT — do
+   not forget to change it if you need the VPN.
+
+4. Press **Add to the top** — rules are checked from top to bottom and the first match wins.
+
+</Steps>
+
+| What you need | Type | Value | Target |
+| --- | --- | --- | --- |
+| A website through the VPN | `DOMAIN` and `DOMAIN-SUFFIX` | `example.com` | Proxy |
+| A game or program through the VPN | `PROCESS-NAME` | `game.exe` | Proxy |
+| A program around the VPN | `PROCESS-NAME` | `discord.exe`, `chrome.exe` | No proxy |
+
+For a website, add two rules: `DOMAIN` for the address itself and `DOMAIN-SUFFIX` for all of its
+subdomains.
+
+<Aside type="caution" title="Choose Proxy, not a specific server">
+  If a rule points to a specific server (for example, “Frankfurt 2”), the configuration stops passing
+  validation when the server list updates, and the VPN will not start. Always choose the **Proxy**
+  group and switch servers inside it.
+</Aside>
+
+## The website still loads poorly
+
+Websites load images and video from other domains. Open the **Connections** tab, select your browser
+and open the website: you will see every domain it contacts. Add the ones that go through DIRECT to
+the rules the same way.
+
+## Games
+
+You can find a game's process name in Task Manager (the Details tab) or in the game folder.
+
+| Game | Processes |
+| --- | --- |
+| Dead by Daylight | `DeadByDaylight-Win64-Shipping.exe` |
+| Metal Gear Solid V | `mgsvtpp.exe`, `mgsvmgo.exe` |
+| Sky: Children of the Light | `Sky.exe` |
+| GTA 5 RP (Majestic) | `GTA5.exe`, `majestic-webengine.exe` |
+
+If a game has several processes, add a rule for each. If a game refuses to let you in because of your
+account region (for example, a Steam account with a Russian region), a VPN will not help — the
+restriction is on the publisher's side. About ping in games — see
+[Rules & limits](/en/faq/limits/#games-and-ping).
+
+## Exclude a program from the VPN
+
+If a program (for example, Discord or a browser) does not need the VPN, add a `PROCESS-NAME` rule with
+its process and choose **No proxy**.

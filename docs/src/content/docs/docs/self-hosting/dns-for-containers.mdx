@@ -1,43 +1,43 @@
 ---
-title: "DNS for containers"
-description: "Isolate DNS visibility per container with a dedicated AdGuard Home resolver."
+title: "DNS для контейнеров"
+description: "Изолируйте видимость DNS по каждому контейнеру через выделенный резолвер AdGuard Home."
 ---
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-Use this setup when you run many containers and need DNS logs that are easier to attribute to a specific service.
+Используйте эту схему, если у вас много контейнеров и нужны DNS-логи, которые проще привязать к конкретному сервису.
 
 <Aside type="caution">
-Some information is adapted from [virtualize.link](https://virtualize.link/).  
-Check the original [source repository](https://github.com/quietsy/advanced-configurations).
+Часть информации адаптирована из [virtualize.link](https://virtualize.link/).  
+Проверьте оригинальный [репозиторий-источник](https://github.com/quietsy/advanced-configurations).
 </Aside>
 
-## Problem
+## Проблема
 
-In a common setup, one host runs many containers and forwards DNS to a network resolver like Pi-hole or AdGuard Home.
+В типовой схеме один хост запускает много контейнеров и отправляет DNS-запросы в сетевой резолвер вроде Pi-hole или AdGuard Home.
 
-Without per-container DNS routing, queries from all containers are grouped together in one bucket. That makes malicious or abnormal lookups harder to trace to a single service.
+Без маршрутизации DNS по каждому контейнеру запросы смешиваются в одну «корзину». Это затрудняет поиск конкретного сервиса, который делает подозрительные или вредоносные запросы.
 
-## Solution
+## Решение
 
-Run one AdGuard Home container as the DNS endpoint for your other containers.  
-Then point reverse DNS upstream to the Docker DNS on the host, so container names appear instead of raw IPs.
+Запустите отдельный контейнер AdGuard Home как DNS-эндпоинт для остальных контейнеров.  
+Затем направьте reverse DNS upstream на Docker DNS хоста, чтобы видеть имена контейнеров вместо «сырых» IP.
 
 ![DNS for containers](https://github.com/TeamDominant/wiki/blob/main/docs/src/assets/dns-for-containers/image.png?raw=true)
 
-High-level flow:
+Общий поток:
 
 <Steps>
 
-1. Create a bridge network with a static subnet for your stack.
+1. Создайте bridge-сеть со статической подсетью для вашего стека.
 
-2. Run AdGuard Home with a fixed IP in that subnet.
+2. Запустите AdGuard Home с фиксированным IP в этой подсети.
 
-3. Assign static IPs to the remaining containers.
+3. Назначьте статические IP остальным контейнерам.
 
-4. Set each container `dns` to the AdGuard Home static IP.
+4. Укажите AdGuard Home как DNS в каждом контейнере.
 
-5. Add `depends_on` so services start after AdGuard Home.
+5. Добавьте `depends_on`, чтобы сервисы стартовали после AdGuard Home.
 
     ```yaml title="docker-compose.yaml"
     networks:
@@ -72,13 +72,13 @@ High-level flow:
 
 </Steps>
 
-## AdGuard Home configuration
+## Конфигурация AdGuard Home
 
-Complete initial setup on port `13000`, then use port `13080` for the web UI.
+Пройдите первичную настройку на порту `13000`, затем используйте `13080` для web UI.
 
-### General settings
+### Общие настройки
 
-Go to **Settings** > **General settings**.
+Перейдите в **Settings** > **General settings**.
 
 - Block domains using filters and hosts files: disabled
 - Enable log: enabled
@@ -90,7 +90,7 @@ Go to **Settings** > **General settings**.
 
 ### DNS settings
 
-Go to **Settings** > **DNS settings**.
+Перейдите в **Settings** > **DNS settings**.
 
 - Upstream DNS servers: `127.0.0.11`
 - Private reverse DNS servers: `127.0.0.11:53`

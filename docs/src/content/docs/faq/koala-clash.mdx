@@ -1,71 +1,71 @@
 ---
 title: "Koala Clash"
-description: "Installing Koala Clash, updating the profile, choosing a server, logs and common errors."
+description: "Установка, обновление профиля, выбор сервера, логи и частые ошибки Koala Clash."
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 
-Koala Clash is our main recommended app. It is available for iPhone and iPad (via TestFlight),
-Android, Android TV, Windows, macOS and Linux. Download links are in the **Install** section of your
-account. Desktop releases are also published on
+Koala Clash — наше основное рекомендуемое приложение. Оно есть для iPhone и iPad (через TestFlight),
+Android, Android TV, Windows, macOS и Linux. Ссылки на загрузку — в личном кабинете, раздел
+**Установить и настроить**. Релизы для компьютеров публикуются на
 [GitHub](https://github.com/coolcoala/koala-clash/releases).
 
 <Aside type="tip">
-  Keep the app up to date. Many issues people bring to support are already fixed in the latest version.
+  Держите приложение обновлённым. Многие проблемы, с которыми приходят в поддержку, уже исправлены в
+  свежей версии.
 </Aside>
 
-## Update the profile
+## Обновить профиль
 
-- **Main screen** — the profile update button.
-- **Profiles tab** → the three dots next to the profile → **Update**.
+- **Главный экран** — кнопка обновления профиля.
+- **Вкладка «Профили»** → три точки у профиля → **Обновить**.
 
-Update the profile after paying, changing plans, removing devices and whenever something breaks.
+Обновляйте профиль после оплаты, смены тарифа, удаления устройств и при любых сбоях.
 
-## Choose a server
+## Выбрать сервер
 
-On the proxies tab, pick a location in the **Proxy** group. Every server and every group has a
-latency test button — pick a server that responds with lower latency. If a location has problems, we
-post about it in the [alerts channel](/faq/alerts/).
+Во вкладке с прокси выберите локацию в группе **Proxy**. Рядом с каждым сервером и каждой группой
+есть кнопка проверки задержки — выбирайте сервер с ответом и меньшей задержкой. Если у какой-то
+локации проблемы, мы пишем об этом в [канале оповещений](/faq/alerts/).
 
-Some services (YouTube, for example) have their own groups in the list — pick their server the same way.
+Для отдельных сервисов (например, YouTube) в списке есть свои группы — сервер для них выбирается так же.
 
-## Tabs worth knowing
+## Вкладки, которые пригодятся
 
-In the side menu of the desktop version:
+Боковое меню компьютерной версии:
 
-- **Rules** — your own rules for websites, games and apps. The edit button is the pencil in the
-  top-right corner. How to use it — see [Routing rules](/faq/routing-rules/).
-- **Connections** (fourth from the top) — which connections go through the proxy and which go
-  directly. The switch at the top toggles open and closed connections.
-- **Logs** (second from the bottom) — core errors and warnings. Logs can be exported to a file and
-  sent to support. The button that pauses the log stream is in the top-right corner, left of the
-  trash can.
+- **Правила** — свои правила для сайтов, игр и приложений. Кнопка редактирования — карандаш в правом
+  верхнем углу. Как пользоваться — в [Правилах маршрутизации](/faq/routing-rules/).
+- **Соединения** (четвёртая сверху) — какие подключения идут через прокси, а какие напрямую. Сверху
+  переключатель открытых и закрытых соединений.
+- **Логи** (вторая снизу) — ошибки и предупреждения ядра. Логи можно выгрузить в файл и отправить в
+  поддержку. Кнопка остановки потока логов — в правом верхнем углу, слева от корзины.
 
-## Common issues
+## Частые проблемы
 
-**The VPN is on, but nothing loads.**
-Check in the settings that the core is enabled. Then update the profile and switch the server.
+**Включаю VPN, но ничего не открывается.**
+Проверьте в настройках, что ядро включено. Затем обновите профиль и смените сервер.
 
-**The VPN stopped working after I added my own rule.**
-Most likely the rule points to a specific server (for example, “Frankfurt 2”) instead of the
-**Proxy** group. When the server list changes, such a rule breaks the configuration. Open the rule
-editor, choose **Proxy** and update the profile.
+**После добавления своего правила VPN перестал работать.**
+Скорее всего, в правиле выбран конкретный сервер (например, «Frankfurt 2»), а не группа **Proxy**.
+Когда список серверов меняется, такое правило ломает конфигурацию. Откройте редактор правил,
+выберите **Proxy** и обновите профиль.
 
-**The selected server keeps switching back.**
-Another program is interfering: a second VPN, Telegram's built-in proxy, Zapret. Turn them off and
-restart Koala Clash.
+**Выбранный сервер сам переключается обратно.**
+Приложению мешает другая программа: второй VPN, встроенный прокси Telegram, Zapret. Выключите их и
+перезапустите Koala Clash.
 
-**The app does not start or the core crashes.**
-Check your antivirus: third-party antiviruses (for example, Norton, which sometimes gets installed
-together with driver utilities) can block the core. Add Koala Clash to the exclusions or remove the
-extra antivirus.
+**Приложение не запускается или ядро падает.**
+Проверьте антивирус: сторонние антивирусы (например, Norton, который иногда ставится вместе с
+утилитами для драйверов) могут блокировать ядро. Добавьте Koala Clash в исключения или удалите
+лишний антивирус.
 
-**My rules are gone.**
-This happened in old versions. Update the app and add the rules again. Keep important rules saved
-somewhere on your side.
+**Пропали мои правила.**
+Такое случалось на старых версиях. Обновите приложение и добавьте правила заново. Храните важные
+правила где-нибудь у себя.
 
-## On iPhone
+## На iPhone
 
-- If Koala Clash does not open, update it in TestFlight — see [Installation](/faq/install/#iphone-and-ipad).
-- iOS does not allow rules for individual apps. If you need a website that is not in our rules,
-  message [support](/faq/support/).
+- Если Koala Clash не открывается, обновите его в TestFlight — см. [Установку](/faq/install/#iphone-и-ipad).
+- Правила для отдельных приложений на iOS добавить нельзя — это ограничение системы. Если нужен
+  сайт, которого нет в наших правилах, напишите в [поддержку](/faq/support/).

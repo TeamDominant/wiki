@@ -1,5 +1,5 @@
 /**
- * Header links shown after the Docs / Wiki topic buttons (those come from `starlightSidebarTopics` in
+ * Header links shown after the Wiki / Docs topic buttons (those come from `starlightSidebarTopics` in
  * astro.config.mjs). Labels are i18n keys (see `src/content/i18n/*.json`), paths are locale-less.
  */
 export const NAV_LINKS = [{ label: 'nav.terms', path: '/faq/terms/' }] as const;

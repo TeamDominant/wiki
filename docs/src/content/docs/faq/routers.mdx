@@ -1,43 +1,43 @@
 ---
-title: "Routers"
-description: "Which routers are supported and what to do when the VPN on the router stops working."
+title: "Роутеры"
+description: "Какие роутеры поддерживаются и что делать, если VPN на роутере перестал работать."
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 
-A VPN on the router works for every device on your home network at once. Supported:
+VPN на роутере работает сразу для всех устройств в домашней сети. Поддерживаются:
 
-| Router | What you need |
+| Роутер | Что нужно |
 | --- | --- |
-| Routers running OpenWrt | The [Nikki](https://github.com/nikkinikki-org/OpenWrt-nikki) package |
-| Keenetic and Netcraze | A USB port, Entware and [XKeen](https://github.com/Corvus-Malus/XKeen) (Mihomo core) |
+| Роутеры на прошивке OpenWrt | Пакет [Nikki](https://github.com/nikkinikki-org/OpenWrt-nikki) |
+| Keenetic и Netcraze | USB-разъём, Entware и [XKeen](https://github.com/Corvus-Malus/XKeen) (ядро Mihomo) |
 
-Installing through SSClash-Go is currently being tested.
+Установка через SSClash-Go сейчас в тестировании.
 
 <Aside type="tip">
-  Setting up the router is the hardest part. Message [support](/faq/support/): we will send a ready
-  configuration for your subscription and, if needed, help you set it up over remote access (RustDesk
-  or AnyDesk).
+  Настройка роутера — самая сложная часть. Напишите в [поддержку](/faq/support/): пришлём готовую
+  конфигурацию под вашу подписку, а если нужно — поможем настроить через удалённый доступ (RustDesk
+  или AnyDesk).
 </Aside>
 
-## The VPN on the router stopped working
+## VPN на роутере перестал работать
 
-- **You changed or revoked the subscription** — the router config still has the old link. Message
-  support and we will tell you what to replace and where.
-- **After changing the XKeen config, servers disappeared or the changes did not apply** — remove the
-  provider cache and restart XKeen:
+- **Сменили подписку или отозвали ссылку** — в конфигурации роутера осталась старая ссылка.
+  Напишите в поддержку, подскажем, что и где заменить.
+- **После изменения конфигурации в XKeen пропали серверы или не подхватились изменения** — удалите
+  кэш провайдеров и перезапустите XKeen:
 
   ```sh
   rm -r /opt/etc/mihomo/proxy-providers
   xkeen -restart
   ```
 
-  The country list in the selectors comes back after the restart.
-- **The internet is gone completely** — temporarily turn off the VPN on the router (in OpenWrt:
-  **Services → Nikki**, untick **Enable**) and message support.
+  Список стран в селекторах появится после перезапуска.
+- **Интернет пропал совсем** — временно выключите VPN на роутере (в OpenWrt: **Services → Nikki**,
+  снимите галочку **Enable**) и напишите в поддержку.
 
-## Lag and packet loss in games
+## Задержки и потери в играх
 
-If online games show packet loss, check on the connections tab that the game traffic goes directly
-rather than through the proxy. Games that do not need the VPN are better sent around it — see
-[Routing rules](/faq/routing-rules/).
+Если в онлайн-играх появляются потери пакетов, проверьте во вкладке соединений, что трафик игры идёт
+напрямую, а не через прокси. Игры, которым VPN не нужен, лучше направить мимо него — см.
+[Правила маршрутизации](/faq/routing-rules/).

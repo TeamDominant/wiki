@@ -1,54 +1,54 @@
 ---
 title: "SWAG"
-description: "A guide to securing your SWAG reverse proxy."
+description: "Гайд по защите reverse proxy SWAG."
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 
-# Securing SWAG
+# Защита SWAG
 
 <Aside type="caution">
-Little disclaimer. Some information was copied from [virtualize.link](https://virtualize.link/), because I find information provided by its author useful. Make sure to check the [source](https://github.com/quietsy/advanced-configurations) or star the repo.
+Небольшой дисклеймер. Часть информации взята с [virtualize.link](https://virtualize.link/), потому что материалы автора полезны. Проверьте [источник](https://github.com/quietsy/advanced-configurations) или поставьте звезду репозиторию.
 </Aside>
 
-[SWAG](https://github.com/linuxserver/docker-swag) is a reverse proxy that allows you to expose your self-hosted apps to the world, but that comes with risks.
+[SWAG](https://github.com/linuxserver/docker-swag) — reverse proxy, который позволяет публиковать self-hosted приложения в интернет, но это несет риски.
 
-We can mitigate some risks by fine-tuning SWAG and how we access it:
+Часть рисков можно снизить, если тонко настроить SWAG и модель доступа:
 
-- Prevent accessing some apps via the internet while exposing others.
-- Set up brute-force protection via Crowdsec/Fail2Ban.
-- Set up geoblock to whitelist/blacklist countries via DBIP/Maxmind.
-- Prevent your apps from appearing in search results.
-- Set up SSO via Authelia/Authentik.
-- Monitor SWAG via a dashboard.
-- Access your apps through Wireguard instead of exposing them.
+- Ограничить доступ к части приложений из интернета, оставив другие публичными.
+- Настроить защиту от brute-force через Crowdsec/Fail2Ban.
+- Настроить geoblock (whitelist/blacklist стран) через DBIP/Maxmind.
+- Исключить приложения из результатов поисковых систем.
+- Настроить SSO через Authelia/Authentik.
+- Мониторить SWAG через dashboard.
+- Открывать приложения через WireGuard вместо прямой публикации.
 
-## Requirements
+## Требования
 
-- A working instance of [SWAG](https://github.com/linuxserver/docker-swag).
+- Рабочий экземпляр [SWAG](https://github.com/linuxserver/docker-swag).
 
-## Internal applications
+## Внутренние приложения
 
-Only expose apps you want to share with others and must expose, keep the rest internal and use [WireGuard](https://github.com/linuxserver/docker-wireguard) to access them.
+Публикуйте только те приложения, которые действительно нужно открыть наружу. Остальные держите внутренними и используйте [WireGuard](https://github.com/linuxserver/docker-wireguard) для доступа.
 
-### Requirements
+### Требования
 
-- [Split DNS](https://docs.linuxserver.io/general/split-dns/) - the source IP on requests needs to be local for allow/deny to work properly.
+- [Split DNS](https://docs.linuxserver.io/general/split-dns/) — source IP запросов должен быть локальным, иначе allow/deny фильтры могут работать некорректно.
 
-Create a file called `nginx/internal.conf` with the following configuration:
+Создайте файл `nginx/internal.conf`:
 
 ```nginx
 allow 192.168.1.0/24; # Replace with your LAN subnet
 deny all;
 ```
 
-Utilize the LAN filter in your configuration by adding the following line inside the server block for every application you want to protect.
+Подключите LAN-фильтр в конфиг каждого защищаемого приложения, добавив строку внутрь server-блока.
 
 ```nginx
 include /config/nginx/internal.conf;
 ```
 
-Example:
+Пример:
 
 ```nginx
 server {
@@ -71,35 +71,35 @@ server {
 }
 ```
 
-Repeat the process for all internal applications.
+Повторите это для всех внутренних приложений.
 
-## Brute-force protection
+## Защита от brute-force
 
-Crowdsec and Fail2Ban can prevent brute-force attacks by monitoring the logs of apps and banning IPs that fail multiple login attempts.
+Crowdsec и Fail2Ban помогают предотвращать brute-force атаки: они анализируют логи приложений и банят IP, где многократно проваливаются попытки входа.
 
-SWAG comes with Fail2Ban pre-configured with a few basic protections, you can fine-tune it specifically for your apps, or disable it and set up Crowdsec instead.
+В SWAG Fail2Ban уже включен с базовыми правилами. Вы можете тонко настроить его под свои приложения, либо отключить и использовать Crowdsec.
 
 ### Crowdsec
 
-[Crowdsec](https://www.crowdsec.net/) is a free, open-source and collaborative IPS; it's like fail2ban but you share your bans with all of the other users to try and pre-emptively block malicious hosts.
+[Crowdsec](https://www.crowdsec.net/) — бесплатный open-source collaborative IPS. По сути это fail2ban, но с обменом банами между участниками для проактивной блокировки вредоносных хостов.
 
-Follow [this blog post](https://www.linuxserver.io/blog/blocking-malicious-connections-with-crowdsec-and-swag) to set it up in SWAG.
+Настройка для SWAG описана в [этом посте](https://www.linuxserver.io/blog/blocking-malicious-connections-with-crowdsec-and-swag).
 
 ### Fail2Ban
 
-Fail2Ban is an intrusion prevention software that protects external applications from brute-force attacks. Attackers that fail to login to your applications a certain number of times will get blocked from accessing all of your applications. Fail2Ban looks for failed login attempts in log files, counts the failed attempts in a short period, and bans the IP address of the attacker.
+Fail2Ban — система предотвращения вторжений для защиты внешних приложений от brute-force. Если атакующий несколько раз ошибается при входе, он блокируется для доступа ко всем вашим приложениям. Fail2Ban анализирует логи, считает неудачные попытки за короткий интервал и банит IP.
 
-#### The following is an example of setting up Nextcloud in Fail2Ban, configure other apps in the same way.
+#### Ниже пример настройки Nextcloud в Fail2Ban. Для остальных приложений настройка аналогичная.
 
-Mount the application logs to SWAG's container by adding a volume for the log to the compose yaml:
+Смонтируйте логи приложения в контейнер SWAG, добавив volume с логами в compose:
 
 ```text
       - /path/to/nextcloud/logs:/nextcloud:ro
 ```
 
-Note that you should only mount the parent folders, log files can rotate.
+Монтируйте только родительские директории, так как лог-файлы могут ротироваться.
 
-Recreate the container with the log mount, then create a file called `nextcloud.local` under `fail2ban/filter.d`:
+Пересоздайте контейнер с монтированием логов, затем создайте `nextcloud.local` в `fail2ban/filter.d`:
 
 ```nginx
 [Definition]
@@ -108,9 +108,9 @@ failregex=^.*Login failed: '?.*'? \(Remote IP: '?<ADDR>'?\).*$
 ignoreregex =
 ```
 
-Before making your own Fail2Ban filter for apps search online for existing one, most chances someone already made it.
+Перед созданием собственного фильтра Fail2Ban для приложения сначала проверьте, нет ли готового фильтра в сети.
 
-The filter contains a pattern by which failed login attempts are matched. Test the pattern by failing to login to nextcloud and look for the entry corresponding to your failed attempt.
+Фильтр содержит паттерн для сопоставления неудачных входов. Протестируйте, специально провалив вход в nextcloud и найдя соответствующую запись.
 
 ```text
 {"reqId":"k5j5H7K3eskXt3hCLSc4i","level":2,"time":"2020-10-14T22:56:14+00:00","remoteAddr":"1.2.3.4","user":"--",
@@ -119,20 +119,20 @@ The filter contains a pattern by which failed login attempts are matched. Test t
 Safari/537.36","version":"19.0.4.2"}
 ```
 
-Test the pattern in `nextcloud.local` by running the following command on the docker host:
+Проверьте паттерн в `nextcloud.local` на docker host:
 
 ```bash
 docker exec swag fail2ban-regex /nextcloud/nextcloud.log /config/fail2ban/filter.d/nextcloud.local
 ```
 
-If the pattern works, you will see matches corresponding to the amount of failed login attempts:
+Если паттерн рабочий, увидите matches по числу неудачных попыток:
 
 ```text
 Lines: 92377 lines, 0 ignored, 2 matched, 92375 missed
 [processed in 7.51 sec]
 ```
 
-The final step is to activate the jail, add the following to `fail2ban/jail.local`:
+Последний шаг — активировать jail. Добавьте в `fail2ban/jail.local`:
 
 ```nginx
 [nextcloud]
@@ -143,7 +143,7 @@ logpath = /nextcloud/nextcloud.log
 action  = iptables-allports[name=nextcloud]
 ```
 
-The logpath is slightly different for applications that have multiple log files with dates:
+`logpath` может отличаться для приложений с несколькими логами по дате:
 
 ```nginx
 [jellyfin]
@@ -154,9 +154,9 @@ logpath  = /jellyfin/log*.log
 action   =  iptables-allports[name=jellyfin]
 ```
 
-Repeat the process for every app you expose, you can find Fail2Ban configurations for most applications on the internet.
+Повторите процесс для всех приложений, которые публикуете. Конфиги Fail2Ban для большинства популярных приложений уже есть в интернете.
 
-If you need to unban an IP address that was blocked, run the following command on the docker host:
+Если нужно разбанить IP, выполните на docker host:
 
 ```bash
 docker exec swag fail2ban-client unban <ip address>
@@ -164,22 +164,22 @@ docker exec swag fail2ban-client unban <ip address>
 
 ## Geoblock
 
-Geoblock significantly reduces the attack surface of SWAG by restricting access based on countries.
+Geoblock заметно снижает поверхность атаки SWAG, ограничивая доступ по странам.
 
-Follow the instructions of one of the following mods to set it up:
+Следуйте инструкциям одного из модов:
 
 - [DBIP mod](https://github.com/linuxserver/docker-mods/tree/swag-dbip)
 - [Maxmind mod](https://github.com/linuxserver/docker-mods/tree/swag-maxmind)
 
-DBIP doesn't require an account, but Maxmind might be more accurate in some cases.
+DBIP не требует аккаунта, но Maxmind в ряде случаев может быть точнее.
 
 <Aside type="note">
-This was removed by [author](https://github.com/quietsy/advanced-configurations), but I simply decided to leave it for personal purpose.
+Этот блок был удален [автором](https://github.com/quietsy/advanced-configurations), но я оставил его для личного использования.
 </Aside>
 
-The mods come with 3 definitions for `$geo-whitelist`, `$geo-blacklist`, `$lan-ip`.
+Моды дают 3 переменные: `$geo-whitelist`, `$geo-blacklist`, `$lan-ip`.
 
-An example for allowing a single country:
+Пример разрешения одной страны:
 
 ```nginx
 map $geoip2_data_country_iso_code $geo-whitelist {
@@ -188,7 +188,7 @@ map $geoip2_data_country_iso_code $geo-whitelist {
 }
 ```
 
-An example for blocking high risk countries: (GilbN's list based on the Spamhaus statistics and Aakamai’s state of the internet report)
+Пример блокировки стран с высоким риском (список GilbN по статистике Spamhaus и отчету Akamai):
 
 ```nginx
 map $geoip2_data_country_iso_code $geo-blacklist {
@@ -213,22 +213,22 @@ map $geoip2_data_country_iso_code $geo-blacklist {
  }
 ```
 
-Utilize the geoblock in your configuration by adding one of the following lines above your location section in every application you want to protect.
+Подключите geoblock в конфиг каждого приложения, которое хотите защитить, добавив одну из строк выше `location`.
 
-**Note that when using a whitelist filter, you also need to check if the source is a LAN IP, it's not required when using a blacklist filter.**
+**Важно: при whitelist-фильтре также проверяйте LAN IP источника. Для blacklist-фильтра это не обязательно.**
 
 ```nginx
 if ($lan-ip = yes) { set $geo-whitelist yes; }
 if ($geo-whitelist = no) { return 404; }
 ```
 
-Or
+Или
 
 ```nginx
 if ($geo-blacklist = no) { return 404; }
 ```
 
-Example:
+Пример:
 
 ```nginx
 server {
@@ -253,21 +253,21 @@ server {
 }
 ```
 
-Add the lines to every external application based on your needs.
+Добавьте такие строки во все внешние приложения согласно вашим требованиям.
 
-## Search results
+## Поисковая выдача
 
-You can prevent apps from appearing in search engine results and being crawled by web crawlers.
+Можно запретить появление приложений в поиске и индексацию web-crawler'ами.
 
-Note that not all search engines and web crawlers respect this tag, but it significantly reduces the amount.
+Не все поисковики и crawler-боты соблюдают этот тег, но он заметно снижает количество индексации.
 
-Add the following to `ssl.conf` to enable it on **all** apps:
+Добавьте в `ssl.conf`, чтобы включить для **всех** приложений:
 
 ```nginx
 add_header X-Robots-Tag "noindex, nofollow, nosnippet, noarchive";
 ```
 
-To disable on a specific app, add the following line to the app's proxy-conf inside the server tag:
+Чтобы отключить для конкретного приложения, добавьте в его proxy-conf внутри server-блока:
 
 ```nginx
 add_header X-Robots-Tag "";
@@ -275,31 +275,31 @@ add_header X-Robots-Tag "";
 
 ## SSO
 
-Setting up SSO will provide an additional layer of security and protect you against login bypass exploits in apps.
+SSO дает дополнительный уровень защиты и помогает защититься от login bypass уязвимостей в приложениях.
 
 - [TinyAuth](https://github.com/benpoulain/tinyauth)
 - [Authelia](https://blog.linuxserver.io/2020/08/26/setting-up-authelia/)
 - [Authentik](https://goauthentik.io/)
 
-Note that api endpoints shouldn't have SSO for them to function properly.
+Учтите, что API endpoints обычно не должны быть под SSO, иначе они могут перестать корректно работать.
 
-## Monitor
+## Мониторинг
 
-Use monitoring solutions such as [SWAG Dashboard](https://github.com/linuxserver/docker-mods/tree/swag-dashboard) to keep an eye on the traffic going through SWAG and check for suspicious activity such as:
+Используйте инструменты мониторинга, например [SWAG Dashboard](https://github.com/linuxserver/docker-mods/tree/swag-dashboard), чтобы отслеживать трафик через SWAG и находить подозрительную активность:
 
-- Many hits from a country unrelated to your users.
-- Many requests to a specific page or static file.
-- Referers that shouldn't refer to your domain.
-- Many hits on status codes that are not 2xx.
+- Много обращений из стран, не относящихся к вашим пользователям.
+- Много запросов к одной странице или статическому файлу.
+- Referer-источники, которые не должны ссылаться на ваш домен.
+- Большое число ответов со статусами не из диапазона 2xx.
 
 ## VPN
 
-The most effective security you can implement is to stop exposing your apps entirely, and instead access them via [WireGuard](https://github.com/linuxserver/docker-wireguard).
+Самая эффективная защита — не публиковать приложения напрямую, а получать доступ к ним через [WireGuard](https://github.com/linuxserver/docker-wireguard).
 
-### Requirements
+### Требования
 
-- A working instance of [WireGuard](https://github.com/linuxserver/docker-wireguard).
-- [Split DNS](https://docs.linuxserver.io/general/split-dns/) - the source IP on requests needs to be local for SWAG to work without being exposed.
-- [DNS Validation](https://docs.linuxserver.io/general/swag/#create-container-via-dns-validation-with-a-wildcard-cert) - allows you to get an SSL certificate without port forwarding.
+- Рабочий экземпляр [WireGuard](https://github.com/linuxserver/docker-wireguard).
+- [Split DNS](https://docs.linuxserver.io/general/split-dns/) — source IP запросов должен быть локальным, чтобы SWAG работал без внешней публикации.
+- [DNS Validation](https://docs.linuxserver.io/general/swag/#create-container-via-dns-validation-with-a-wildcard-cert) — позволяет получить SSL-сертификат без port forwarding.
 
-Once you've set up wireguard, split DNS, and DNS validation, you can remove the port forwarding on your router and remove your domain's public DNS records on your public DNS provider (not the local DNS).
+После настройки WireGuard, split DNS и DNS validation можно убрать проброс портов на роутере и удалить публичные DNS-записи домена у внешнего DNS-провайдера (не у локального DNS).

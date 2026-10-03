@@ -8,7 +8,7 @@ import ThemeSelect from './ThemeSelect.astro';
 import { NAV_LINKS, localizedPath } from '../nav';
 
 const { locale } = Astro.locals.starlightRoute;
-// Docs / Wiki: each topic has its own sidebar, the current one is highlighted.
+// Wiki / Docs: each topic has its own sidebar, the current one is highlighted.
 const topics = Astro.locals.starlightSidebarTopics?.topics ?? [];
 const links = NAV_LINKS.map(({ label, path }) => {
 	const href = localizedPath(path, locale);
@@ -101,7 +101,7 @@ const links = NAV_LINKS.map(({ label, path }) => {
 		color: var(--td-ink);
 	}
 
-	/* Extra links (Terms) only fit next to the Docs / Wiki switch on wide screens; they are in the Wiki sidebar anyway. */
+	/* Extra links (Terms) only fit next to the Wiki / Docs switch on wide screens; they are in the Wiki sidebar anyway. */
 	.nav-links .extra {
 		display: none;
 	}
@@ -112,7 +112,7 @@ const links = NAV_LINKS.map(({ label, path }) => {
 		}
 	}
 
-	/* Docs / Wiki switch: a pill group like the theme and language toggles, one step larger. */
+	/* Wiki / Docs switch: a pill group like the theme and language toggles, one step larger. */
 	.topics {
 		display: flex;
 		gap: 0.125rem;

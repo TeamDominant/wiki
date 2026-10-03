@@ -1,16 +1,18 @@
 ---
-title: "Linux questions and answers"
-description: "Practical Ubuntu self-hosting commands for services, cron, Docker cleanup, diagnostics, and tuning."
+title: "Linux вопросы и ответы"
+sidebar:
+  label: "Cheat sheet"
+description: "Практичные Ubuntu-команды для self-hosting: сервисы, cron, очистка Docker, диагностика и тюнинг."
 ---
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 
 
-Use this page as a quick reference for common Ubuntu self-hosting tasks.
+Используйте эту страницу как быстрый справочник по частым задачам self-hosting на Ubuntu.
 
-## Run a script as a service
+## Запуск скрипта как сервиса
 
-If you run a script like `./myscript.sh` and want it to start automatically after reboot, create a `systemd` unit.
+Если вы запускаете скрипт вроде `./myscript.sh` и хотите автозапуск после перезагрузки, создайте `systemd` unit.
 
 ```ini title="/etc/systemd/system/myscript.service"
 [Unit]
@@ -26,7 +28,7 @@ Restart=on-failure
 WantedBy=multi-user.target
 ```
 
-Reload `systemd`, enable the service, and start it:
+Перезагрузите `systemd`, включите сервис и запустите его:
 
 ```bash title="Reload and enable service"
 sudo systemctl daemon-reload
@@ -35,41 +37,41 @@ sudo systemctl start myscript.service
 sudo systemctl status myscript.service
 ```
 
-## Schedule a nightly reboot
+## Ночной ребут по расписанию
 
-Open your crontab:
+Откройте crontab:
 
 ```bash
 crontab -e
 ```
 
-Add this line at the bottom:
+Добавьте строку в конец:
 
 ```bash
 0 4 * * * /sbin/shutdown -r +5
 ```
 
-This announces reboot at `04:00` and reboots at `04:05`.
+Это объявит ребут в `04:00` и перезагрузит систему в `04:05`.
 
-Cron format:
+Формат cron:
 
 ```text
 m h dom mon dow command
 ```
 
 <Aside type="note">
-  Run `sudo crontab -e` if your reboot command needs root-level execution.
+Если команда ребута требует root-прав, используйте `sudo crontab -e`.
 </Aside>
 
-## Remove old or unused Docker data
+## Удаление старых/неиспользуемых данных Docker
 
-Check Docker disk usage:
+Проверьте использование места Docker:
 
 ```bash
 docker system df
 ```
 
-Prune commands:
+Команды очистки:
 
 - `docker container prune`
 - `docker image prune`
@@ -77,31 +79,31 @@ Prune commands:
 - `docker volume prune`
 - `docker system prune`
 
-Remove all unused images (not only dangling):
+Удалить все неиспользуемые образы (не только dangling):
 
 ```bash
 docker image prune -a
 ```
 
-Remove most unused Docker objects:
+Удалить большую часть неиспользуемых объектов Docker:
 
 ```bash
 docker system prune --all
 ```
 
 <Aside type="caution">
-  `-a` and `--all` can remove images you still want to keep for fast redeploys.
+`-a` и `--all` могут удалить образы, которые вы хотели оставить для быстрого redeploy.
 </Aside>
 
-## Clean your server
+## Очистка сервера
 
-Check filesystem usage:
+Проверьте использование файловой системы:
 
 ```bash
 df -h
 ```
 
-Install and run `ncdu` for interactive analysis:
+Установите и запустите `ncdu` для интерактивного анализа:
 
 ```bash title="Install ncdu"
 sudo apt install -y ncdu
@@ -112,18 +114,18 @@ sudo ncdu /
 ```
 
 <Aside type="caution">
-  Be careful with manual file deletion in system directories.
+Будьте осторожны с ручным удалением файлов в системных директориях.
 </Aside>
 
-Common cleanup targets:
+Частые цели для очистки:
 
-1. Old logs in `/var/log`:
+1. Старые логи в `/var/log`:
 
     ```bash
     sudo journalctl --vacuum-time=2d
     ```
 
-2. Unused Docker objects in `/var/lib/docker`:
+2. Неиспользуемые Docker-объекты в `/var/lib/docker`:
 
     ```bash
     sudo docker image prune
@@ -133,19 +135,19 @@ Common cleanup targets:
     sudo docker system prune -a
     ```
 
-3. Unused packages:
+3. Неиспользуемые пакеты:
 
     ```bash
     sudo apt autoremove
     ```
 
 <Aside type="note">
-  For Pterodactyl hosts, avoid manual backup deletion in `/var/lib/pterodactyl` because panel state can become inconsistent.
+Для хостов Pterodactyl избегайте ручного удаления бэкапов в `/var/lib/pterodactyl`, чтобы не нарушить состояние панели.
 </Aside>
 
-## Scripts
+## Скрипты
 
-### Geo check
+### Проверка геолокации
 
 ```bash
 wget -qO - "https://raw.githubusercontent.com/vernette/ipregion/refs/heads/master/ipregion.sh" | bash
@@ -157,33 +159,33 @@ wget -qO - "https://raw.githubusercontent.com/vernette/ipregion/refs/heads/maste
 sudo apt update && sudo apt install -y curl && curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | sudo bash && sudo apt install -y speedtest && speedtest
 ```
 
-### IP check for service blocks
+### Проверка IP на блокировки сервисов
 
 ```bash
 bash <(curl -Ls IP.Check.Place) -l en
 ```
 
-### Environment info and tests with Russian ISPs
+### Информация о среде и тесты с российскими ISP
 
 ```bash
 wget -qO- speedtest.artydev.ru | bash
 ```
 
-### Environment info and tests with ISPs
+### Информация о среде и тесты с ISP
 
 ```bash
 wget -qO- bench.sh | bash
 ```
 
 <Aside type="caution">
-  Review remote scripts before running `curl | bash` or `wget | bash` in production.
+  Перед запуском `curl | bash` или `wget | bash` в production обязательно проверяйте удаленные скрипты.
 </Aside>
 
-## Install Xanmod kernel
+## Установка ядра Xanmod
 
 <Steps>
 
-1. Check supported CPU level
+1. Проверьте поддерживаемый уровень CPU
 
     ```bash
     wget https://dl.xanmod.org/check_x86-64_psabi.sh
@@ -191,31 +193,31 @@ wget -qO- bench.sh | bash
     ./check_x86-64_psabi.sh
     ```
 
-2. Register Xanmod signing key
+2. Зарегистрируйте ключ подписи Xanmod 
 
     ```bash
     wget -qO - https://dl.xanmod.org/archive.key | sudo gpg --dearmor -vo /etc/apt/keyrings/xanmod-archive-keyring.gpg
     ```
 
-3. Add Xanmod repository
+3. Добавьте репозиторий Xanmod
 
     ```bash
     echo 'deb [signed-by=/etc/apt/keyrings/xanmod-archive-keyring.gpg] http://deb.xanmod.org releases main' | sudo tee /etc/apt/sources.list.d/xanmod-release.list
     ```
 
-4. Install kernel package
+4. Установите пакет ядра
 
     ```bash
     sudo apt update && sudo apt install linux-xanmod-x64v3
     ```
 
-5. Apply BBR tuning if your stack needs it, then reboot.
+5. Если вашему стеку нужен BBR-тюнинг, примените его и перезагрузитесь.
 
 </Steps>
 
-## Limit ICMP response rate
+## Ограничение частоты ICMP-ответов
 
-Add stricter ICMP rate limits in `/etc/sysctl.conf`:
+Добавьте более строгие лимиты ICMP в `/etc/sysctl.conf`:
 
 ```bash
 cat <<'EOT' | sudo tee -a /etc/sysctl.conf
@@ -227,4 +229,4 @@ EOT
 sudo sysctl -p
 ```
 
-Use this only after testing, because aggressive ICMP limits can complicate troubleshooting and network diagnostics.
+Используйте это только после тестов, потому что агрессивные ICMP-лимиты могут усложнить диагностику сети.

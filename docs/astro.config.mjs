@@ -1,3 +1,4 @@
+import { readdirSync } from 'node:fs';
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import starlightScrollToTop from 'starlight-scroll-to-top';
@@ -6,7 +7,7 @@ import starlightGitHubAlerts from 'starlight-github-alerts';
 import starlightSidebarSwipe from 'starlight-sidebar-swipe';
 import starlightSidebarTopics from 'starlight-sidebar-topics';
 
-// Everything except the FAQ moved under /docs/ — keep the old URLs (and their Russian versions) working.
+// Everything except the FAQ moved under /docs/ — keep the old URLs (and their /ru/ versions) working.
 const LEGACY_PAGES = [
 	'introduction/overview',
 	'software/apps',
@@ -24,12 +25,20 @@ const LEGACY_PAGES = [
 	'other/wush',
 ];
 const legacyRedirects = Object.fromEntries(
-	['', '/ru'].flatMap((prefix) => LEGACY_PAGES.map((page) => [`${prefix}/${page}`, `${prefix}/docs/${page}/`]))
+	['', '/ru'].flatMap((prefix) => LEGACY_PAGES.map((page) => [`${prefix}/${page}`, `/docs/${page}/`]))
+);
+
+// Russian moved from /ru/ to the root locale (English is under /en/ now) — keep the old /ru/ URLs working.
+const RU_PAGES = readdirSync(new URL('./src/content/docs/', import.meta.url), { recursive: true })
+	.filter((file) => /\.mdx?$/.test(file) && !file.startsWith('en/'))
+	.map((file) => file.replace(/(^|\/)index\.mdx?$|\.mdx?$/, ''));
+const ruRedirects = Object.fromEntries(
+	RU_PAGES.map((page) => (page ? [`/ru/${page}`, `/${page}/`] : ['/ru', '/']))
 );
 
 export default defineConfig({
 	site: 'https://wiki.dominants.link',
-	redirects: legacyRedirects,
+	redirects: { ...legacyRedirects, ...ruRedirects },
 	vite: {
 		resolve: {
 			alias: {
@@ -54,53 +63,9 @@ export default defineConfig({
 					]
 				}),
 				starlightSidebarSwipe(),
-				// Two sections with their own sidebars: Docs (/docs/) and Wiki (/faq/), switched with the
-				// Docs / Wiki buttons in the header (src/components/Header.astro).
+				// Two sections with their own sidebars: Wiki (/faq/) and Docs (/docs/), switched with the
+				// Wiki / Docs buttons in the header (src/components/Header.astro).
 				starlightSidebarTopics([
-					{
-						label: { en: 'Docs', ru: 'Документация' },
-						link: '/docs/',
-						items: [
-							{ label: 'Docs', translations: { ru: 'Документация' }, slug: 'docs' },
-							{
-								label: 'Introduction',
-								translations: { ru: 'Введение' },
-								items: [
-									{ label: 'Overview', translations: { ru: 'Обзор' }, slug: 'docs/introduction/overview' }
-								],
-							},
-							{
-								label: 'Software',
-								translations: { ru: 'Программы' },
-								items: [
-									{ label: 'Apps', translations: { ru: 'Приложения' }, slug: 'docs/software/apps' }
-								],
-							},
-							{
-								label: 'Self-hosting',
-								items: [
-									{ label: 'Canary', slug: 'docs/self-hosting/canary' },
-									{ label: 'Cheat Sheet', translations: { ru: 'Шпаргалка' }, slug: 'docs/self-hosting/cheat-sheet' },
-									{ label: 'DNS for Containers', translations: { ru: 'DNS для контейнеров' }, slug: 'docs/self-hosting/dns-for-containers' },
-									{ label: 'Firehol', slug: 'docs/self-hosting/firehol' },
-									{ label: 'Geoblock', slug: 'docs/self-hosting/geoblock' },
-									{ label: 'Nextcloud', slug: 'docs/self-hosting/nextcloud' },
-									{ label: 'Simplelogin', slug: 'docs/self-hosting/simplelogin' },
-									{ label: 'SWAG', slug: 'docs/self-hosting/swag' }
-								],
-							},
-							{
-								label: 'Other',
-								translations: { ru: 'Разное' },
-								items: [
-									{ label: 'Arch Linux', slug: 'docs/other/arch' },
-									{ label: 'iPhone', slug: 'docs/other/iphone' },
-									{ label: 'Nothing Phone', slug: 'docs/other/nothingphone' },
-									{ label: 'Wush', slug: 'docs/other/wush' }
-								],
-							},
-						],
-					},
 					{
 						label: { en: 'Wiki', ru: 'Вики' },
 						link: '/faq/',
@@ -145,6 +110,50 @@ export default defineConfig({
 							},
 						],
 					},
+					{
+						label: { en: 'Docs', ru: 'Документация' },
+						link: '/docs/',
+						items: [
+							{ label: 'Docs', translations: { ru: 'Документация' }, slug: 'docs' },
+							{
+								label: 'Introduction',
+								translations: { ru: 'Введение' },
+								items: [
+									{ label: 'Overview', translations: { ru: 'Обзор' }, slug: 'docs/introduction/overview' }
+								],
+							},
+							{
+								label: 'Software',
+								translations: { ru: 'Программы' },
+								items: [
+									{ label: 'Apps', translations: { ru: 'Приложения' }, slug: 'docs/software/apps' }
+								],
+							},
+							{
+								label: 'Self-hosting',
+								items: [
+									{ label: 'Canary', slug: 'docs/self-hosting/canary' },
+									{ label: 'Cheat Sheet', translations: { ru: 'Шпаргалка' }, slug: 'docs/self-hosting/cheat-sheet' },
+									{ label: 'DNS for Containers', translations: { ru: 'DNS для контейнеров' }, slug: 'docs/self-hosting/dns-for-containers' },
+									{ label: 'Firehol', slug: 'docs/self-hosting/firehol' },
+									{ label: 'Geoblock', slug: 'docs/self-hosting/geoblock' },
+									{ label: 'Nextcloud', slug: 'docs/self-hosting/nextcloud' },
+									{ label: 'Simplelogin', slug: 'docs/self-hosting/simplelogin' },
+									{ label: 'SWAG', slug: 'docs/self-hosting/swag' }
+								],
+							},
+							{
+								label: 'Other',
+								translations: { ru: 'Разное' },
+								items: [
+									{ label: 'Arch Linux', slug: 'docs/other/arch' },
+									{ label: 'iPhone', slug: 'docs/other/iphone' },
+									{ label: 'Nothing Phone', slug: 'docs/other/nothingphone' },
+									{ label: 'Wush', slug: 'docs/other/wush' }
+								],
+							},
+						],
+					},
 				])
 			],
 			title: 'TeamDominant',
@@ -154,6 +163,9 @@ export default defineConfig({
 				'./src/styles/custom.css',
 			],
 			favicon: '/favicon.svg',
+			editLink: {
+				baseUrl: 'https://github.com/TeamDominant/wiki/edit/main/docs/',
+			},
 			components: {
 				Header: './src/components/Header.astro',
 				Hero: './src/components/Hero.astro',
@@ -185,10 +197,11 @@ export default defineConfig({
 				},
 			},
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/TeamDominant/wiki' }],
+			// Russian is the default language and lives at the root, English is under /en/.
 			defaultLocale: 'root',
 			locales: {
-				root: { label: 'English', lang: 'en' },
-				'ru': { label: 'Russian', lang: 'ru' },
+				root: { label: 'Русский', lang: 'ru' },
+				en: { label: 'English', lang: 'en' },
 			},
 		}),
 	],

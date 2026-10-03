@@ -1,0 +1,101 @@
+---
+title: Something is not working
+description: Step-by-step diagnostics when the VPN does not connect or YouTube, Telegram and other services do not open.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+Go through the steps in order — most issues are solved by the first three.
+
+## 1. Update your profile
+
+The app only gets the server list, rules and subscription expiry when the profile updates.
+
+| App | How to update |
+| --- | --- |
+| Koala Clash | The update button on the main screen, or **Profiles** → ⋮ → **Update** |
+| FlClashX | **Profiles** → ⋮ → **Update** |
+| Rabbit Hole | The icon with four squares → **Update** |
+
+If updating does not help, delete the profile and add the subscription again from your account.
+
+## 2. Check the subscription and the device limit
+
+- In your account, make sure the subscription is active. The trial is limited in both time and traffic.
+- If the app mentions the device limit or the connect button switches off right away — see
+  [Device limit](/en/faq/subscription/#device-limit).
+
+## 3. Update the app
+
+Outdated versions are a frequent cause of problems. Download the current version from the **Install**
+section. If you use Happ or another unsupported app, switch to a
+[recommended one](/en/faq/install/#which-app-to-use).
+
+## 4. Switch the server
+
+Pick another location and check its latency with the test button next to the server. If a specific
+location has problems, we post about it in the [alerts channel](/en/faq/alerts/).
+
+## 5. Restart
+
+Close the app completely and open it again. If that does not help, reboot the phone or computer, and
+the router if the whole home network is affected.
+
+## 6. Remove what gets in the way
+
+The VPN app conflicts with other programs that also intercept traffic:
+
+- other VPNs, Zapret, ExitLag and similar tools — do not run them together with our app;
+- third-party antiviruses — they can block the app's core;
+- **Telegram's built-in proxy** — if Telegram does not connect, open its proxy settings and turn it off;
+- **“Secure DNS”** in the browser (in Chrome: Settings → Privacy and security) and **“Private DNS”**
+  in Android settings — turn them off if a service does not open in just one browser or only on the phone;
+- internet “boosters” and tweaks on the computer — restore the default network settings.
+
+## 7. Mobile internet
+
+If the VPN fails only on mobile internet while Wi-Fi is fine, add the
+[linked profile](/en/faq/subscription/#linked-profile-lte--wl). If it is the other way round — it fails
+only on Wi-Fi — the problem is in the network settings: forget the Wi-Fi network and reconnect, and
+check the DNS on the router and “Private DNS” on the phone.
+
+## 8. One website, game or app does not work
+
+Its traffic most likely goes around the VPN. On a computer you can see this on the **Connections**
+tab and fix it with your own rule — see [Routing rules](/en/faq/routing-rules/). On a phone, tell support
+which service does not work.
+
+## Common errors
+
+**“Xray Core critical error”, “list not found in ghosted.dat”, the core does not start.**
+Update the profile. If the error is in Happ, switch to Koala Clash or Rabbit Hole.
+
+**The app shows “0 days” although the subscription is paid.**
+Update the profile — the expiry date only arrives with an update.
+
+**IPv6 errors in Koala Clash logs on a computer.**
+Disable IPv6 in the Windows network adapter settings (connection properties → untick “Internet
+Protocol Version 6”), and on the router too if it is enabled there. Then restart Koala Clash.
+
+**Your account does not open while the VPN is on.**
+The protection system may have blocked your IP address by mistake. Turn the VPN off, open
+[2ip.ru](https://2ip.ru) and send your IP address to
+[support@dominants.link](mailto:support@dominants.link) — we will unblock it.
+
+**I got a notice about torrent usage.**
+See [Rules & limits](/en/faq/limits/#torrents).
+
+## If nothing helped
+
+Message [support](/en/faq/support/#what-to-include) and include right away: the device, the app and its
+version, the server, your provider (Wi-Fi or mobile), a screenshot of the error and the logs.
+
+<Aside type="note" title="Connection check on Windows">
+  Support may ask you to run a check: turn the VPN client off completely, open PowerShell and run the
+  commands below. Send the output to the chat.
+
+  ```powershell
+  Test-NetConnection 77.88.8.8 -Port 443
+  Test-NetConnection 1.1.1.1 -Port 443
+  ```
+</Aside>
